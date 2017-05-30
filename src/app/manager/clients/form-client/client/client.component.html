@@ -1,0 +1,59 @@
+<div *ngIf="client">
+  <div class="container">
+    <div class="row" style="padding-top: 2em">
+      <div class="col-md-offset-2 col-md-4" >
+        <div class="box">
+          <div class="user-info">
+           <div class="row">
+             <div class="col-md-4">
+               <img  class="logo center-block" src="assets/icon/IconLogoBlack.png">
+             </div>
+             <div class="col-md-8">
+               <div class="row" >
+                 <div class="col-md-12" style="padding-top: 1em">
+                   ФИО: {{client.name&&client.last_name?client.name+" "+client.last_name:client.name?client.name:'нет данных'}}
+                   <span style="float: right; margin-right: 1em;"><img src="assets/icon/chat-black.png" width="25px" height="25px"></span>
+                 </div>
+                 <div class="col-md-12">
+                   e-mail: {{client.email?client.email:'нет данных'}}
+                 </div>
+                 <div class="col-md-12">
+                   <i style="font-size: 24px" class="fa fa-phone" aria-hidden="true"></i>
+                   <span style="padding-left: .5em;">{{client.phone?client.phone:' нет данных'}}</span>
+                 </div>
+               </div>
+             </div>
+             <div class="col-md-12">
+               <button (click)="openDialog()" class="form-control btn btn-danger">ЗАБЛОКИРОВАТЬ</button>
+             </div>
+             <div  *ngIf="selectedOption.length!=0" class="col-md-12" style="padding-top: .5em">
+               <button (click)="UserOnBlock()" class="form-control btn btn-primary">РАЗБЛОКИРОВАТЬ</button>
+             </div>
+           </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="box">
+          <div class="user-info">
+            <div class="block-history">
+             <label (click)="historyAppBool = !historyAppBool" class="history-app">
+               ИСТОРИЯ ЗАЯВОК <i *ngIf="historyAppBool" style="float: right;
+                     font-size: 26px;
+                     padding-right: 0.2em;"></i>
+             </label>
+            </div>
+            <div *ngIf="historyAppBool" class="history-list">
+              <ul style="margin-left: -1em; margin-right: 1em;">
+                <li *ngFor="let history of historyUser" >
+                  Заявка №{{history.id}}     {{history.title}}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

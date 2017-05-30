@@ -1,0 +1,133 @@
+@import "../../../const/css/scss-const";
+
+.application{
+  box-shadow: 0 1px 1px rgba(0,0,0,.3);
+  width: 35em;
+  height: 15em;
+  display: inline-block;
+}
+
+.application .header{
+  text-align: center;
+  font-family: CaviarDreamsRegular, serif;
+  width: auto;
+  background: #2086c8;
+  height: 1.3em;
+  color: white;
+
+}
+
+.request-name{
+  color: #8e99a4;
+  font-size: 12px;
+}
+
+
+.application .icons{
+  float: left;
+  width: 20em;
+}
+.application .info{
+  padding: 1em;
+}
+
+#ddd{
+  margin: 15px;
+  width: 16em;
+  height: 11em;
+  background: #2086c8;
+  overflow: auto;
+  display: inline-block;
+  vertical-align: top;
+}
+
+
+.square{
+  width: 25em;
+  height: 9em;;
+  /*background: #2086c8;*/
+  background: #1E489D;
+  overflow: auto;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0.5em;
+}
+
+.square-title {
+  @extend .square;
+  width: 100%;
+  height: 2em;
+  margin: 0;
+}
+
+.box{
+  box-shadow: 0 0 1px rgba(0, 0, 0, 1);
+  overflow: hidden;
+}
+
+.line{
+  display: flex;
+}
+
+.form-group{
+  margin-bottom: 0;
+}
+
+
+.text-request{
+  color: white;
+  font-size: 22px;
+  padding-left: 14em;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 800px;
+  }
+}
+
+.field{
+  padding-top: 1em;
+  margin-left: -2em;
+}
+
+li {
+  list-style-type: none; /* Убираем маркеры */
+}
+
+
+#open{
+    background: #B1DCFC;
+  }
+#edit{
+    background: #EC4F52;
+    color: white;
+}
+
+#save{
+  background: #B1DCFC;
+}
+
+.button-edit-open{
+  display: flex;
+  padding-bottom: 3em;
+  padding-right: 3em;
+}
+
+.button-save{
+  float: right;
+  padding-top: 2em;
+}
+
+.form-control{
+  width: 19em;
+  height: 32px;
+  padding: 6px 12px;
+  margin: 0.2em;
+}
+
+
+.delete-request{
+  float: right;
+  font-size: 27px;
+}

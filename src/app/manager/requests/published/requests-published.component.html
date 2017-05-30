@@ -1,0 +1,11 @@
+<div  class="search-results"
+      infinite-scroll
+      [infiniteScrollDistance]="scrollDistance"
+      [infiniteScrollThrottle]="throttle"
+      (scrolled)="onScrollDown()">
+      <ul class="requestServices">
+        <li *ngFor="let request of requestServices">
+          <form-request [requestServices]="request" [numberRequest]="2"></form-request>
+        </li>
+      </ul>
+</div>

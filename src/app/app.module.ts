@@ -14,6 +14,7 @@ import {
   RouterModule,
   PreloadAllModules
 } from '@angular/router';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -24,13 +25,15 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
-import { HomeComponent } from './home';
-import { AboutComponent } from './about';
 import { NoContentComponent } from './no-content';
-import { XLargeDirective } from './home/x-large';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
+import {LoginComponent} from "./login/login.component";
+import {MaterialModule} from "@angular/material";
+import {LoginService} from "./login/login.service";
+import {TokenService} from "./manager/http/token.serviece";
+import {ConstService} from "./const/http/service-const.service";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -51,10 +54,10 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
-    AboutComponent,
-    HomeComponent,
     NoContentComponent,
-    XLargeDirective
+    LoginComponent,
+
+
   ],
   /**
    * Import Angular's modules.
@@ -63,6 +66,8 @@ type StoreType = {
     BrowserModule,
     FormsModule,
     HttpModule,
+    BrowserAnimationsModule,
+    MaterialModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   /**
@@ -70,7 +75,10 @@ type StoreType = {
    */
   providers: [
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    LoginService,
+    TokenService,
+    ConstService
   ]
 })
 export class AppModule {

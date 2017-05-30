@@ -1,0 +1,53 @@
+<div *ngIf="client">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="box">
+          <div class="user-info">
+           <div class="row">
+             <div class="col-md-4">
+               <img (click)="onDetail(client.id)" class="logo" src="assets/icon/IconLogoBlack.png">
+             </div>
+             <div class="col-md-8">
+               <div class="row" style="padding-top: 1.5em;">
+                 <div class="col-md-12">
+                   ФИО: {{client.name&&client.last_name?client.name+" "+client.last_name:client.name?client.name:'нет данных'}}
+                 </div>
+                 <div class="col-md-12">
+                   e-mail: {{client.email?client.email:'нет данных'}}
+                 </div>
+               </div>
+             </div>
+             <div class="col-md-12">
+               <i style="font-size: 24px; padding-left: 1em" class="fa fa-phone" aria-hidden="true"></i>
+               <span>{{client.phone?client.phone:' нет данных'}}</span>
+               <span style="padding-left: 1em"><img src="assets/icon/chat-black.png" width="25px" height="25px"></span>
+             </div>
+           </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="box">
+          <div class="user-info">
+            <div class="block-history">
+             <label (click)="historyAppBool = !historyAppBool" class="history-app">
+               ИСТОРИЯ ЗАЯВОК <i *ngIf="historyAppBool" style="float: right;
+                     font-size: 26px;
+                     padding-right: 0.2em;"></i>
+             </label>
+            </div>
+            <div *ngIf="historyAppBool" class="history-list">
+              <ul style="margin-left: -1em; margin-right: 1em;">
+                <li *ngFor="let history of historyUser" >
+                  Заявка №{{history.id}}     {{history.title}}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

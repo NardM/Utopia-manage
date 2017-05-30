@@ -1,0 +1,16 @@
+<div *ngIf="requestData">
+  <div class="container">
+    <md-list dense>
+
+      <md-list-item *ngFor="let request of requestData">
+        <img md-list-avatar style="border-radius: 0" src="{{getPropertyIcon(request.property_id)}}">
+        <p md-line class="request-name">{{request.name}}</p>
+        <p md-line>{{request.type==4?request.address.text:
+          request.type==2?(request.check_box?"Да":"Нет"):request.text}}
+        </p>
+      </md-list-item>
+
+
+    </md-list>
+</div>
+</div>

@@ -1,0 +1,36 @@
+@import "../const/css/material";
+@import '~@angular/material/theming';
+
+
+$defaultColor: #0D47A1;
+
+
+.form-group{
+  display: flex;
+  justify-content: center;
+}
+
+.container-material{
+  position: absolute;
+  margin: 0;
+  background: #fff;
+  width: 100%;
+  padding: 3rem 5rem 0;
+  border-radius: 1px;
+  max-width: 21rem;
+  left: 38%;
+  top: 30%;
+}
+
+h1{
+  color: $defaultColor;
+}
+
+button{
+  background-color: $defaultColor;
+  color: white;
+}
+
+#shest::-webkit-inner-spin-button {
+  display: none;
+}

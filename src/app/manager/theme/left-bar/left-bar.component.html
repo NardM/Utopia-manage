@@ -1,0 +1,19 @@
+<div class="category">
+    <nav>
+        <a routerLink="" routerLinkActive="active"></a>
+        <a routerLink="" routerLinkActive="active"></a>
+        <a routerLink="" routerLinkActive="active"></a>
+        <a routerLink="" routerLinkActive="active"></a>
+
+    </nav>
+</div>
+
+<md-nav-list>
+    <a md-list-item
+       *ngFor="let link of navLinks"
+       [routerLink]="link.href"
+       [active]="rla.isActive"
+       routerLinkActive #rla="routerLinkActive">
+        {{ link.label }}
+    </a>
+</md-nav-list>

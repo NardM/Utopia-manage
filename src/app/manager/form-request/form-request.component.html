@@ -1,0 +1,168 @@
+<div class="container">
+  <div class="box">
+
+  <div class="row">
+      <div class="square-title">
+        <span class="text-request">Заявка {{requestServices.id}}</span>
+      </div>
+  </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <carousel *ngIf="openImage" [interval]="myInterval" [noWrap]="noWrapSlides">
+          <slide *ngFor="let slidez of slides; let index=index"
+                 [active]="slidez.active">
+            <img [src]="slidez.image" class="center-block" onerror="this.src='assets/icon/icon-photo.png'" style="margin:auto;     height: 15em;">
+            <div class="carousel-caption">
+            </div>
+          </slide>
+        </carousel>
+        </div>
+      <div class="col-md-8">
+        <div style="padding: 1em;">
+        <div *ngIf="editBool" class="field">
+          <div class="col-md-12 title-request" >
+            {{requestServices.title_label}}
+          </div>
+
+          <div class="col-md-12 title rez">
+            {{requestServices.title}}
+          </div>
+
+          <div class="col-md-12 title-request" >
+            {{requestServices.subtitle_label}}
+          </div>
+
+          <div class="col-md-12 subtitle rez">
+            {{requestServices.subtitle}}
+          </div>
+
+          <div class="col-md-12 title-request" >
+            {{requestServices.details_label}}
+          </div>
+
+          <div class="col-md-12 details rez">
+            {{requestServices.details}}
+          </div>
+
+
+
+        <!--  <div class="form-group row">
+            <label class="col-xs-3 col-form-label">{{requestServices.title}}</label>
+          </div>
+          <div class="form-group row">
+            <label class="col-xs-3 col-form-label">{{requestServices.subtitle}}</label>
+          </div>
+          <div class="form-group row">
+            <label class="col-xs-3 col-form-label">{{requestServices.details}}</label>
+          </div>
+          <div class="form-group row">
+          <label class="col-xs-3 col-form-label">Категория:</label>
+          <div class="col-xs-7">
+            <label>{{categoryName}}</label>
+          </div>
+        </div>-->
+
+          <button *ngIf="numberRequest==1" (click)="openRequestData=!openRequestData"md-raised-button color="primary">Подробно</button>
+          <div *ngIf="openRequestData">
+              <data-request  [requestData]="requestData" [requestId]="requestServices.id"></data-request>
+          </div>
+
+
+
+        </div>
+        <div *ngIf="numberRequest==1">
+        <div *ngIf="! editBool" class="field">
+          <span class="delete-request" ><i  (click)="deleteServiceRequest(requestServices)" class="fa fa-times" aria-hidden="true" style="color: red;"></i></span>
+
+          <div class="form-group row">
+
+          <div class="col-xs-10">
+            <input [(ngModel)]="requestServices.title" class="form-control" type="text" id="title">
+          </div>
+        </div>
+          <div class="form-group row">
+            <div class="col-xs-10">
+              <input [(ngModel)]="requestServices.subtitle" class="form-control" type="text" id="subtitle">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-xs-10">
+              <input [(ngModel)]="requestServices.details" class="form-control" type="text" id="details">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-xs-7">
+              <ng-select [allowClear]="true"
+                         [items]="categoryArray"
+                         [disabled]="disabled"
+                         (data)="refreshValue($event)"
+                         (selected)="selected($event)"
+                         (removed)="removed($event)"
+                         (typed)="typed($event)"
+                         placeholder="Введите название категории ">
+              </ng-select>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+      <div class="row">
+       <div *ngIf="numberRequest==1">
+       <div *ngIf="buttonOpen">
+          <div  class="col-md-4">
+            <div class="row" style="padding-top: 1em; padding-bottom: 1em;">
+              <div class="col-md-offset-1 col-md-2">
+                <i style="font-size: 24px; padding-left: 1em" class="fa fa-phone" aria-hidden="true"></i>
+              </div>
+              <div class="col-md-5">
+                <span>{{userPhone}}</span>
+              </div>
+              <div class="col-md-2">
+                <img src="assets/icon/chat-black.png" width="25px" height="25px">
+              </div>
+            </div>
+          </div>
+          <div *ngIf="editBool" class="col-md-offset-1 col-md-5">
+
+              <button (click)="putPublishServiceRequest()" md-raised-button color="accent" style="width: 100%"type="button">ОПУБЛИКОВАТЬ</button>
+             <!-- <button (click)="editBool = !editBool" class="form-control" id="edit"   type="button">РЕДАКТИРОВАТЬ</button>-->
+            </div>
+          <div *ngIf="!editBool" class="col-md-6">
+            <div  class="button-save">
+              <button md-raised-button color="accent" style="width: 100%" (click)="putServiceRequest()" class="form-control" id="save" type="button">ГОТОВО</button>
+            </div>
+          </div>
+        </div>
+       </div>
+        <div *ngIf="numberRequest==2">
+            <div class="col-md-12">
+              <form-response *ngIf="requestServices.id" [requestId]="requestServices.id"></form-response>
+            </div>
+        </div>
+        <div *ngIf="requestConfirm">
+            <div class="col-md-6">
+            </div>
+          <div class="col-md-6">
+            <div class="box">
+              <span *ngIf="requestConfirm.company.company">
+                Принял: {{requestConfirm.company.company.name}} {{responseCompany[0].from_price}}
+                <p>{{responseCompany[0].phone}}</p>
+              </span>
+              <span *ngIf="requestConfirm.company.master">
+                Принял: {{requestConfirm.company.master.first_name}} {{responseCompany[0].from_price}}
+                <p>{{responseCompany[0].phone}}</p>
+              </span>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+

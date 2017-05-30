@@ -1,0 +1,10 @@
+<h1 md-dialog-title>Укажите причину блокировки пользователя</h1>
+<div md-dialog-content>
+  <md-input-container>
+  <textarea mdInput [(ngModel)]="rezon" style="width: 100%" placeholder="Описание..." >
+  </textarea>
+  </md-input-container>
+</div>
+<div md-dialog-actions>
+  <button (click)="dialogRef.close(rezon)" class="form-control btn btn-danger">ЗАБЛОКИРОВАТЬ</button>
+</div>
