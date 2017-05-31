@@ -57,7 +57,7 @@ export class LoginComponent {
                         if (a.success) {
                             this.step = LoginStep.Success;
                             this.textButton = 'Успешно';
-                            this.router.navigate(['for-you', 'tutorial']);
+                            this.router.navigate(['manager']);
                         }
                         else{
                             // this.step = LoginStep.BrokenConfirm;

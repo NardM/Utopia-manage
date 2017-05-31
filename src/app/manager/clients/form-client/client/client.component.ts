@@ -14,6 +14,7 @@ import {MdDialog, MdDialogRef} from "@angular/material";
 import {UserService} from "../../../http/user.service";
 import ServiceRequest = ServiceRequestInterface.ServiceRequest;
 import {ServiceRequestInterface} from "../../../model/service-request";
+import Request = ServiceRequestInterface.Request;
 
 @Component({
 
@@ -44,7 +45,7 @@ export class FormClientItemComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription;
   selectedOption: string ="";
   historyAppBool: boolean = false;
-  historyUser: ServiceRequest;
+  historyUser: Request;
 
 
   getServiceRequest(clientId: number) {

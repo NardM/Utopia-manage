@@ -48,7 +48,7 @@ export class UserService {
     let url = this.serviceRequestUrl + '?user_id/' + id;
     if (status)
        url = this.serviceRequestUrl + '&status_filter' + status + '&user_id=' + id;
-    return this.constService.get<ServiceRequest>(url, 'requests');
+    return this.constService.get<Request>(url, 'requests');
   }
 
   getServiceResponse(id: number) {

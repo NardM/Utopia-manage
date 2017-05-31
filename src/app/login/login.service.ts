@@ -22,14 +22,14 @@ export class LoginService {
 
     logout() {
         let url = Consts.baseURL + 'v1/account/logout';
-        let device_id = Cookie.get('device_you_id');
+        let device_id = Cookie.get('device_id');
         let logout = {
             'device_id': device_id,
             'app_type': '4',
         };
         this.constService.post(url, JSON.stringify(logout));
-        Cookie.delete('login_you_token');
-        Cookie.delete('device_you_token');
+        Cookie.delete('login_token');
+        Cookie.delete('device_token');
         this.tokenService.loginToken = null;
     }
 

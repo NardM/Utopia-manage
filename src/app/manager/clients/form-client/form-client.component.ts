@@ -8,6 +8,7 @@ import {ClientInterface} from "../model/client";
 import {ClientService} from "../http/client.service";
 import ServiceRequest = ServiceRequestInterface.ServiceRequest;
 import {ServiceRequestInterface} from "../../model/service-request";
+import Request = ServiceRequestInterface.Request;
 import {UserService} from "../../http/user.service";
 import Account = ClientInterface.Account;
 
@@ -24,7 +25,7 @@ export class FormClientComponent implements OnInit{
   }
 
   historyAppBool:boolean = false;
-  historyUser: ServiceRequest;
+  historyUser: Request;
 
   constructor(private router: Router,
               private clientService: ClientService,

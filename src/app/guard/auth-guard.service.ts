@@ -35,7 +35,9 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   checkLogin(url: string): boolean {
-    if (Cookie.get('login_token')) {
+    if (Cookie.get('login_token') !== null &&
+        Cookie.get('login_token') !== 'null'&&
+        Cookie.get('login_token') !== undefined) {
       return true;
     }
 

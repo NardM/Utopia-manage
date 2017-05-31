@@ -55,7 +55,7 @@ export class TokenService {
           let response = a.json();
           if (response.success) {
             this.deviceToken = response.data.access_token;
-            Cookie.set('device_you_token', response.data.access_token, 30239999);
+            Cookie.set('device_token', response.data.access_token, 30239999);
             this.tokenPromise = null;
             return response.data.access_token;
           }
