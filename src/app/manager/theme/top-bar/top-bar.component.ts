@@ -7,11 +7,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'left-bar',
-    templateUrl: 'left-bar.component.html',
-     styleUrls: ['left-bar.component.scss']
+    selector: 'top-bar',
+    templateUrl: 'top-bar.component.html',
+     styleUrls: ['top-bar.component.scss']
 })
-export class LeftBarComponent {
+export class TopBarComponent {
 
     constructor() {
     }

@@ -34,6 +34,8 @@ import {MaterialModule} from "@angular/material";
 import {LoginService} from "./login/login.service";
 import {TokenService} from "./manager/http/token.serviece";
 import {ConstService} from "./const/http/service-const.service";
+import {AuthGuard} from "./guard/auth-guard.service";
+import {AuthService} from "./guard/auth.service";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -78,7 +80,9 @@ type StoreType = {
     APP_PROVIDERS,
     LoginService,
     TokenService,
-    ConstService
+    ConstService,
+    AuthGuard,
+      AuthService,
   ]
 })
 export class AppModule {

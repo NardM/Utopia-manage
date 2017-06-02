@@ -11,7 +11,7 @@ import {RequestsAcceptedComponent}           from './requests/accepted/requests-
 import {RequestsArchiveComponent} from "./requests/archive/requests-archive.component";
 import {RequestsNewComponent} from "./requests/new/requests-new.component";
 import {RequestsPublishedComponent} from "./requests/published/requests-published.component";
-import { ClientService } from './clients/http/client.service';
+import { ClientService } from './http/client.service';
 import {FormRequestComponent} from "./form-request/form-request.component";
 import {ClientComponent} from "./clients/client.component";
 import {FormClientComponent} from "./clients/form-client/form-client.component";
@@ -22,6 +22,12 @@ import {FormClientItemComponent, DialogClient} from "./clients/form-client/clien
 import {MaterialModule} from "@angular/material";
 import {FormResponseComponent} from "./form-response/form-response.component";
 import {CategoryService} from "./http/category.service";
+import {LeftBarComponent} from "./theme/left-bar/left-bar.component";
+import {CarouselModule, Ng2BootstrapModule} from "ngx-bootstrap";
+import {SelectModule} from 'ng2-select'
+import {RequestManagerHub} from "./http/hubs/RequestHub";
+import {TopBarComponent} from "./theme/top-bar/top-bar.component";
+
 
 @NgModule({
   imports: [
@@ -30,7 +36,10 @@ import {CategoryService} from "./http/category.service";
     JsonpModule,
     ReactiveFormsModule,
     CommonModule,
+      SelectModule,
+    Ng2BootstrapModule.forRoot(),
     ManagerRoutingModule,
+      CarouselModule,
     InfiniteScrollModule,
     MaterialModule,
   ],
@@ -46,15 +55,20 @@ import {CategoryService} from "./http/category.service";
     FormClientComponent,
     RequestDataComponent,
     FormClientItemComponent,
-    FormResponseComponent
+    FormResponseComponent,
+    LeftBarComponent,
+    TopBarComponent
 
   ],
   entryComponents: [
     DialogClient
   ],
-  providers: [ClientService,
+  providers: [
+    ClientService,
     UserService,
-    CategoryService],
+    CategoryService,
+    RequestManagerHub,
+  ],
   exports: []
 
 })

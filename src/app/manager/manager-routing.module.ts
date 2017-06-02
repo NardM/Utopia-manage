@@ -22,13 +22,13 @@ const managerRoutes: Routes = [
             {
                 path: '',
                 children: [
-                  { path: '', component: ClientComponent },
-                  { path: 'users', component: ClientComponent },
+                  { path: '', component: RequestsNewComponent },
+                  /*{ path: 'users', component: ClientComponent },
                   { path: 'user/:id', component: FormClientItemComponent },
                   { path: 'new-requests', component: RequestsNewComponent },
                   { path: 'published-requests', component: RequestsPublishedComponent },
                   { path: 'accepted-requests', component: RequestsAcceptedComponent },
-                  { path: 'archive-requests', component: RequestsArchiveComponent },
+                  { path: 'archive-requests', component: RequestsArchiveComponent },*/
                 ]
             }
         ]

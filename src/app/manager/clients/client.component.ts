@@ -4,7 +4,7 @@ import { Router }            from '@angular/router';
 import {ClientInterface} from "./model/client";
 import Clients = ClientInterface.Client;
 import Account= ClientInterface.Account;
-import {ClientService}     from './http/client.service';
+import {ClientService}     from '../http/client.service';
 
 @Component({
 

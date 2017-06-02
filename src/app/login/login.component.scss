@@ -11,15 +11,19 @@ $defaultColor: #0D47A1;
 }
 
 .container-material{
-  position: absolute;
-  margin: 0;
+  /* position: absolute; */
+  display: block;
+  /* margin: 0; */
+  margin: 10vw auto;
   background: #fff;
   width: 100%;
-  padding: 3rem 5rem 0;
+  /* max-height: 100vh; */
+  padding: 3rem 5rem 1rem;
   border-radius: 1px;
   max-width: 21rem;
-  left: 38%;
-  top: 30%;
+  /* width: 100%; */
+  /* left: 30%; */
+  /* top: 30%; */
 }
 
 h1{

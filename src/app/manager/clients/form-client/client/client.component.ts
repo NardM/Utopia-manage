@@ -9,7 +9,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import Account = ClientInterface.Account;
 import {ClientInterface} from "../../model/client";
-import {ClientService} from "../../http/client.service";
+import {ClientService} from "../../../http/client.service";
 import {MdDialog, MdDialogRef} from "@angular/material";
 import {UserService} from "../../../http/user.service";
 import ServiceRequest = ServiceRequestInterface.ServiceRequest;

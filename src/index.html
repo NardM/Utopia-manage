@@ -7,9 +7,15 @@
 
   <title><%= htmlWebpackPlugin.options.title %></title>
 
-  <meta name="description" content="<%= htmlWebpackPlugin.options.title %>">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.1.min.js"></script>
+  <script src="http://smartapi.ru/signalr/hubs"></script>
 
-  <link href="../node_modules/@angular/material/prebuilt-themes/indigo-pink.css" rel="stylesheet">
+
+  <meta name="description" content="<%= htmlWebpackPlugin.options.title %>">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://unpkg.com/@angular/material@2.0.0-beta.2/core/theming/prebuilt/indigo-pink.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <% if (webpackConfig.htmlElements.headTags) { %>

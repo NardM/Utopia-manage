@@ -9,7 +9,7 @@ import {UserService} from "../http/user.service";
 import {ServiceResponsesInterface} from "../model/service-responses";
 import ServiceResponses = ServiceResponsesInterface.Responses;
 import Responses= ServiceResponsesInterface.Respons;
-import {ClientService} from "../clients/http/client.service";
+import {ClientService} from "../http/client.service";
 import RequestConfirm = RequestConfirmInterface.RequestConfirm;
 import {RequestConfirmInterface} from "../model/service-request-confirm";
 import {Observable} from "rxjs";

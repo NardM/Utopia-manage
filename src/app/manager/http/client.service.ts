@@ -6,12 +6,12 @@ import { Injectable }    from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
-import {ClientInterface} from "../model/client";
+import {ClientInterface} from "../clients/model/client";
 import Clients = ClientInterface.Client;
 import Account= ClientInterface.Account;
-import {Consts} from "../../../const/app-const";
-import {ConstService} from "../../../const/http/service-const.service";
-import {UserBlock} from "../form-client/client/client.component";
+import {Consts} from "../../const/app-const";
+import {ConstService} from "../../const/http/service-const.service";
+import {UserBlock} from "../clients/form-client/client/client.component";
 
 @Injectable()
 export class ClientService {

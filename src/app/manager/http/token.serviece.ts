@@ -45,7 +45,7 @@ export class TokenService {
       'device_type': '3',
       'os_version': 'asd',
       'app_version': '1.0.1',
-      'app_type': '1',
+      'app_type': '5',
       'app_build': 1
     };
 

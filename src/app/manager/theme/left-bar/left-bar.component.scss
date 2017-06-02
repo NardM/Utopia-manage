@@ -1,0 +1,19 @@
+@import '../style';
+
+.main{
+  display: flex;
+  flex-direction: row;
+  .left-bar{
+    flex: 1 0 auto;
+    background-color: $defaultColor;
+    md-nav-list{
+      color: white;
+      a{
+        color: white;
+      }
+    }
+  }
+  .main-outlet{
+    flex: 8 0 auto;
+  }
+}

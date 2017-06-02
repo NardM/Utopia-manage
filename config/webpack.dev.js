@@ -91,31 +91,43 @@ module.exports = function (options) {
 
     module: {
 
-      rules: [
+        rules: [
+            {
+                test: /\.ts$/,
+                use: [
+                    {
+                        loader: 'tslint-loader',
+                        options: {
+                            configFile: 'tslint.json'
+                        }
+                    }
+                ],
+                exclude: [/\.(spec|e2e)\.ts$/]
+            },
 
-        /**
-         * Css loader support for *.css files (styles directory only)
-         * Loads external css styles into the DOM, supports HMR
-         *
-         */
-        {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
-          include: [helpers.root('src', 'styles')]
-        },
+          /*
+           * css loader support for *.css files (styles directory only)
+           * Loads external css styles into the DOM, supports HMR
+           *
+           */
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+                include: [helpers.root('src', 'styles')]
+            },
 
-        /**
-         * Sass loader support for *.scss files (styles directory only)
-         * Loads external sass styles into the DOM, supports HMR
-         *
-         */
-        {
-          test: /\.scss$/,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
-          include: [helpers.root('src', 'styles')]
-        },
+          /*
+           * sass loader support for *.scss files (styles directory only)
+           * Loads external sass styles into the DOM, supports HMR
+           *
+           */
+            {
+                test: /\.scss$/,
+                use: ['style-loader', 'css-loader', 'sass-loader'],
+                include: [helpers.root('src', 'styles')]
+            },
 
-      ]
+        ]
 
     },
 

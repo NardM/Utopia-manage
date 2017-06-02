@@ -5,7 +5,7 @@ import {Component, OnInit, Input} from '@angular/core'
 import {Router} from "@angular/router";
 import Client = ClientInterface.Client;
 import {ClientInterface} from "../model/client";
-import {ClientService} from "../http/client.service";
+import {ClientService} from "../../http/client.service";
 import ServiceRequest = ServiceRequestInterface.ServiceRequest;
 import {ServiceRequestInterface} from "../../model/service-request";
 import Request = ServiceRequestInterface.Request;
