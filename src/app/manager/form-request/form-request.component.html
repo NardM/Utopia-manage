@@ -1,6 +1,5 @@
-<div class="container">
+<div style="    margin-bottom: 2em;">
   <div class="box">
-
   <div class="row">
       <div class="square-title">
         <span class="text-request">Заявка {{requestServices.id}}</span>
@@ -46,25 +45,11 @@
           </div>
 
 
-
-        <!--  <div class="form-group row">
-            <label class="col-xs-3 col-form-label">{{requestServices.title}}</label>
-          </div>
-          <div class="form-group row">
-            <label class="col-xs-3 col-form-label">{{requestServices.subtitle}}</label>
-          </div>
-          <div class="form-group row">
-            <label class="col-xs-3 col-form-label">{{requestServices.details}}</label>
-          </div>
-          <div class="form-group row">
-          <label class="col-xs-3 col-form-label">Категория:</label>
-          <div class="col-xs-7">
-            <label>{{categoryName}}</label>
-          </div>
-        </div>-->
-
           <button *ngIf="numberRequest==1" (click)="openRequestData=!openRequestData"md-raised-button color="primary">Подробно</button>
-          <div *ngIf="openRequestData">
+          <button (click)="putPublishServiceRequest()" md-raised-button color="accent" style="width: 100%"type="button">ОПУБЛИКОВАТЬ</button>
+        </div>
+
+          <div *ngIf="openRequestData" class="col-md-12">
               <data-request  [requestData]="requestData" [requestId]="requestServices.id"></data-request>
           </div>
 
@@ -129,7 +114,6 @@
           </div>
           <div *ngIf="editBool" class="col-md-offset-1 col-md-5">
 
-              <button (click)="putPublishServiceRequest()" md-raised-button color="accent" style="width: 100%"type="button">ОПУБЛИКОВАТЬ</button>
              <!-- <button (click)="editBool = !editBool" class="form-control" id="edit"   type="button">РЕДАКТИРОВАТЬ</button>-->
             </div>
           <div *ngIf="!editBool" class="col-md-6">
@@ -161,7 +145,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 
 

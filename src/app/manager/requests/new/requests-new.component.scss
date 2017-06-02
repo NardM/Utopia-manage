@@ -5,3 +5,13 @@ li {
   list-style-type: none; /* Убираем маркеры */
   padding: 1em;
 }
+
+.search-results{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 44%;
+  margin-left: 10%;
+  margin-bottom: 5em;
+  margin-top: 2em;
+}
