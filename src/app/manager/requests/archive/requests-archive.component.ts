@@ -22,39 +22,39 @@ import {Category} from "../../model/category";
 })
 export class RequestsArchiveComponent implements OnInit {
 
-  requestServices: Array<Request>;
-  array = [];
-  offset = 0;
-  throttle = 300;
-  scrollDistance = 1;
-  blockUpload: boolean = false;
+    requestServices: Array<Request>;
+    array = [];
+    offset = 0;
+    throttle = 300;
+    scrollDistance = 1;
+    blockUpload: boolean = false;
     categories: Category[];
 
-  constructor(private router: Router,
-              private categoryService: CategoryService,
-              private userService: UserService) {
-  }
-
-  onScrollDown() {
-    // add another 20 items
-    if (!this.blockUpload) {
-      this.offset += 20;
-      this.getServiceRequest();
+    constructor(private router: Router,
+                private categoryService: CategoryService,
+                private userService: UserService) {
     }
-  }
 
-  getServiceRequest() {
-    this.userService.getServiceRequest(1<<5|1<<6, this.offset)
-      .then(res => {
-        if (res.total_count == 0) {
-          this.blockUpload = true;
-          return;
+    onScrollDown() {
+        // add another 20 items
+        if (!this.blockUpload) {
+            this.offset += 20;
+            this.getServiceRequest();
         }
-        res.requests.map(item => {
-            this.requestServices.push(this.onPushCategoryInRequest(item))
-        })
-      });
-  }
+    }
+
+    getServiceRequest() {
+        this.userService.getServiceRequest(1 << 5 | 1 << 6, this.offset)
+            .then(res => {
+                if (res.total_count == 0) {
+                    this.blockUpload = true;
+                    return;
+                }
+                res.requests.map(item => {
+                    this.requestServices.push(this.onPushCategoryInRequest(item))
+                })
+            });
+    }
 
     onPushCategoryInRequest(request: Request) {
         let self = this;
@@ -62,10 +62,22 @@ export class RequestsArchiveComponent implements OnInit {
         return request;
     }
 
-  ngOnInit() {
-    this.userService.getServiceRequest(1<<5|1<<6, this.offset)
-      .then(requestServices => this.requestServices = requestServices.requests)
-  }
+    ngOnInit() {
+        let self =this;
+        self.categoryService.getCategories()
+            .then(res => {
+                self.categories = res;
+            })
+            .then(res => {
+                self.userService.getServiceRequest(1 << 5 | 1 << 6, this.offset)
+                    .then(requestServices => {
+                        requestServices.requests.map(item=>{
+                            item = self.onPushCategoryInRequest(item);
+                        })
+                        self.requestServices = requestServices.requests
+                    })
+            });
+    }
 }
 
 

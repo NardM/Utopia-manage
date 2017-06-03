@@ -33,10 +33,7 @@ export class RequestsPublishedComponent implements OnInit {
   constructor(private router: Router,
               private categoryService: CategoryService,
               private userService: UserService) {
-      this.categoryService.getCategories()
-          .then(res => {
-              this.categories = res;
-          })
+
   }
 
   onScrollDown() {
@@ -67,8 +64,19 @@ export class RequestsPublishedComponent implements OnInit {
 
 
   ngOnInit() {
-    this.userService.getServiceRequest(1<<2, this.offset)
-      .then(requestServices => this.requestServices = requestServices.requests)
+      this.categoryService.getCategories()
+          .then(res => {
+              this.categories = res;
+          })
+          .then(res => {
+              this.userService.getServiceRequest(1 << 2, this.offset)
+                  .then(requestServices => {
+                      requestServices.requests.map(item=>{
+                          item = this.onPushCategoryInRequest(item);
+                      })
+                      this.requestServices = requestServices.requests
+                  })
+          })
   }
 }
 
