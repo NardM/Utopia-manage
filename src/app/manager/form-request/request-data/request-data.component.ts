@@ -29,6 +29,14 @@ import {MapsGoogleComponent} from "../../../component/dialog-maps-business/maps/
 })
 export class RequestDataComponent implements OnInit, OnChanges {
 
+  constructor(private router: Router,
+              private serviceConst: ConstService,
+              public dialog: MdDialog,
+              private userService: UserService) {
+
+  }
+
+
   ngOnInit(): void {
 
   }
@@ -47,6 +55,14 @@ export class RequestDataComponent implements OnInit, OnChanges {
     if (this.requestId) {
       this.getOrderData();
     }
+  }
+
+  onPublishRequest(){
+
+  }
+
+  onDeniedRequest(){
+
   }
 
   convertDateInString(date: number): string {
@@ -191,12 +207,6 @@ export class RequestDataComponent implements OnInit, OnChanges {
 
 
 
-  constructor(private router: Router,
-              private serviceConst: ConstService,
-              public dialog: MdDialog,
-              private userService: UserService) {
-
-  }
 
 
 }

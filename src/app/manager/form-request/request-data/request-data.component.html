@@ -1,8 +1,6 @@
-<div class="col-md-offset-2 col-md-8" style="    margin-top: 2em;">
-  <div class="row" style="margin-bottom: 3em;" >
-    <div class="col-md-12">
+<div  >
+    <div >
       <div *ngIf="slides.length!=0" class="row" id="boxx">
-
         <carousel *ngIf="openImage"
                   [interval]="myInterval"
                   [noWrap]="noWrapSlides">
@@ -24,9 +22,9 @@
                     (cancelEvent)="cancelImageModel()"></ImageModal>
       </div>
     </div>
-    <div class="col-md-12">
+    <div >
 
-      <div class="col-md-10" *ngIf="!orderDetailFlag">
+      <div  *ngIf="!orderDetailFlag">
         <md-spinner  class="center-block"></md-spinner>
       </div>
 
@@ -256,16 +254,15 @@
         <div class="request-action">
           <button (click)="putPublishServiceRequest()"
                   md-raised-button
-                  color="accent"
+                  class="post"
                   type="button">
             Опубликовать</button>
           <button (click)="putPublishServiceRequest()"
                   md-raised-button
-                  color="accent"
+                  class="denied"
                   type="button">
             Заблокировать</button>
         </div>
       </div>
     </div>
-  </div>
 </div>

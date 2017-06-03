@@ -154,11 +154,17 @@ $rows-title-size:16px;
   font-size: $rows-title-size;
 }
 
-
+.main-requestData{
+  display: flex;
+  justify-content: center;
+  width: 65%;
+  margin-left: 20%;
+}
 .request {
-  display: grid;
+  display: block;
   box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.2);
   margin-bottom: 3rem;
+  max-width: 100%;
   .request-content {
     .content{
       display: flex;
@@ -171,7 +177,10 @@ $rows-title-size:16px;
       }
       .request-base-template{
         margin: 10px 10px 10px 20px;
-        flex: 1 0 auto;
+        flex: 1 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         .request-actions{
           button{
             background-color: $defaultAction;
@@ -196,7 +205,13 @@ $rows-title-size:16px;
     .request-action{
       display: flex;
       justify-content: center;
-
+      margin-bottom: 2em;
+    }
+    .request-detail{
+      display: flex;
+      justify-content: center;
+      width: 65%;
+      margin-left: 20%;
     }
   }
 }

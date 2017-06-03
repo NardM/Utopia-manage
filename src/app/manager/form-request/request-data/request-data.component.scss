@@ -1,5 +1,5 @@
 @import "../../../const/css/scss-const";
-
+@import "../../theme/style";
 .application{
   box-shadow: 0 1px 1px rgba(0,0,0,.3);
   width: 35em;
@@ -305,4 +305,20 @@ li {
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
+  margin-bottom: 20px;
+  .post{
+    color: white;
+    background-color: $post;
+  }
+  .denied{
+    color: white;
+    background-color: $denied;
+  }
+}
+
+.main-requestData{
+  display: flex;
+  justify-content: center;
+  width: 65%;
+  margin-left: 20%;
 }
