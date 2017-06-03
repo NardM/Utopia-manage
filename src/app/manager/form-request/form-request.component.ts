@@ -50,16 +50,8 @@ export class FormRequestComponent implements OnInit {
   }
 
   onLoad() {
-    this.getCategoryId(this.request.category_id);
     this.getClient(this.request.user_id);
   }
-
-
-  getCategoryId(id: number) {
-    this.categoryService.getCategory(id)
-      .then(categoryName => {debugger;this.categoryName = categoryName.name})
-  }
-
 
   getClient(userId: number) {
     this.clientService.getClient(userId).then(res => this.userPhone = res.phone);
@@ -68,11 +60,11 @@ export class FormRequestComponent implements OnInit {
 
   getServiceRequestConfirm() {
     this.userService.getServiceRequestConfirm(this.request.id)
-      .then(res => {
-        this.requestConfirm = res;
-        this.userService.getServiceResponseId(this.request.id, res.response_id)
-          .then(res => this.responseCompany);
-      });
+        .then(res => {
+          this.requestConfirm = res;
+          this.userService.getServiceResponseId(this.request.id, res.response_id)
+              .then(res => this.responseCompany);
+        });
   }
 
 }

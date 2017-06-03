@@ -16,6 +16,7 @@ import {CategoryService} from "../../http/category.service";
 import {Category} from "../../model/category";
 import {ServiceRequestStore, StoreAction, StoreItem} from "../../http/request";
 import {ConstService} from "../../../const/http/service-const.service";
+import {Req} from "awesome-typescript-loader/dist/checker/protocol";
 
 @Component({
 
@@ -31,6 +32,7 @@ export class RequestsNewComponent implements OnInit {
                 private service: ConstService,
                 private store: ServiceRequestStore,
                 private categoryService: CategoryService) {
+        this.getCategories();
         this.store.createObserver()
             .subscribe(res =>
                 this.newStoreItem(res));
@@ -42,7 +44,7 @@ export class RequestsNewComponent implements OnInit {
     scrollDistance = 1;
     requests: Array<Request> = [];
     blockUpload: boolean = false;
-    requestList: boolean  = false;
+    requestList: boolean = false;
     requestFlag: boolean = false;
     noRequest: boolean = true;
     blockLoadFlag: boolean = false;
@@ -57,14 +59,14 @@ export class RequestsNewComponent implements OnInit {
                 if (res.total_count) {
                     self.totalCount = res.total_count;
                 }
-                self.requests.push(self.getImage(res.item));
+                self.requests.push(self.getImage(self.onPushCategoryInRequest(res.item)));
                 self.requestFlag = true;
                 self.noRequest = false;
                 //this.requests.push(res.item);
                 break;
             case StoreAction.NewInserted:
                 self.totalCount++;
-                self.requests.unshift(res.item);
+                self.requests.unshift(self.getImage(self.onPushCategoryInRequest(res.item)));
                 self.requestFlag = true;
                 self.noRequest = false;
                 break;
@@ -104,7 +106,7 @@ export class RequestsNewComponent implements OnInit {
     getImage(request: Request) {
         let url;
         let self = this;
-        url = 'manage/v1/order/' + request.id + '/icon';
+        url = `manage/v1/request/${request.id}/photo`;
         self.service.getAvatar(url)
             .subscribe(item => {
                 request.logo = item;
@@ -114,18 +116,19 @@ export class RequestsNewComponent implements OnInit {
 
 
     getRequest() {
-        this.userService.getServiceRequest(1 << 1 | 1 << 2 | 1 << 3 | 1 << 4,
-            this.totalCount-this.offset)
+        let self = this;
+        self.userService.getServiceRequest(1 << 1 | 1 << 2 | 1 << 3 | 1 << 4,
+            self.totalCount - self.offset)
             .then(res => {
                 if (res.total_count === 0) {
-                    this.blockUpload = true;
+                    self.blockUpload = true;
                     return;
                 }
-                this.totalCount = res.total_count;
+                self.totalCount = res.total_count;
                 res.requests.map(item => {
-                    this.requests.push(item)
+                    self.requests.push(self.getImage(self.onPushCategoryInRequest(item)))
                 });
-                this.blockLoadFlag = false;
+                self.blockLoadFlag = false;
             });
     }
 
@@ -137,8 +140,15 @@ export class RequestsNewComponent implements OnInit {
             })
     }
 
+
+    onPushCategoryInRequest(request: Request) {
+        debugger;
+        request.category_name = this.categories.find(res => res.id === request.category_id).name;
+        return request;
+    }
+
+
     ngOnInit() {
-        this.getCategories();
     }
 
 
