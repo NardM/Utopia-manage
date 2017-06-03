@@ -1,0 +1,42 @@
+<h1 md-dialog-title style="text-align: center; color: black">Маршрут</h1>
+<div class="form-group">
+  <md-input-container>
+    <input mdInput [(ngModel)]="originText" disabled placeholder="Откуда" >
+    <md-hint></md-hint>
+  </md-input-container>
+  <md-input-container>
+    <input mdInput [(ngModel)]="destinationText" disabled placeholder="Куда" >
+    <md-hint></md-hint>
+  </md-input-container>
+</div>
+
+<sebm-google-map [fitBounds]="bounds"  [scrollwheel]="true" [zoom]="zoom" [styles]="mapCustomStyles">
+
+  <sebm-google-map-marker      [latitude]="origin.latitude" [longitude]="origin.longitude" [iconUrl]="'assets/icon/MarkerA.png'">
+    <sebm-google-map-info-window>
+      <strong style="color: black">{{originText}}</strong>
+    </sebm-google-map-info-window>
+  </sebm-google-map-marker>
+
+  <sebm-google-map-marker  [latitude]="destination.latitude" [longitude]="destination.longitude" [iconUrl]="'assets/icon/MarkerB.png'">
+    <sebm-google-map-info-window>
+      <strong style="color: black">{{destinationText}}</strong>
+    </sebm-google-map-info-window>
+  </sebm-google-map-marker>
+
+  <sebm-google-map-polyline [geodesic]="true"  [strokeWeight]="5" [strokeColor]="'rgba(30, 136, 229, 0.75)'">
+    <sebm-google-map-polyline-point *ngFor="let item of paths" [latitude]="item.lat" [longitude]="item.lng">
+    </sebm-google-map-polyline-point>
+  </sebm-google-map-polyline>
+</sebm-google-map>
+
+<div  class="bottom-bar">
+
+      <span md-line style="color: black" *ngIf="distance">Дистанция: {{distance}} </span>
+      <!--<md-icon md-list-avatar style="border-radius: 0">time_to_leave</md-icon>
+      <span md-line style="color: black"  *ngIf="vc.estimatedTime">Время: {{vc.estimatedTime}}</span>-->
+  <button
+    md-raised-button
+    color="primary"
+    md-dialog-close>Закрыть</button>
+</div>

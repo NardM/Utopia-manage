@@ -131,3 +131,171 @@ li {
   float: right;
   font-size: 27px;
 }
+
+
+.request-list{
+  background: #3C61AA;
+  padding: 2px;
+}
+.list-item{
+  background: whitesmoke;
+  color: black;
+}
+
+.request-text{
+  background: white;
+  color: black;
+  text-align: center;
+  font-size: 18px;
+}
+.example-icon {
+  padding: 0 14px;
+}
+
+
+
+.title-order-detail {
+  background-color: #F0F0F0;
+  padding-right: 0px;
+  padding-left: 0px;
+  color: black;
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  padding-top: 0.5em;
+  padding-bottom: 0.1em;
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  button {
+    position: relative;
+    margin-top: -.6em;
+    margin-right: .5em;
+  }
+}
+
+
+.divider{
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+#shest::-webkit-inner-spin-button {
+  display: none;
+}
+
+#padding-request{
+  padding-top: 2em;
+}
+
+#box{
+  background: aliceblue;
+  margin-left: 1em;
+  margin-right: 1em;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+#request-detail-padding{
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+#background-request-detail{
+  background: #E7E7E7;
+  min-height: 80vh;
+
+}
+
+#price{
+  margin-left: 1em;
+  margin-right: 1em;
+  padding-top: 0.4em;
+  padding-bottom: .4em;
+  background: #3B5FA9;
+}
+
+#company-info{
+  margin-left: 1em;
+  margin-right: 1em;
+  padding-top: 2em;
+  padding-bottom: .4em;
+  background: white;
+}
+
+#button-post{
+  margin-left: 1em;
+  margin-right: 1em;
+  padding-bottom: 2em;
+  background: white;
+}
+
+.text-response-detail{
+  color: black;
+  font-size: 14px;
+}
+
+.icon-detail-order
+{
+  width: 3em;
+  height: 3em;
+}
+
+.form-text-order{
+  color: black;
+}
+
+.order-view {
+  position: relative;
+  background: white;
+  color: black;
+  box-shadow: 0 0 1px black;
+  margin-left: -2em;
+  margin-right: -2em;
+}
+
+.arrow-up {
+  background: #7FA5D6;
+  height: 1.5em;
+  cursor: pointer;
+  i {
+    font-size: 34px;
+    padding-top: .1em;
+    color: antiquewhite;
+  }
+}
+.request-name{
+  color: #3e5b78;
+  font-size: 13px;
+}
+
+.request-name-main{
+  font-size: 16px;
+  word-break: break-word;
+}
+
+
+.errorPost {
+  /* -webkit-animation: 0.1s tremor ease 2;
+   animation: 0.1s tremor ease 2;*/
+  -webkit-animation: shake .5s linear;
+  animation: shake .5s linear;
+}
+
+@-webkit-keyframes shake {
+  8%, 41% {
+    -webkit-transform: translateX(-10px);
+  }
+  25%, 58% {
+    -webkit-transform: translateX(10px);
+  }
+  75% {
+    -webkit-transform: translateX(-5px);
+  }
+  92% {
+    -webkit-transform: translateX(5px);
+  }
+  0%, 100% {
+    -webkit-transform: translateX(0);
+  }
+}

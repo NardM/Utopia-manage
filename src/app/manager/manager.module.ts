@@ -28,6 +28,10 @@ import {SelectModule} from 'ng2-select'
 import {RequestManagerHub} from "./http/hubs/RequestHub";
 import {TopBarComponent} from "./theme/top-bar/top-bar.component";
 import {ServiceRequestStore} from "./http/request";
+import {MapsGoogleRouteDialogComponent} from "../component/dialog-maps-business/dialog-route/route.component";
+import {MapsGoogleComponent} from "../component/dialog-maps-business/maps/autoGoogle.component";
+import {AgmCoreModule} from "angular2-google-maps/core";
+import {ImagePopupModule} from "../component/angular2-image-popup/angular2-image-popup.modal";
 
 
 @NgModule({
@@ -41,6 +45,12 @@ import {ServiceRequestStore} from "./http/request";
     Ng2BootstrapModule.forRoot(),
     ManagerRoutingModule,
       CarouselModule,
+    ImagePopupModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyCxiuwoUIExQq3LaN5Kj-vNBDeyus6-t7U",
+      libraries: ["geometry","places"],
+      region: 'ru'
+    }),
     InfiniteScrollModule,
     MaterialModule,
   ],
@@ -58,7 +68,9 @@ import {ServiceRequestStore} from "./http/request";
     FormClientItemComponent,
     FormResponseComponent,
     LeftBarComponent,
-    TopBarComponent
+    TopBarComponent,
+    MapsGoogleRouteDialogComponent,
+    MapsGoogleComponent
 
   ],
   entryComponents: [

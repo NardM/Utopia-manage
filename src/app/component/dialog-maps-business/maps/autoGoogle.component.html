@@ -1,0 +1,20 @@
+
+<md-dialog-content>
+  <h1 md-dialog-title style="text-align: center; color: black">Карта</h1>
+  <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom" [styles]="mapCustomStyles">
+     <sebm-google-map-marker  [latitude]="latitude" [longitude]="longitude" [iconUrl]="'assets/icon/Marker.png'">
+        <sebm-google-map-info-window [isOpen]="true">
+            <strong style="color: black">{{markerText}}</strong>
+        </sebm-google-map-info-window>
+    </sebm-google-map-marker>
+  </sebm-google-map>
+
+</md-dialog-content>
+<md-dialog-actions style="display: flex; justify-content: flex-end;">
+  <button
+    md-raised-button
+    color="primary"
+    md-dialog-close>Закрыть</button>
+  <div style="float: right">
+  </div>
+ </md-dialog-actions>

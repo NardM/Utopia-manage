@@ -13,6 +13,8 @@ import {UserComponent} from "./manager.component";
 import {FormRequestComponent} from "./form-request/form-request.component";
 import {ClientComponent} from "./clients/client.component";
 import {FormClientItemComponent} from "./clients/form-client/client/client.component";
+import {MapsGoogleRouteDialogComponent} from "../component/dialog-maps-business/dialog-route/route.component";
+import {MapsGoogleComponent} from "../component/dialog-maps-business/maps/autoGoogle.component";
 
 const managerRoutes: Routes = [
     {
@@ -23,6 +25,8 @@ const managerRoutes: Routes = [
                 path: '',
                 children: [
                   { path: '', component: RequestsNewComponent },
+                  { path: 'route', component: MapsGoogleRouteDialogComponent },
+                  { path: 'maps', component: MapsGoogleComponent },
                   /*{ path: 'users', component: ClientComponent },
                   { path: 'user/:id', component: FormClientItemComponent },
                   { path: 'new-requests', component: RequestsNewComponent },

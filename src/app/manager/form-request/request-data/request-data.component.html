@@ -1,15 +1,259 @@
-<div *ngIf="requestData">
-  <div class="container">
-    <md-list dense>
+<div class="col-md-offset-2 col-md-8" style="    margin-top: 2em;">
+  <div class="row" style="margin-bottom: 3em;" >
+    <div class="col-md-12">
+      <div *ngIf="slides.length!=0" class="row" id="boxx">
 
-      <md-list-item *ngFor="let request of requestData">
-        <img md-list-avatar style="border-radius: 0" src="{{getPropertyIcon(request.property_id)}}">
-        <p md-line class="request-name">{{request.name}}</p>
-        <p md-line>{{request.type==4?request.address.text:
-          request.type==2?(request.check_box?"Да":"Нет"):request.text}}
-        </p>
-      </md-list-item>
+        <carousel *ngIf="openImage"
+                  [interval]="myInterval"
+                  [noWrap]="noWrapSlides">
+          <slide *ngFor="let slidez of slides; let index=index"
+                 [active]="slidez.active">
+            <img [src]="slidez.image"
+                 class="center-block"
+                 (click)="OpenImageModel(index)"
+                 onerror="this.src='assets/icon/icon-photo.png'"
+                 style="cursor: pointer; height: 40vh;">
 
-    </md-list>
-</div>
+            <div class="carousel-caption">
+            </div>
+          </slide>
+        </carousel>
+        <ImageModal *ngIf="openModalWindow"
+                    [imagePointer] = "imagePointer"
+                    [modalImages]="images"
+                    (cancelEvent)="cancelImageModel()"></ImageModal>
+      </div>
+    </div>
+    <div class="col-md-12">
+
+      <div class="col-md-10" *ngIf="!orderDetailFlag">
+        <md-spinner  class="center-block"></md-spinner>
+      </div>
+
+
+      <div *ngIf="orderDetailFlag">
+        <div *ngFor="let request of orderData">
+
+          <div [ngSwitch]="request.type">
+
+            <template  [ngSwitchCase]="1">
+              <div class="form-group row"
+                   *ngIf="request.text" style="padding-top: 1em;">
+                <label class="col-xs-2 col-form-label">
+                  <img src="{{getPropertyIcon(request.property_id)}}"
+                       width="40" height="40">
+                </label>
+                <div class="col-xs-10">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <span class="request-name">{{request.name}}</span>
+                    </div>
+                    <div class="col-xs-12">
+                      <span class="request-name-main">{{request.text}} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr *ngIf="request.text" class="divider">
+            </template>
+
+            <template  [ngSwitchCase]="2">
+              <div class="form-group row"  style="padding-top: 1em;"
+                   *ngIf="request.text">
+                <label class="col-xs-2 col-form-label">
+                  <img src="{{getPropertyIcon(request.property_id)}}"
+                       width="40" height="40">
+                </label>
+                <div class="col-xs-10">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <span class="request-name">{{request.name}}</span>
+                    </div>
+                    <div class="col-xs-12">
+                      <span class="request-name-main">{{request.text}} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr *ngIf="request.text" class="divider">
+            </template>
+
+            <template  [ngSwitchCase]="3">
+              <div class="form-group row"
+                   *ngIf="request.integer" style="padding-top: 1em;">
+                <label class="col-xs-2 col-form-label">
+                  <img src="{{getPropertyIcon(request.property_id)}}"
+                       width="40" height="40">
+                </label>
+                <div class="col-xs-10">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <span class="request-name">{{request.name}}</span>
+                    </div>
+                    <div class="col-xs-12">
+                      <span class="request-name-main">{{request.integer}} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr *ngIf="request.integer" class="divider">
+            </template>
+
+            <template  [ngSwitchCase]="4">
+              <div class="form-group row"
+                   *ngIf="request.address" style="padding-top: 1em;">
+                <label class="col-xs-2 col-form-label"
+                       mdTooltip="Открыть карту"
+                       (click)="onMaps(request.address)"
+                       style="cursor: pointer">
+                  <img src="{{getPropertyIcon(request.property_id)}}"
+                       width="40" height="40">
+                </label>
+                <div class="col-xs-10"
+                     mdTooltip="Открыть карту"
+                     style="cursor: pointer"
+                     (click)="onMaps(request.address)">
+                  <div class="row">
+                    <div class="col-xs-12">
+                              <span class="request-name">
+                                {{request.name}}</span>
+                    </div>
+                    <div class="col-xs-12">
+                              <span class="request-name-main">
+                                {{request.address.text}} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr *ngIf="request.address" class="divider">
+            </template>
+
+            <template  [ngSwitchCase]="5">
+              <div class="form-group row"
+                   style="padding-top: 1em;" *ngIf="request.date">
+                <label class="col-xs-2 col-form-label">
+                  <img src="{{getPropertyIcon(request.property_id)}}"
+                       width="40" height="40">
+                </label>
+                <div class="col-xs-10">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <span class="request-name">{{request.name}}</span>
+                    </div>
+                    <div class="col-xs-12">
+                      <span class="request-name-main">{{request.text}} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr *ngIf="request.date" class="divider">
+            </template>
+
+            <template  [ngSwitchCase]="6">
+              <div class="form-group row"
+                   style="padding-top: 1em;"
+                   *ngIf="request.date_time">
+                <label class="col-xs-2 col-form-label">
+                  <img src="{{getPropertyIcon(request.property_id)}}"
+                       width="40" height="40">
+                </label>
+                <div class="col-xs-10">
+                  <div class="row">
+                    <div class="col-xs-12">
+                              <span class="request-name">
+                                {{request.name}}</span>
+                    </div>
+                    <div class="col-xs-12">
+                              <span class="request-name-main">
+                                {{request.text}} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr *ngIf="request.date_time" class="divider">
+            </template>
+
+
+            <template  [ngSwitchCase]="7">
+              <div class="form-group row"
+                   *ngIf="request.text" style="padding-top: 1em;">
+                <label class="col-xs-2 col-form-label">
+                  <img src="{{getPropertyIcon(request.property_id)}}"
+                       width="40" height="40">
+                </label>
+                <div class="col-xs-10">
+                  <div class="row">
+                    <div class="col-xs-12">
+                              <span class="request-name">
+                                {{request.name}}</span>
+                    </div>
+                    <div class="col-xs-12">
+                              <span class="request-name-main">
+                                {{request.text}} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr *ngIf="request.text" class="divider">
+            </template>
+
+            <template  [ngSwitchCase]="9">
+              <div class="form-group row"
+                   *ngIf="request.text"
+                   style="padding-top: 1em;">
+                <label class="col-xs-2 col-form-label">
+                  <img src="{{getPropertyIcon(request.property_id)}}"
+                       width="40" height="40">
+                </label>
+                <div class="col-xs-10">
+                  <div class="row">
+                    <div class="col-xs-12">
+                              <span class="request-name">
+                                {{request.name}}</span>
+                    </div>
+                    <div class="col-xs-12">
+                              <span class="request-name-main">
+                                {{request.text}} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr *ngIf="request.text" class="divider">
+            </template>
+
+            <template  [ngSwitchCase]="10">
+              <div class="form-group row"
+                   *ngIf="request.text"
+                   style="padding-top: 1em;">
+                <label class="col-xs-2 col-form-label"
+                       style="cursor: pointer"
+                       mdTooltip="Открыть карту"
+                       (click)="onRoute(request.route)">
+                  <img src="{{getPropertyIcon(request.property_id)}}"
+                       width="40" height="40">
+                </label>
+                <div class="col-xs-10"
+                     style="cursor: pointer"
+                     mdTooltip="Открыть карту"
+                     (click)="onRoute(request.route)">
+                  <div class="row">
+                    <div class="col-xs-12">
+                              <span class="request-name">
+                                {{request.name}}</span>
+                    </div>
+                    <div class="col-xs-12">
+                              <span class="request-name-main">
+                                {{request.text}} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr *ngIf="request.text" class="divider">
+            </template>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
