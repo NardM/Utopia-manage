@@ -42,11 +42,11 @@ export class RequestsArchiveComponent implements OnInit {
   getServiceRequest() {
     this.userService.getServiceRequest(1<<5|1<<6, this.offset)
       .then(res => {
-        if (res.length == 0) {
+        if (res.total_count == 0) {
           this.blockUpload = true;
           return;
         }
-        res.map(item => {
+        res.requests.map(item => {
           this.requestServices.push(item)
         })
       });
@@ -54,7 +54,7 @@ export class RequestsArchiveComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getServiceRequest(1<<5|1<<6, this.offset)
-      .then(requestServices => this.requestServices = requestServices)
+      .then(requestServices => this.requestServices = requestServices.requests)
   }
 }
 

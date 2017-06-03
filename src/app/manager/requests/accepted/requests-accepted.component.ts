@@ -31,11 +31,11 @@ export class RequestsAcceptedComponent implements OnInit {
   getServiceRequest() {
     this.userService.getServiceRequest(1<<3|1<<4, this.offset)
       .then(res => {
-        if (res.length == 0) {
+        if (res.total_count == 0) {
           this.blockUpload = true;
           return;
         }
-        res.map(item => {
+        res.requests.map(item => {
           this.requestServices.push(item)
         })
       });
@@ -51,7 +51,7 @@ export class RequestsAcceptedComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getServiceRequest(1<<3|1<<4, this.offset)
-      .then(requestServices => this.requestServices = requestServices)
+      .then(requestServices => this.requestServices = requestServices.requests)
   }
 }
 

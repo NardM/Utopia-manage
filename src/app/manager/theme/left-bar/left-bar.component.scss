@@ -6,6 +6,7 @@
   .left-bar{
     flex: 1 0 auto;
     background-color: $defaultColor;
+    width: 14%;
     md-nav-list{
       color: white;
       a{
@@ -17,6 +18,40 @@
     flex: 8 0 auto;
     min-height: calc(100vh - 50px);
     max-height: calc(100vh - 50px);
-    overflow: auto
+    overflow: auto;
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-button {
+      width: 14px;
+      height: 14px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #e1e1e1;
+      border: 21px none #ffffff;
+      border-radius: 50px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ffffff;
+    }
+    ::-webkit-scrollbar-thumb:active {
+      background: #ffffff;
+    }
+    ::-webkit-scrollbar-track {
+      background: #727272;
+      border: 19px none #ffffff;
+      border-radius: 67px;
+    }
+    ::-webkit-scrollbar-track:hover {
+      background: #727272;
+    }
+    ::-webkit-scrollbar-track:active {
+      background: #727272;
+    }
+    ::-webkit-scrollbar-corner {
+      background: transparent;
+    }
   }
 }
