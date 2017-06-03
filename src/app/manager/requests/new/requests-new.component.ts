@@ -32,11 +32,16 @@ export class RequestsNewComponent implements OnInit {
                 private service: ConstService,
                 private store: ServiceRequestStore,
                 private categoryService: CategoryService) {
-        this.getCategories();
-        this.store.createObserver()
-            .subscribe(res =>
-                this.newStoreItem(res));
-    }
+        this.categoryService.getCategories()
+            .then(res => {
+                this.categories = res;
+            })
+            .then(r=>{
+                this.store.createObserver()
+                    .subscribe(res =>
+                        this.newStoreItem(res));
+            })
+        }
 
     array = [];
     offset = 20;
@@ -142,9 +147,9 @@ export class RequestsNewComponent implements OnInit {
 
 
     onPushCategoryInRequest(request: Request) {
-        debugger;
-        request.category_name = this.categories.find(res => res.id === request.category_id).name;
-        return request;
+        let self = this;
+            request.category_name = self.categories.find(res => res.id === request.category_id).name;
+            return request;
     }
 
 

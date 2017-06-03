@@ -1,7 +1,7 @@
 <div class="request">
 
   <div class="square-title">
-    <span class="text-request">Заявка {{request.id}}</span>
+    Заявка {{request.id}}
   </div>
 
   <div class="request-content">
@@ -45,21 +45,21 @@
 
               <div class="request-actions">
                   <div class="request-info">
-                      <md-icon>phone</md-icon>
-                      {{phone}}
-                      <md-icon>message</md-icon>
-                  </div>
+                      <button *ngIf="numberRequest==1"
+                              (click)="openRequestData=!openRequestData"
+                              md-raised-button
+                              color="primary">
+                          Подробно</button>
+                      <div class="phone">
+                          <md-icon style="margin-right: 7px">phone</md-icon>
+                          <span>{{userPhone}}</span>
+                          <md-icon style="margin-left: 7px">message</md-icon>
 
+                      </div>
+                  </div>
               </div>
           </div>
       </div>
-
-              <button *ngIf="numberRequest==1"
-                      (click)="openRequestData=!openRequestData"
-                      md-raised-button
-                      color="primary">
-                  Подробно</button>
-
 
       <data-request  *ngIf="openRequestData"
                      class="request-detail"
@@ -67,12 +67,22 @@
                      [requestId]="request.id">
       </data-request>
 
-      <button (click)="putPublishServiceRequest()"
-              md-raised-button
-              color="accent"
-              style="width: 100%"
-              type="button">
-          ОПУБЛИКОВАТЬ</button>
+
+
+      <div class="request-action">
+          <button (click)="putPublishServiceRequest()"
+                  md-raised-button
+                  color="accent"
+                  type="button">
+              Опубликовать</button>
+          <button (click)="putPublishServiceRequest()"
+                  md-raised-button
+                  color="accent"
+                  style="margin-left: 50px;"
+                  type="button">
+              Заблокировать</button>
+      </div>
+
 
   </div>
 </div>
