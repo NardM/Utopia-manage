@@ -7,8 +7,14 @@ import { Component } from '@angular/core';
   /*templateUrl: 'manage.component.html',
    styleUrls: ['manage.component.scss']*/
   template: `
-        <top-bar></top-bar>
-        <main>
+        <top-bar style="    position: fixed;
+    display: block;
+    width: 100%;
+    min-height: 50px;"></top-bar>
+        <main STYLE="position: fixed;
+    display: block;
+    width: 100%;
+    margin-top: 50px;"> 
             <left-bar>
                 <router-outlet></router-outlet>
             </left-bar>

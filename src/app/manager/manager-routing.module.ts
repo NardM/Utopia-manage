@@ -25,7 +25,8 @@ const managerRoutes: Routes = [
                 path: '',
                 children: [
                   { path: '', component: RequestsNewComponent },
-                  { path: 'route', component: MapsGoogleRouteDialogComponent },
+                    { path: 'new-requests', component: RequestsNewComponent },
+                    { path: 'route', component: MapsGoogleRouteDialogComponent },
                   { path: 'maps', component: MapsGoogleComponent },
                   /*{ path: 'users', component: ClientComponent },
                   { path: 'user/:id', component: FormClientItemComponent },

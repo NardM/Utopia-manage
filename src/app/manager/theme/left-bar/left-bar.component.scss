@@ -15,5 +15,8 @@
   }
   .main-outlet{
     flex: 8 0 auto;
+    min-height: calc(100vh - 50px);
+    max-height: calc(100vh - 50px);
+    overflow: auto
   }
 }
