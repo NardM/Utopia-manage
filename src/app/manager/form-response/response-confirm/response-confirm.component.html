@@ -1,0 +1,16 @@
+   <md-list>
+     <md-list-item>
+       <p md-line
+          *ngIf="confirm.company.company">
+         Принял: {{confirm.company.company.name}}
+       </p>
+       <p md-line
+          *ngIf="confirm.company.master">
+         Принял: {{confirm.company.master.first_name}} {{confirm.company.master.last_name}}
+       </p>
+       <p md-line>
+         Телефон: {{confirm.company.phone}}, Цена:  {{confirm.to_price}}₽
+       </p>
+     </md-list-item>
+
+   </md-list>

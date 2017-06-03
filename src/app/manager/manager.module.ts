@@ -32,6 +32,7 @@ import {MapsGoogleRouteDialogComponent} from "../component/dialog-maps-business/
 import {MapsGoogleComponent} from "../component/dialog-maps-business/maps/autoGoogle.component";
 import {AgmCoreModule} from "angular2-google-maps/core";
 import {ImagePopupModule} from "../component/angular2-image-popup/angular2-image-popup.modal";
+import {ItemConfirmComponent} from "./form-response/response-confirm/response-confirm.component";
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import {ImagePopupModule} from "../component/angular2-image-popup/angular2-image
     LeftBarComponent,
     TopBarComponent,
     MapsGoogleRouteDialogComponent,
-    MapsGoogleComponent
+    MapsGoogleComponent,
+    ItemConfirmComponent
 
   ],
   entryComponents: [
