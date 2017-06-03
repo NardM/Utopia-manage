@@ -37,8 +37,8 @@ declare var jQuery:any;
       {
         let connect: Connect = <Connect>{
           device_id: Cookie.get('device_id'),
-          role: 2,
-          app_type: 4,
+          role: 4,
+          app_type: 5,
           token: Cookie.get('login_token')
         };
         connection.request.server.connect(connect).done(res => {

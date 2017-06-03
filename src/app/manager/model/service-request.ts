@@ -18,7 +18,9 @@ export declare module ServiceRequestInterface {
     responses: number[];
     confirm_id: number;
     form_id: number;
+    logo: string;
     category_id: number;
+    category_name: string;
   }
 
   export interface ServiceRequest {

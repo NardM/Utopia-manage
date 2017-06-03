@@ -30,13 +30,13 @@ export class CategoryService {
     return this.constService.get<Category[]>(url, "categories");
   }
 
-  getCategories(){
+  getCategories(): Promise<Category[]>{
     return this.constService.get<Category[]>(this.categoriesUrl, "categories");
   }
 
-  getCategory(id: number | string){
-    let url = this.categoryUrl + '?count=100&offset=0';
-    return this.constService.getId<Category>(url, id, "categories");
+  getCategory(id: number): Promise<Category> {
+    let url = `${Consts.baseURL}v1/category/${id}`;
+    return this.constService.get<Category>(url);
   }
 
   getSubCategory(id: number) {

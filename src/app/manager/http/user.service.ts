@@ -27,18 +27,18 @@ import {PropertyInterface} from "../model/property";
 @Injectable()
 export class UserService {
 
-  private requestUrl = Consts.baseURL + 'manage/v1/request';
+  private requestUrl = Consts.baseURL + 'manage/v1/requests';
   private serviceRequestUrl = Consts.baseURL + 'manage/v1/service/request';
 
   constructor(private constService: ConstService) {
   }
 
-
-
-  getServiceRequest(id: number, offset?: number) {
-    let url = this.serviceRequestUrl +'?count=20&offset=' + offset + '&status_filter='+id;
-    return this.constService.get<Request[]>(url, 'requests');
+  getServiceRequest(id: number, offset?: number): Promise<ServiceRequest> {
+      let url = this.serviceRequestUrl + '?count=20&offset=' + offset + '&status_filter=' + id;
+      return this.constService.get<ServiceRequest>(url);
   }
+
+
  getServiceRequestChat(offset?: number) {
     let url = this.serviceRequestUrl +'?count=20&offset=' + offset;
     return this.constService.get<Request[]>(url, 'requests');

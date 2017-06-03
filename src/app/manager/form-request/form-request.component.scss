@@ -149,3 +149,18 @@ $rows-title-size:20px;
 .details {
   font-size: $rows-title-size;
 }
+
+
+.request {
+  .request-content {
+    .content{
+      display: flex;
+      flex-direction: row;
+      .request-img{
+        img{
+          width: 300px;
+        }
+      }
+    }
+  }
+}

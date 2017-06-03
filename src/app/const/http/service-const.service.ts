@@ -13,6 +13,11 @@ import {TokenService} from "../../manager/http/token.serviece";
 import {PropertyInterface} from "../../manager/model/property";
 import Property = PropertyInterface.Property;
 import {EmptyAnswer} from "../../manager/http/answer";
+import {Observer} from "rxjs/Observer";
+import {Consts} from "../app-const";
+import {Cookie} from "ng2-cookies";
+import {ImageResult, ResizeOptions} from "../../manager/model/interfaces";
+import {createImage, resizeImage} from "../../manager/http/utils";
 
 
 @Injectable()
@@ -174,7 +179,117 @@ export class ConstService {
       .catch(this.handleError);
   }
 
-  private handleError(error: Response | any) {
+
+    _imageThumbnail: any;
+    propagateChange = (_: any) => {};
+
+
+    get imageThumbnail() {
+        return this._imageThumbnail;
+    }
+
+    set imageThumbnail(value) {
+        this._imageThumbnail = value;
+        this.propagateChange(this._imageThumbnail);
+
+    }
+
+    getFile(url: string, authToken?: string, authTokenPrefix?: string): Observable<File> {
+        return Observable.create((observer: Observer<File>) => {
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.responseType = 'blob';
+
+            xhr.onload = () => {
+                let contentType = xhr.getResponseHeader('Content-Type');
+                let blob = new File([xhr.response], 'filename', {type: contentType});
+
+                if (blob.size > 0) {
+                    observer.next(blob);
+                    observer.complete();
+                } else {
+                    observer.error('No image');
+                    observer.complete();
+                }
+            };
+
+            xhr.setRequestHeader("Authorization", `${authTokenPrefix} ${authToken}`);
+
+            xhr.send();
+        });
+    }
+
+    getAvatar(url: string, mode?: string): Observable<string> {
+        return Observable.create((observer: Observer<string>) => {
+            let defaultImage: string = "";
+            switch (mode) {
+                case 'company':
+                    defaultImage = 'assets/icon/IconFirm.png';
+                    break;
+                case 'iconClinet':
+                    defaultImage  = 'assets/icon/client.png';
+                    break;
+                default:
+                    break;
+            }
+            this.getFile(Consts.baseURL + url, Cookie.get('login_you_token'), 'Bearer')
+                .subscribe(file => {
+                    // thumbnail
+                    let result: ImageResult = {
+                        file: file,
+                        url: URL.createObjectURL(file)
+                    };
+
+                    /* this.resize(result).then(r => {
+                     this._imageThumbnail = r.resized.dataURL;
+                     });
+                     */
+                    this.fileToDataURL(file, result).then(r => {
+                        observer.next(r.dataURL);
+                    });
+                });
+        });
+    }
+
+    private resize(result: ImageResult): Promise<ImageResult> {
+        let resizeOptions: ResizeOptions = {
+            resizeType: result.file.type,
+        };
+
+        return new Promise((resolve) => {
+            createImage(result.url, image => {
+                let dataUrl = resizeImage(image, resizeOptions);
+
+                result.width = image.width;
+                result.height = image.height;
+                result.resized = {
+                    dataURL: dataUrl,
+                    type: this.getType(dataUrl)
+
+                };
+
+                resolve(result);
+            });
+        });
+    }
+
+    private getType(dataUrl: string) {
+        return dataUrl.match(/:(.+\/.+;)/)[1];
+    }
+
+    private fileToDataURL(file: File, result: ImageResult): Promise<ImageResult> {
+        return new Promise((resolve) => {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                result.dataURL = reader.result;
+                resolve(result);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+
+    private handleError(error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {
       const body = error.json() || '';

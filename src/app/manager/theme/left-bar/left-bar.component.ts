@@ -5,6 +5,7 @@
  * Created by nardm on 08.12.16.
  */
 import { Component } from '@angular/core';
+import {UserService} from "../../http/user.service";
 
 @Component({
     selector: 'left-bar',
@@ -13,7 +14,7 @@ import { Component } from '@angular/core';
 })
 export class LeftBarComponent {
 
-    constructor() {
+    constructor(private service: UserService) {
     }
 
 

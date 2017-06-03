@@ -3,7 +3,7 @@
       [infiniteScrollDistance]="scrollDistance"
       [infiniteScrollThrottle]="throttle"
       (scrolled)="onScrollDown()">
-        <div *ngFor="let request of requestServices" [class.selected]="request === selectedRequest">
-          <form-request (deleteRequest)="deleteRequest($event)" [requestServices]="request" [numberRequest]="1"></form-request>
+        <div *ngFor="let request of requests" [class.selected]="request === selectedRequest">
+          <form-request (deleteRequest)="deleteRequest($event)" [request]="request" [numberRequest]="1"></form-request>
         </div>
 </div>

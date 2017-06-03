@@ -7,8 +7,8 @@ import { Router }            from '@angular/router';
 import {CategoryService} from "../../manage/category/http/category.service";
 import {ServiceResponsesInterface} from "../model/service-responses";
 import {ClientService} from "../clients/http/client.service";
-import {RequestConfirmInterface} from "../model/service-request-confirm";
-import {ServiceRequestInterface} from "../model/service-request";
+import {RequestConfirmInterface} from "../model/service-requests-confirm";
+import {ServiceRequestInterface} from "../model/service-requests";
 import {Consts} from "../../../const/app-const";
 import ServiceRequestData = ServiceRequestDataInterface.ServiceRequestData;
 import {ServiceRequestDataInterface} from "../../model/service-request-data";
@@ -53,7 +53,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
 
 
   getServicePhoto(requestId: number){
-    return 'http://smartapi.ru/v1/manage/request/photo/'+ requestId;
+    return 'http://smartapi.ru/v1/manage/requests/photo/'+ requestId;
   }
 
   getRequestData() {

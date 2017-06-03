@@ -27,6 +27,7 @@ import {CarouselModule, Ng2BootstrapModule} from "ngx-bootstrap";
 import {SelectModule} from 'ng2-select'
 import {RequestManagerHub} from "./http/hubs/RequestHub";
 import {TopBarComponent} from "./theme/top-bar/top-bar.component";
+import {ServiceRequestStore} from "./http/request";
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import {TopBarComponent} from "./theme/top-bar/top-bar.component";
     UserService,
     CategoryService,
     RequestManagerHub,
+    ServiceRequestStore
   ],
   exports: []
 
