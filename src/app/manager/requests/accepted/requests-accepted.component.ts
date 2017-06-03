@@ -8,6 +8,8 @@ import {UserService} from "../../http/user.service";
 import ServiceRequest = ServiceRequestInterface.ServiceRequest;
 import {ServiceRequestInterface} from "../../model/service-request";
 import Request = ServiceRequestInterface.Request;
+import {CategoryService} from "../../http/category.service";
+import {Category} from "../../model/category";
 
 @Component({
 
@@ -23,8 +25,10 @@ export class RequestsAcceptedComponent implements OnInit {
   throttle = 300;
   scrollDistance = 1;
   blockUpload: boolean = false;
+    categories: Category[];
 
   constructor(private router: Router,
+              private categoryService: CategoryService,
               private userService: UserService) {
   }
 
@@ -36,10 +40,16 @@ export class RequestsAcceptedComponent implements OnInit {
           return;
         }
         res.requests.map(item => {
-          this.requestServices.push(item)
+            this.requestServices.push(this.onPushCategoryInRequest(item))
         })
       });
   }
+
+    onPushCategoryInRequest(request: Request) {
+        let self = this;
+        request.category_name = self.categories.find(res => res.id === request.category_id).name;
+        return request;
+    }
 
   onScrollDown() {
     // add another 20 items

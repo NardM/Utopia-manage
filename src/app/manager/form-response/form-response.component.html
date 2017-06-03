@@ -6,7 +6,7 @@
         Компания: {{response.company.company.name}}
       </p>
       <p md-line
-         *ngIf="response.master">
+         *ngIf="response.company.master">
         Мастер: {{response.company.master.first_name}} {{response.company.master.last_name}}
       </p>
       <p md-line>
@@ -14,5 +14,8 @@
       </p>
     </md-list-item>
     <md-divider></md-divider>
+  </div>
+  <div *ngIf="responses.length===0" style="padding: 2em">
+    Пока нет предложений
   </div>
 </md-list>
