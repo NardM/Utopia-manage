@@ -42,6 +42,7 @@ export class FormRequestComponent implements OnInit {
   requestConfirm: RequestConfirm;
   userPhone: string = "";
   openRequestData: boolean = false;
+  sidnavBool: boolean = false;
 
   constructor(private categoryService: CategoryService,
               private userService: UserService,
@@ -51,6 +52,10 @@ export class FormRequestComponent implements OnInit {
 
   onLoad() {
     this.getClient(this.request.user_id);
+  }
+
+  onSidnav(){
+      this.sidnavBool = true;
   }
 
   getClient(userId: number) {

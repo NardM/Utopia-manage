@@ -5,62 +5,78 @@
   </div>
 
   <div class="request-content">
-      <div class="content">
-          <div class="request-img">
-              <img [src]="request.logo"
-                   onerror="this.src='assets/img/IconDefoltImage.png'">
-          </div>
-          <div class="request-base-template">
-              <div class=" title-request" >
-                  Категория
-              </div>
+      <md-sidenav-container class="example-container">
+          <md-sidenav #sidenav class="example-sidenav">
+              <form-response [requestId]="request.id" *ngIf="sidnavBool"></form-response>
+          </md-sidenav>
 
-              <div class=" title rez">
-                  {{request.category_name}}
-              </div>
+          <div class="example-sidenav-content">
+              <div class="content">
+                  <div class="request-img">
+                      <img [src]="request.logo"
+                           onerror="this.src='assets/img/IconDefoltImage.png'">
+                  </div>
+                  <div class="request-base-template">
+                      <div class=" title-request" >
+                          Категория
+                      </div>
 
-              <div class=" title-request" >
-                  {{request.title_label}}
-              </div>
+                      <div class=" title rez">
+                          {{request.category_name}}
+                      </div>
 
-              <div class=" title rez">
-                  {{request.title}}
-              </div>
+                      <div class=" title-request" >
+                          {{request.title_label}}
+                      </div>
 
-              <div class=" title-request" >
-                  {{request.subtitle_label}}
-              </div>
+                      <div class=" title rez">
+                          {{request.title}}
+                      </div>
 
-              <div class=" subtitle rez">
-                  {{request.subtitle}}
-              </div>
+                      <div class=" title-request" >
+                          {{request.subtitle_label}}
+                      </div>
 
-              <div class=" title-request" >
-                  {{request.details_label}}
-              </div>
+                      <div class=" subtitle rez">
+                          {{request.subtitle}}
+                      </div>
 
-              <div class=" details rez">
-                  {{request.details}}
-              </div>
+                      <div class=" title-request" >
+                          {{request.details_label}}
+                      </div>
 
-              <div class="request-actions">
-                  <hr>
-                  <div class="request-info">
-                      <button *ngIf="numberRequest==1"
-                              (click)="openRequestData=!openRequestData"
-                              md-raised-button
-                              color="primary">
-                          Подробно</button>
-                      <div class="phone">
-                          <md-icon style="margin-right: 7px">phone</md-icon>
-                          <span>{{userPhone}}</span>
-                          <md-icon style="margin-left: 7px">message</md-icon>
+                      <div class=" details rez">
+                          {{request.details}}
+                      </div>
 
+                      <div class="request-actions">
+                          <hr>
+                          <div class="request-info">
+                              <button (click)="openRequestData=!openRequestData"
+                                      md-raised-button
+                                      color="primary">
+                                  Подробно</button>
+
+                              <div class="phone">
+                                  <md-icon style="margin-right: 7px">phone</md-icon>
+                                  <span>{{userPhone}}</span>
+                                  <md-icon style="margin-left: 7px">message</md-icon>
+                              </div>
+                              <button md-mini-fab
+                                      *ngIf="numberRequest==2"
+                                      class="business"
+                                      mdTooltip="Предложения"
+                                      (click)="sidenav.open()&&onSidnav()">
+                                  <md-icon>business</md-icon></button>
+                          </div>
                       </div>
                   </div>
               </div>
+
+
           </div>
-      </div>
+
+      </md-sidenav-container>
 
       <hr *ngIf="openRequestData">
       <data-request  *ngIf="openRequestData"

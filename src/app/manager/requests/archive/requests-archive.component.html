@@ -3,9 +3,7 @@
       [infiniteScrollDistance]="scrollDistance"
       [infiniteScrollThrottle]="throttle"
       (scrolled)="onScrollDown()">
-<ul class="requestServices">
-  <li *ngFor="let request of requestServices">
+  <div *ngFor="let request of requestServices">
     <form-request [request]="request" [numberRequest]="3"></form-request>
-  </li>
-</ul>
+  </div>
 </div>

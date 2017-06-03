@@ -103,3 +103,12 @@ button.editor{
   text-align: center;
   font-family: $Caviar;
 }
+.search-results{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+  margin-left: 10%;
+  margin-bottom: 5em;
+  margin-top: 2em;
+}

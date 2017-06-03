@@ -1,42 +1,18 @@
-<div *ngIf="!selectBool">
-  <ul >
-    <li *ngFor="let response of responses">
-      <div class="text-response">
-        <span class="name-company" *ngIf="response.company.company">
-          {{response.company.company.name}}
-        </span>
-        <span class="name-company" *ngIf="response.master">
-          {{response.company.master.first_name}}
-        </span>
-        <span style="padding-left: 5em">
-        <span> <i class="fa fa-phone" aria-hidden="true"></i></span>
-        {{response.company.phone}}
-          </span>
-        <span *ngIf="response.from_price==response.to_price" style="padding-left: 5em">
-        {{response.from_price}} Р
-        </span>
-        <span *ngIf="response.from_price!=response.to_price" style="padding-left: 5em">
-        От {{response.from_price}} Р до
-        {{response.to_price}} Р
-        </span>
-      </div>
-    </li>
-  </ul>
-</div>
-<div class="box">
-    <div (click)="selectBool = !selectBool" *ngIf="selectBool" class="response">
-      <label>предложения</label>
-          <i style="float: right;
-                     font-size: 26px;
-                     padding-right: 0.2em;"
-              class="fa fa-caret-down" aria-hidden="true"></i>
-    </div>
-
-    <div (click)="selectBool = !selectBool" *ngIf="!selectBool" class="response">
-      <label ></label>
-          <i style="float: right;
-                     font-size: 26px;
-                     padding-right: 0.2em;"
-              class="fa fa-caret-up" aria-hidden="true"></i>
-    </div>
-</div>
+<md-list *ngIf="responses" dense>
+  <div *ngFor="let response of responses">
+    <md-list-item>
+      <p md-line
+         *ngIf="response.company.company">
+        Компания: {{response.company.company.name}}
+      </p>
+      <p md-line
+         *ngIf="response.master">
+        Мастер: {{response.company.master.first_name}} {{response.company.master.last_name}}
+      </p>
+      <p md-line>
+        Телефон: {{response.company.phone}}, Цена:  {{response.to_price}}₽
+      </p>
+    </md-list-item>
+    <md-divider></md-divider>
+  </div>
+</md-list>

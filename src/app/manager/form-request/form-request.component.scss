@@ -198,6 +198,10 @@ $rows-title-size:16px;
               display: flex;
               margin-left: 25px;
             }
+            .business{
+              position: absolute;
+              right: 20px;
+            }
           }
         }
       }
@@ -214,4 +218,9 @@ $rows-title-size:16px;
       margin-left: 20%;
     }
   }
+}
+
+.example-container{
+  max-height: 300px;
+  overflow: auto;
 }
