@@ -5,6 +5,7 @@
  * Created by nardm on 08.12.16.
  */
 import { Component } from '@angular/core';
+import {GlobalState} from "../../global.state";
 
 @Component({
     selector: 'top-bar',
@@ -13,22 +14,17 @@ import { Component } from '@angular/core';
 })
 export class TopBarComponent {
 
-    constructor() {
+    public isMenuCollapsed:boolean = false;
+
+    constructor(private _state: GlobalState) {
+        this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
+            this.isMenuCollapsed = isCollapsed;
+        });
     }
 
-
-    navLinks: { href: string, label: string }[] = [
-        {
-            href: './new-requests', label: 'НОВЫЕ ЗАЯВКИ',
-        },
-        {
-            href: './published-requests', label: 'ОПУБЛИКОВАННЫЕ',
-        },
-        {
-            href: './accepted-requests', label: 'ПРИНЯТЫЕ ЗАЯВКИ  ',
-        },
-        {
-            href: './archive-requests', label: 'АРХИВ  ',
-        },
-    ];
+    public onCollapse() {
+        this.isMenuCollapsed = !this.isMenuCollapsed;
+        this._state.notifyDataChanged('menu.isCollapsed', this.isMenuCollapsed);
+        return false;
+    }
 }

@@ -1,16 +1,24 @@
 @import '../style';
 
+.isCollapsed{
+  width: 53px !important;
+  flex: 0 0 auto !important;
+}
+
 .main{
   display: flex;
   flex-direction: row;
   .left-bar{
     flex: 1 0 auto;
     background-color: $defaultColor;
-    width: 10%;
+    width: 13%;
     md-nav-list{
       color: white;
       a{
         color: white;
+        md-icon{
+          margin-right: 13px;
+        }
       }
     }
   }
