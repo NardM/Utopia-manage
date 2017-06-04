@@ -176,9 +176,10 @@ footer{
   height: calc(100vh - 10em);
 }
 
+/deep/ .mat-tab-label {
+  min-width: 50% !important;
+}
 
 .actions-basket{
-  .mat-tab-label {
-    min-width: 1px !important;
-  }
+
 }

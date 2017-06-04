@@ -29,7 +29,6 @@ export class RequestListComponent implements OnChanges {
 
     ngOnChanges() {
         if (this.takeBool !== undefined) {
-            debugger;
             if (this.takeBool) {
                 this.getRequestsTake()
             }

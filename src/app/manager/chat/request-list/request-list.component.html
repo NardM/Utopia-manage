@@ -4,25 +4,27 @@
        [class.selected]="request === selectedRequest"
        class="request"
        (click)="onSelectRequest(request, ind)" >
-    <div class='request-info'>
-      <div class="request-name">
-        Заказ: {{request.id}}
+    <div class="main-request">
+      <div class='request-info'>
+        <div class="request-name">
+          Заказ: {{request.id}}
+        </div>
+        <div class="request-status">
+          {{StatusRequest(request.status)}}
+        </div>
       </div>
-      <div [ngStyle]="{'color': expression, 'font-size': '17px'}">
-        {{StatusRequest(request.status)}}
+      <div class="request-action">
+        <div class="top">
+          <md-icon>bookmark_border</md-icon>
+          <md-checkbox></md-checkbox>
+        </div>
+        <div class="bottom">
+          <md-icon>
+            mail
+          </md-icon>
+        </div>
       </div>
     </div>
-    <div class="request-action">
-      <div class="top">
-        <md-icon>bookmark_border</md-icon>
-        <md-checkbox></md-checkbox>
-      </div>
-      <div class="bottom">
-        <md-icon>
-          mail
-        </md-icon>
-      </div>
-      </div>
     <hr>
   </div>
 </div>

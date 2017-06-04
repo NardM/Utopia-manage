@@ -1,8 +1,49 @@
-.requests{
-  .request{
-
+.requests {
+  max-height: calc(100vh - 4em - 48px - 64px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  .request {
+    .main-request {
+      display: flex;
+      flex-direction: row;
+      padding: 9px;
+      .request-info {
+        flex: 1 0 auto;
+        width: 75%;
+        .request-name {
+          font-size: 16px;
+        }
+        .request-status {
+          font-size: 13px;
+          margin-top: 5px;
+        }
+      }
+      .request-action {
+        flex: 1 0 auto;
+        width: 25%;
+        .top {
+          display: flex;
+          justify-content: space-between;
+          align-items: stretch;
+          md-icon {
+            margin-left: 7px;
+            margin-top: -2px;
+          }
+        }
+        .bottom {
+          display: flex;
+          justify-content: flex-start;
+          /* margin-right: -1px; */
+          margin-left: 7px
+        }
+      }
+    }
+    hr {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
-  .selected{
+  .selected {
     background: #F5F5F5;
   }
 }

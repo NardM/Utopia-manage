@@ -1,7 +1,7 @@
 <div class="col-md-9">
   <div class="row">
     <div class="col-md-3 not-pad"
-         style="    width: 21%;">
+         style="    width: 35%;">
       <div class="search-chats">
         <div class="search">
           <md-icon>
@@ -10,16 +10,16 @@
           <input type="search" disabled>
         </div>
         <div class="actions-basket">
-          <md-tab-group [dynamicHeight]="23">
+          <md-tab-group [dynamicHeight]="true">
             <md-tab>
-              <ng-template md-tab-label>
+              <ng-template md-tab-label style="max-width: 20px">
                Активные
               </ng-template>
-           <!--<request-list [takeBool]="true"></request-list>-->
+           <request-list [takeBool]="true"></request-list>
             </md-tab>
             <md-tab>
-              <ng-template md-tab-label>
-                <md-icon>thumb_down</md-icon> Новые
+              <ng-template md-tab-label style="max-width: 20px">
+               Новые
               </ng-template>
               <request-list [takeBool]="false"></request-list>
             </md-tab>
