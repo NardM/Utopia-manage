@@ -7,6 +7,7 @@ import {ChatHub} from "./chatObs";
 import {RequestManagerHub} from "../http/hubs/RequestHub";
 import {BasketRequestInterface} from "./Model/BasketRequest";
 import BasketRequest = BasketRequestInterface.BasketRequest;
+import Request = BasketRequestInterface.Request;
 
 
 @Component({
@@ -39,8 +40,16 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   requestsTake: BasketRequest;
   requests: BasketRequest;
+  inputRequestTake: Request;
+  inputRequestBasket: Request;
 
+  onSelectInputBasket(event: Request){
+    this.inputRequestBasket = event;
+  }
 
+  onSelectInputTake(event: Request){
+    this.inputRequestTake = event;
+  }
 
 
 

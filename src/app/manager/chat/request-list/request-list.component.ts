@@ -8,12 +8,25 @@ import {ChatService} from "../chat/chat.service";
 import Request = BasketRequestInterface.Request;
 import {BasketRequestInterface} from "../Model/BasketRequest";
 import BasketRequest = BasketRequestInterface.BasketRequest;
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 
 @Component({
     selector: 'request-list',
     templateUrl: 'request-list.component.html',
-    styleUrls:['request-list.component.scss']
+    styleUrls:['request-list.component.scss'],
+    animations: [
+        trigger('activeRequest', [
+            state('in', style({transform: 'translateX(0)'})),
+            transition('void => *', [
+                style({transform: 'translateX(-100%)'}),
+                animate(100)
+            ]),
+            transition('* => void', [
+                animate(100, style({transform: 'translateX(100%)'}))
+            ])
+        ])
+    ]
 })
 export class RequestListComponent implements OnChanges {
     constructor(private route: ActivatedRoute,
@@ -23,9 +36,11 @@ export class RequestListComponent implements OnChanges {
 
     requests: BasketRequest;
     @Input() takeBool: boolean;
+    @Input() inRequest: Request;
     @Output() selectOutput = new EventEmitter<Request>();
     selectedRequest: Request;
     expression: string = "#009DDF";
+    indexDelete: number;
 
     ngOnChanges() {
         if (this.takeBool !== undefined) {
@@ -35,6 +50,10 @@ export class RequestListComponent implements OnChanges {
             else {
                 this.getBasketRequests();
             }
+        }
+        if (this.inRequest) {
+            debugger;
+            this.requests.requests.unshift(this.inRequest);
         }
     }
 
@@ -51,8 +70,19 @@ export class RequestListComponent implements OnChanges {
     }
 
 
+    onChange(event, request: Request, ind: number) {
+        debugger;
+        if (event.checked) {
+            //this.requests.requests = this.requests.requests.filter(res => res !== request);
+            this.indexDelete  = ind;
+            //this.selectOutput.emit(request)
+
+        }
+    }
+
+
     onSelectRequest(request: Request, ind: number) {
-        this.selectOutput.emit(request)
+
     }
 
     StatusRequest(status: number) {

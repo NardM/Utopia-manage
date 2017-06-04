@@ -4,7 +4,7 @@
        [class.selected]="request === selectedRequest"
        class="request"
        (click)="onSelectRequest(request, ind)" >
-    <div class="main-request">
+    <div class="main-request" [@activeRequest]="indexDelete===ind?'void':''">
       <div class='request-info'>
         <div class="request-name">
           Заказ: {{request.id}}
@@ -15,8 +15,8 @@
       </div>
       <div class="request-action">
         <div class="top">
-          <md-icon>bookmark_border</md-icon>
-          <md-checkbox></md-checkbox>
+          <md-icon>bookmark</md-icon>
+          <md-checkbox (change)="onChange($event, request, ind)"></md-checkbox>
         </div>
         <div class="bottom">
           <md-icon>

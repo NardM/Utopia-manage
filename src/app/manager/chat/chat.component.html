@@ -15,46 +15,29 @@
               <ng-template md-tab-label style="max-width: 20px">
                Активные
               </ng-template>
-           <request-list [takeBool]="true"></request-list>
+           <request-list [takeBool]="true"
+                         (selectOutput)="onSelectInputBasket($event)"
+                          [inRequest]="inputRequestTake"></request-list>
             </md-tab>
             <md-tab>
               <ng-template md-tab-label style="max-width: 20px">
                Новые
               </ng-template>
-              <request-list [takeBool]="false"></request-list>
+              <request-list [takeBool]="false"
+                            (selectOutput)="onSelectInputTake($event)"
+                            [inRequest]="inputRequestBasket"></request-list>
             </md-tab>
           </md-tab-group>
-        </div>
-
-        <div  class="list-chats" id="chatsId">
-          <!--<md-list>
-            <div *ngFor="let chat of chats; let ind=index"
-                 [class.selected]="chat === selectedChat"
-                 (click)="onSelectChat(chat, ind)" >
-              <md-list-item>
-                <img  md-list-avatar src='assets/icon/client.png'>
-                <h1 md-line class="top-panel">{{chat.name}}
-                  <span *ngIf="chat === selectedChat"
-                        style="font-weight: 900;"> •</span>
-                </h1>
-                <p md-line class="last-message">
-                  {{chat.messages.length>0?
-                  chat.messages[chat.messages.length-1]?.text:""}}
-                </p>
-              </md-list-item>
-              <md-divider></md-divider>
-            </div>
-          </md-list>-->
         </div>
       </div>
     </div>
 
 
 
-   <!-- <div class="col-md-9 not-pad" style="width: 56%;">
-      <div class="title-chat" *ngIf="chat">
+  <div class="col-md-9 not-pad" style="width: 56%;">
+      <div class="title-chat" *ngIf="selectedChat">
         <md-toolbar >
-          <span style="color: #757575"> Чат {{chat.id}}</span>
+          <span style="color: #757575"> Чат {{selectedChat.id}}</span>
           <span class="example-spacer"></span>
           <button *ngIf="notificationsActive" md-icon-button >
             <md-icon>notifications_off</md-icon>
@@ -66,21 +49,21 @@
       </div>
       <div class="chat-item"
            *ngIf="chat">
-       <chat-item-business *ngIf="chat.messages_total_count>0"
+       <!--<chat-item-business *ngIf="chat.messages_total_count>0"
                            [chatMessage]="chat"
                            (chatMessageOutput)="onPushChat($event)">
-       </chat-item-business>
+       </chat-item-business>-->
       </div>
-      <div class="title-chat" *ngIf="!chat">
+      <div class="title-chat" *ngIf="!selectedChat">
         <md-toolbar >
         </md-toolbar>
       </div>
-      <div class="chat-item no-chat col-md-12" *ngIf="!chat&&chats.length>0">
+      <div class="chat-item no-chat col-md-12" *ngIf="!selectedChat">
          <span class="col-md-12 default-text">
            Выберите чат
             </span>
       </div>
-      <div class="chat-item no-chat" *ngIf="chats.length===0">
+      <div class="chat-item no-chat" *ngIf="!selectedChat">
         <img  class="center-block" style="width: 50%;    margin-top: 3em;" src="assets/img/3.png">
         <span   class="col-md-12 default-text">
               Здесь будет Ваш<br>
@@ -91,6 +74,6 @@
 
 
 
-    </div>-->
+    </div>
   </div>
 </div>
