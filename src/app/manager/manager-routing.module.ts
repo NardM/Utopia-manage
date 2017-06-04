@@ -15,6 +15,7 @@ import {ClientComponent} from "./clients/client.component";
 import {FormClientItemComponent} from "./clients/form-client/client/client.component";
 import {MapsGoogleRouteDialogComponent} from "../component/dialog-maps-business/dialog-route/route.component";
 import {MapsGoogleComponent} from "../component/dialog-maps-business/maps/autoGoogle.component";
+import {ChatComponent} from "./chat/chat.component";
 
 const managerRoutes: Routes = [
     {
@@ -26,6 +27,7 @@ const managerRoutes: Routes = [
                 children: [
                   { path: '', component: RequestsNewComponent },
                     { path: 'new-requests', component: RequestsNewComponent },
+                    { path: 'chat', component: ChatComponent },
                     { path: 'route', component: MapsGoogleRouteDialogComponent },
                   { path: 'maps', component: MapsGoogleComponent },
                  /* { path: 'users', component: ClientComponent },

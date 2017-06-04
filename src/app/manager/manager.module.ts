@@ -33,6 +33,11 @@ import {MapsGoogleComponent} from "../component/dialog-maps-business/maps/autoGo
 import {AgmCoreModule} from "angular2-google-maps/core";
 import {ImagePopupModule} from "../component/angular2-image-popup/angular2-image-popup.modal";
 import {ItemConfirmComponent} from "./form-response/response-confirm/response-confirm.component";
+import {ChatService} from "./chat/chat/chat.service";
+import {ChatItemComponent} from "./chat/chat/chat.component";
+import {ChatComponent} from "./chat/chat.component";
+import {ChatHub} from "./chat/chatObs";
+import {RequestListComponent} from "./chat/request-list/request-list.component";
 
 
 @NgModule({
@@ -72,7 +77,10 @@ import {ItemConfirmComponent} from "./form-response/response-confirm/response-co
     TopBarComponent,
     MapsGoogleRouteDialogComponent,
     MapsGoogleComponent,
-    ItemConfirmComponent
+    ItemConfirmComponent,
+    ChatItemComponent,
+    ChatComponent,
+    RequestListComponent,
 
   ],
   entryComponents: [
@@ -83,7 +91,9 @@ import {ItemConfirmComponent} from "./form-response/response-confirm/response-co
     UserService,
     CategoryService,
     RequestManagerHub,
-    ServiceRequestStore
+    ServiceRequestStore,
+    ChatService,
+    ChatHub
   ],
   exports: []
 

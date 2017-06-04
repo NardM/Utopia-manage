@@ -20,6 +20,9 @@ export class LeftBarComponent {
 
     navLinks: { href: string, label: string }[] = [
         {
+            href: './chat', label: 'СЧАТ',
+        },
+        {
             href: './new-requests', label: 'НОВЫЕ ЗАЯВКИ',
         },
         {

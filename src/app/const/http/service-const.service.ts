@@ -137,6 +137,8 @@ export class ConstService {
       .catch(this.handleError);
   }
 
+
+
   put<T>(url: string, item: T): Promise<T> {
     return this.tokenService.token()
       .map(token => new Headers({
@@ -152,18 +154,18 @@ export class ConstService {
       .catch(this.handleError);
   }
 
-  postSingle(url: string) {
-    return this.tokenService.token()
-      .map(token => new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }))
-      .mergeMap(headers => this.http
-        .post(url, null,
-          {headers: headers})
-        .map(a => a.json()))
-      .toPromise()
-      .catch(this.handleError);
+  postSingle<T>(url: string): Promise<T> {
+      return this.tokenService.token()
+          .map(token => new Headers({
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+          }))
+          .mergeMap(headers => this.http
+              .post(url, null,
+                  {headers: headers})
+              .map(a => a.json()))
+          .toPromise()
+          .catch(this.handleError);
   }
 
   delete(url: string) {

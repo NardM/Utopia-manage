@@ -1,0 +1,48 @@
+
+<div class="row">
+  <div *ngIf='orderId' class="col-md-12 title-chat">
+    <button *ngIf="!notificationsActive" md-icon-button>
+      <md-icon>notifications_off</md-icon>
+    </button>
+    <button *ngIf="!notificationsActive" md-icon-button>
+      <md-icon>notifications_active</md-icon>
+    </button>
+    <span class="example-spacer">  Заявка: {{orderId}}</span>
+    <button md-dialog-close	   md-icon-button >
+      <md-icon >close</md-icon>
+    </button>
+  </div>
+  <div class="col-xs-12   main-chat">
+          <div class="col-md-12 message-list" id="message-list">
+            <md-spinner *ngIf="!chatFlag" class="center-block" ></md-spinner>
+            <div *ngFor="let message of chats">
+              <div class="block-review"  >
+                <img   onerror="this.src='assets/icon/client.png'" src="{{getAvatar(message.skin_id)}}" >
+                <div class="item-review" >
+                  <div class="top-item">
+                    <div class="name-user" >{{message.name}}</div>
+                    <div class="date">
+                      {{message.date_string}}
+                    </div>
+                  </div>
+                  <div class="text-review">{{message.text}}</div>
+                </div>
+              </div>
+            </div>
+
+              </div>
+
+    <div class="col-md-12 message">
+      <md-input-container style="width: 83%; margin-left: 8%;">
+        <textarea mdInput
+                  [(ngModel)]="chat"
+                  style="color: black"
+                  class="msg"
+                  (keydown.control.Enter)="onPush()"
+                  placeholder="Введите сообщение"></textarea>
+      </md-input-container>
+      <button md-icon-button (click)="onPush()" class="float-right" color="primary"><md-icon>send</md-icon></button>
+    </div>
+
+  </div>
+</div>

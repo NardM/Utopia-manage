@@ -45,23 +45,24 @@ export class RequestDataComponent implements OnInit, OnChanges {
 
   orderData: ServiceRequestData[];
   orderDetailFlag: boolean = false;
-  chat_id: number= 0 ;
+  chat_id: number = 0;
   openImage: boolean = false;
   errorPostResponse: boolean = false;
   date: Date;
   dateAccess: number;
   dateAccessDate: number;
+
   ngOnChanges() {
     if (this.requestId) {
       this.getOrderData();
     }
   }
 
-  onPublishRequest(){
-
+  onPublishRequest() {
+    this.userService.putPublishServiceRequest(this.requestId)
   }
 
-  onDeniedRequest(){
+  onDeniedRequest() {
 
   }
 
@@ -69,6 +70,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
     let d = new Date(date);
     return d.toLocaleDateString();
   }
+
   convertDateTimeInString(date: number): string {
     let d = new Date(date);
     let result = d.toLocaleString('ru');
@@ -81,7 +83,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
 
   openModalWindow: boolean = false;
   imagePointer: number;
-  images: Array<{thumb: string, img: string, description: string}> = [];
+  images: Array<{ thumb: string, img: string, description: string }> = [];
 
   OpenImageModel(ind: number) {
     //alert('OpenImages');
@@ -93,6 +95,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
   cancelImageModel() {
     this.openModalWindow = false;
   }
+
   ///
 
 
@@ -107,7 +110,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
 
   public myInterval: number = 5000;
   public noWrapSlides: boolean = false;
-  public  slides: any[] = [];
+  public slides: any[] = [];
   public activeSlideIndex: number;
 
 
@@ -142,7 +145,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
           let bool: boolean = false;
           res.map(image => {
             if (image.type == 2) {
-              image.text = image.bool?"Да":"Нет";
+              image.text = image.bool ? "Да" : "Нет";
             }
             if (image.type == 5) {
               image.text = new Date(image.date).toLocaleDateString('ru', options);
@@ -159,13 +162,13 @@ export class RequestDataComponent implements OnInit, OnChanges {
               }
             }
             if (image.type == 9) {
-              image.text="";
-              image.selected.map(item=>{
-                image.text+=(item.value+", ")
+              image.text = "";
+              image.selected.map(item => {
+                image.text += (item.value + ", ")
               });
-              image.text = image.text.substr(0, image.text.length-2);
+              image.text = image.text.substr(0, image.text.length - 2);
             }
-            if (image.type==10) {
+            if (image.type == 10) {
               image.text = (Math.ceil(image.route.distance / 1000)).toString() + ' км';
             }
           });
@@ -176,10 +179,11 @@ export class RequestDataComponent implements OnInit, OnChanges {
           this.orderDetailFlag = true;
         });
   }
+
   postOrderBool: boolean = false;
 
 
-  onMaps(address){
+  onMaps(address) {
     let option: MdDialogConfig = new MdDialogConfig();
     option.disableClose = false;
     option.height = '450px';
@@ -190,7 +194,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
   }
 
 
-  onRoute(route){
+  onRoute(route) {
     let option: MdDialogConfig = new MdDialogConfig();
     option.disableClose = false;
     option.height = '600px';
@@ -200,13 +204,9 @@ export class RequestDataComponent implements OnInit, OnChanges {
   }
 
 
-
-  getServicePhoto(requestId: number){
-    return 'http://smartapi.ru/v1/manage/requests/photo/'+ requestId;
+  getServicePhoto(requestId: number) {
+    return 'http://smartapi.ru/v1/manage/requests/photo/' + requestId;
   }
-
-
-
 
 
 }
