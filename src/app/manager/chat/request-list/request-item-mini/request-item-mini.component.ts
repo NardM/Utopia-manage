@@ -34,7 +34,6 @@ export class RequestItemMiniComponent implements OnChanges {
     deleteRequestBool: boolean = false;
 
     ngOnChanges() {
-
     }
 
     onChange(event, request: Request, ind: number) {
