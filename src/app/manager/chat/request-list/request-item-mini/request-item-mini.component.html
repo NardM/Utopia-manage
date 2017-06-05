@@ -1,0 +1,27 @@
+
+<div [@flyInOut]="deleteRequestBool">
+    <div class="main-request"
+
+         *ngIf="request">
+      <div class='request-info'>
+        <div class="request-name">
+          Заказ: {{request.id}}
+        </div>
+        <div class="request-status">
+          {{StatusRequest(request.status)}}
+        </div>
+      </div>
+      <div class="request-action">
+        <div class="top">
+          <md-icon>bookmark</md-icon>
+          <md-checkbox (change)="onChange($event, request, ind)"></md-checkbox>
+        </div>
+        <div class="bottom">
+          <md-icon>
+            mail
+          </md-icon>
+        </div>
+      </div>
+    </div>
+    <hr>
+</div>

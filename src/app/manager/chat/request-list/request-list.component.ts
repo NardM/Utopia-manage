@@ -39,17 +39,21 @@ export class RequestListComponent implements OnChanges {
     @Input() inRequest: Request;
     @Output() selectOutput = new EventEmitter<Request>();
     selectedRequest: Request;
-    expression: string = "#009DDF";
     indexDelete: number;
+    requestFlagLoad: boolean = true;
+    flagLoad: boolean  = false;
 
     ngOnChanges() {
-        if (this.takeBool !== undefined) {
-            if (this.takeBool) {
-                this.getRequestsTake()
+        if (!this.flagLoad) {
+            if (this.takeBool !== undefined) {
+                if (this.takeBool) {
+                    this.getRequestsTake()
+                }
+                else {
+                    this.getBasketRequests();
+                }
             }
-            else {
-                this.getBasketRequests();
-            }
+            this.flagLoad = true;
         }
         if (this.inRequest) {
             debugger;
@@ -61,23 +65,22 @@ export class RequestListComponent implements OnChanges {
         this.service.getRequestsTake()
             .then(res => {
                 this.requests = res;
+                this.requestFlagLoad = false;
             })
     }
 
     getBasketRequests() {
         this.service.getBaskets()
-            .then(res => this.requests = res)
+            .then(res => {
+                this.requests = res;
+                this.requestFlagLoad = false;
+            })
     }
 
 
-    onChange(event, request: Request, ind: number) {
-        debugger;
-        if (event.checked) {
-            //this.requests.requests = this.requests.requests.filter(res => res !== request);
-            this.indexDelete  = ind;
-            //this.selectOutput.emit(request)
-
-        }
+    onSelectOutput(request: Request, ind: number) {
+        this.requests.requests = this.requests.requests.filter(res => res !== request);
+        this.selectOutput.emit(request)
     }
 
 
@@ -85,29 +88,5 @@ export class RequestListComponent implements OnChanges {
 
     }
 
-    StatusRequest(status: number) {
-        switch (status) {
-            case 0:
-                this.expression = "white";
-                return "Удаленный";
-            case 1:
-                this.expression = "#009DDF";
-                return "Созданый";
-            case 2:
-                this.expression = '#009DDF';
-                return 'Статус: Предложение отправлено';
-            case 3:
-                this.expression = '#df1f1c';
-                return 'Статус: Предложение отклонено';
-            case 4:
-                this.expression = '#57A73F';
-                return 'Статус: Предложение приянто';
-            case 5:
-                this.expression = '#009DDF';
-                return 'Заполненный';
-            case 6:
-                this.expression = '#009DDF';
-                return 'Рассмотренный';
-        }
-    }
+
 }
