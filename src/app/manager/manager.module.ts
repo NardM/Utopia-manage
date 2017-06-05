@@ -40,6 +40,7 @@ import {ChatHub} from "./chat/chatObs";
 import {RequestListComponent} from "./chat/request-list/request-list.component";
 import {GlobalState} from "./global.state";
 import {RequestItemMiniComponent} from "./chat/request-list/request-item-mini/request-item-mini.component";
+import {RequestItemComponent} from "./chat/request-list/reqiest-item/request-item.component";
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import {RequestItemMiniComponent} from "./chat/request-list/request-item-mini/re
     ChatItemComponent,
     ChatComponent,
     RequestListComponent,
-    RequestItemMiniComponent
+    RequestItemMiniComponent,
+    RequestItemComponent
 
   ],
   entryComponents: [

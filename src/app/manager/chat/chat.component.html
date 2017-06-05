@@ -37,41 +37,47 @@
 
   <div class="col-md-9 not-pad" style="width: 56%;">
       <div class="title-chat" *ngIf="selectedChat">
-        <md-toolbar >
-          <span style="color: #757575"> Чат {{selectedChat.id}}</span>
-          <span class="example-spacer"></span>
-          <button *ngIf="notificationsActive" md-icon-button >
-            <md-icon>notifications_off</md-icon>
-          </button>
-          <button *ngIf="!notificationsActive" md-icon-button >
-            <md-icon>notifications_active</md-icon>
-          </button>
-        </md-toolbar>
+          <md-toolbar >
+              <span style="color: #757575"> Чат {{selectedChat.id}}</span>
+              <span class="example-spacer"></span>
+              <button *ngIf="notificationsActive"
+                      md-icon-button >
+                  <md-icon>notifications_off</md-icon>
+              </button>
+              <button *ngIf="!notificationsActive"
+                      md-icon-button >
+                  <md-icon>notifications_active</md-icon>
+              </button>
+          </md-toolbar>
       </div>
       <div class="chat-item"
            *ngIf="selectedChatID">
-       <chat-item *ngIf="chat.messages_total_count>0"
-                           [chatMessage]="chat"
-                           (chatMessageOutput)="onPushChat($event)">
-       </chat-item>
+      <!-- <chat-item  [chatID]="selectedChatID">
+       </chat-item>-->
       </div>
-      <div class="title-chat" *ngIf="!selectedChatID">
+      <div class="title-chat"
+           *ngIf="!selectedChatID">
         <md-toolbar >
         </md-toolbar>
       </div>
-      <div class="chat-item no-chat col-md-12" *ngIf="!selectedChatID">
-         <span class="col-md-12 default-text">
-           Выберите чат
-            </span>
+      <div class="chat-item no-chat col-md-12"
+           *ngIf="!selectedChatID">
+          <span class="col-md-12 default-text">
+              Выберите чат
+          </span>
       </div>
-      <div class="chat-item no-chat" *ngIf="!selectedChatID">
-        <img  class="center-block" style="width: 50%;    margin-top: 3em;" src="assets/img/3.png">
-        <span   class="col-md-12 default-text">
+      <div class="chat-item no-chat"
+           *ngIf="!selectedChatID">
+          <img  class="center-block" style="width: 50%;    margin-top: 3em;" src="assets/img/3.png">
+          <span   class="col-md-12 default-text">
               Здесь будет Ваш<br>
               список чатов
-            </span>
+          </span>
       </div>
-
-    </div>
+  </div>
   </div>
 </div>
+<request-item class="col-md-3"
+              *ngIf="selectedRequest"
+              [request]="selectedRequest">
+</request-item>

@@ -32,17 +32,17 @@ export class ChatItemComponent implements  OnInit,
 OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
 
 
-  @Input() chatMessage: Chat;
-  @Output() chatMessageOutput = new EventEmitter<Message>();
+  @Input() chatID: number;
+  chat: Chat;
   skin_id: number;
-  chat_id: number=0;
+  message: string;
   date: Date;
-
+  totalCount: number = 0;
   constructor(private router: Router,
               @Inject(DOCUMENT) private document: Document,
               private chatServiceL: ChatService) {
     this.skin_id = Number(localStorage['skin_id_business']);
-    this.chat = "";
+    this.message = "";
     this.date = new Date();
   }
 
@@ -53,8 +53,35 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
     debugger;
   }
 
+
+  getChat(chatID: number) {
+    let self = this;
+    self.chatServiceL.getChat(chatID)
+        .then(res => {
+          self.totalCount = res.messages_total_count;
+          if (res.messages_total_count > 0) {
+            res.messages.map(item => {
+              item.date_string = self.dateConvert(item.date);
+            });
+            self.chat = res;
+          }
+          return res;
+        })
+  }
+
+
+  getMessages() {
+    let self = this;
+    self.chatServiceL.getChatMessage(self.chatID, 20, 20)
+  }
+
+
+
   ngOnChanges() {
     let self = this;
+    if (self.chatID){
+      self.getChat(self.chatID);
+    }
     if (self.message_list) {
       //let myDiv = document.getElementById('message-list');
       self.message_list.nativeElement.scrollTop = 99999999;
@@ -62,19 +89,19 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   }
 
   onPush() {
-    debugger;
-    if (this.chat === null || this.chat == undefined || this.chat === "")
+   /* debugger;
+    if (this.chat === null || this.chat == undefined || this.message === "")
       return;
     let self = this;
     let d = new Date();
     let skin_id: number = Number(localStorage['skin_id_business']);
-    let name: string = self.chatMessage.skins.skins.filter(res=>{
+    let name: string = self.skins.skins.filter(res=>{
       return skin_id === res.skin_id
     })[0].name;
     let date: number =d.getTime() + (d.getTimezoneOffset()*60000);
     let chat: Message = <Message>{
-      chat_id: self.chatMessage.id,
-      text: self.chat,
+      chat_id: self.chatID,
+      text: self.message,
       date: date,
       skin_id: self.skin_id,
       name: name
@@ -83,7 +110,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
     chat.date_string = self.dateConvert(date);
     self.chat = "";
     self.chatMessageOutput.emit(chat);
-    self.downChatScroll = true;
+    self.downChatScroll = true;*/
   }
 
   dateConvert(date: number): string {
@@ -101,8 +128,6 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   }
 
   downChatScroll: boolean = false;
-
-  chat: string;
 
   ngAfterViewInit() {
 

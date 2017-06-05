@@ -6,6 +6,7 @@
        class="request">
     <request-item-mini [request]="request"
                        [takeBool]="takeBool"
+                       [class.active]="request.active"
                        (selectRequest)="onSelectRequestOutput($event)"
                        (selectOutput)="onSelectOutput($event)">
     </request-item-mini>

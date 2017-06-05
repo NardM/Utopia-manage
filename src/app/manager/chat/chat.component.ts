@@ -8,6 +8,8 @@ import {RequestManagerHub} from "../http/hubs/RequestHub";
 import {BasketRequestInterface} from "./Model/BasketRequest";
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import Request = BasketRequestInterface.Request;
+import {CategoryService} from "../http/category.service";
+import {Category} from "../model/category";
 
 
 @Component({
@@ -20,9 +22,10 @@ export class ChatComponent implements OnInit, OnDestroy {
               private router: Router,
               private hub: RequestManagerHub,
               private serviceR: ChatHub,
+              private categoryService: CategoryService,
               private service: ChatService) {
     let self = this;
-
+    self.getCategories();
     this.date = new Date();
     let param_chat = {
       active: true,
@@ -36,6 +39,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   notificationsActive: boolean = true;
   date: Date;
   private subscription: Subscription;
+  categories: Category[];
 
 
 
@@ -54,10 +58,22 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   onSelectRequest(request: Request) {
     this.selectedChatID = request.chat_id;
-    this.selectedRequest = request;
+    this.selectedRequest = this.onPushCategoryInRequest(request);
+  }
+
+  getCategories() {
+    this.categoryService.getCategories()
+        .then(res => {
+          this.categories = res;
+        })
   }
 
 
+  onPushCategoryInRequest(request: Request) {
+    let self = this;
+    request.category_name = self.categories.find(res => res.id === request.category_id).name;
+    return request;
+  }
 
 
   ngOnDestroy() {

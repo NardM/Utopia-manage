@@ -88,6 +88,10 @@ export class RequestListComponent implements OnChanges {
     }
 
     onSelectRequestOutput(request: Request){
+        this.requests.requests.map(res=>{
+            res.active = false;
+        });
+        this.requests.requests.find(res=>res===request).active = true;
         this.selectRequest.emit(request);
     }
 

@@ -1,0 +1,33 @@
+@import "../../../form-request/form-request.component";
+
+
+.request-base-template{
+  margin: 10px 10px 10px 20px;
+  flex: 1 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  .request-actions{
+    button{
+      background-color: $defaultAction;
+    }
+    hr{
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .request-info{
+      display: flex;
+      /* justify-content: space-between; */
+      align-items: center;
+      margin-top: 10px;
+      .phone{
+        display: flex;
+        margin-left: 25px;
+      }
+      .business{
+        position: absolute;
+        right: 20px;
+      }
+    }
+  }
+}

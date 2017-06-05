@@ -45,9 +45,15 @@
     }
   }
   .request:hover{
-    background-color: #B2DFDB;
+    background-color: #E0F2F1;
   }
+
   .selected {
     background: #F5F5F5;
   }
+}
+
+.active{
+  background-color: #B2DFDB;
+  display: block;
 }

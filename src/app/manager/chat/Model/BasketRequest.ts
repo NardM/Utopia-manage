@@ -68,6 +68,7 @@ export declare module BasketRequestInterface {
 
     export interface Request {
         id: number;
+        active: boolean;
         status: number;
         from_color: string;
         to_color: string;
@@ -81,6 +82,7 @@ export declare module BasketRequestInterface {
         responses: Respons[];
         form_id: number;
         category_id: number;
+        category_name: string;
         need_distance: boolean;
         show_count: number;
         response_count: number;
