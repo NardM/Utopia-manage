@@ -38,10 +38,11 @@ export class RequestListComponent implements OnChanges {
     @Input() takeBool: boolean;
     @Input() inRequest: Request;
     @Output() selectOutput = new EventEmitter<Request>();
+    @Output() selectRequest = new EventEmitter<Request>();
     selectedRequest: Request;
     indexDelete: number;
     requestFlagLoad: boolean = true;
-    flagLoad: boolean  = false;
+    flagLoad: boolean = false;
 
     ngOnChanges() {
         if (!this.flagLoad) {
@@ -78,15 +79,16 @@ export class RequestListComponent implements OnChanges {
     }
 
 
-    onSelectOutput(request: Request, ind: number) {
+    onSelectOutput(request: Request) {
         this.requests.requests = this.requests.requests.filter(res => res !== request);
-        this.selectOutput.emit(request)
+        this.service.postRequestTake(request.id)
+            .then(res => {
+                this.selectOutput.emit(res.data)
+            });
     }
 
-
-    onSelectRequest(request: Request, ind: number) {
-
+    onSelectRequestOutput(request: Request){
+        this.selectRequest.emit(request);
     }
-
 
 }

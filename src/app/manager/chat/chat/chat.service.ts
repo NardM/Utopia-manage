@@ -17,6 +17,8 @@ import {ServiceRequestInterface} from "../../model/service-request";
 import Request = ServiceRequestInterface.Request;
 import {BasketRequestInterface} from "../Model/BasketRequest";
 import BasketRequest = BasketRequestInterface.BasketRequest;
+import RequestI = BasketRequestInterface.Request;
+import {EmptyAnswer} from "../../model/Answer";
 
 @Injectable()
 export class ChatService {
@@ -36,7 +38,7 @@ export class ChatService {
 
   postRequestTake(requestID: number) {
     let url = `${Consts.baseURL}v1/manager/request/${requestID}`;
-    return this.constService.postSingle<BasketRequest>(url);
+    return this.constService.postSingle<EmptyAnswer>(url);
   }
 
   getRequestTake(requestID: number) {

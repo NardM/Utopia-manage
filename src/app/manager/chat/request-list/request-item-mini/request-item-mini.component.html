@@ -1,9 +1,8 @@
 
-<div [@flyInOut]="deleteRequestBool">
     <div class="main-request"
-
          *ngIf="request">
-      <div class='request-info'>
+      <div class='request-info'
+      (click)="onOpenChat(request)">
         <div class="request-name">
           Заказ: {{request.id}}
         </div>
@@ -14,7 +13,7 @@
       <div class="request-action">
         <div class="top">
           <md-icon>bookmark</md-icon>
-          <md-checkbox (change)="onChange($event, request, ind)"></md-checkbox>
+          <md-checkbox (change)="onChange($event, request)"></md-checkbox>
         </div>
         <div class="bottom">
           <md-icon>
@@ -24,4 +23,3 @@
       </div>
     </div>
     <hr>
-</div>

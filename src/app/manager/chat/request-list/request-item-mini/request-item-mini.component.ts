@@ -29,23 +29,28 @@ export class RequestItemMiniComponent implements OnChanges {
     }
 
     @Input() request: Request;
+    @Input() takeBool: boolean = true;
     @Output() selectOutput = new EventEmitter<Request>();
+    @Output() selectRequest = new EventEmitter<Request>();
     expression: string = "#009DDF";
     deleteRequestBool: boolean = false;
 
     ngOnChanges() {
     }
 
-    onChange(event, request: Request, ind: number) {
+    onChange(event, request: Request) {
         debugger;
         if (event.checked) {
-            let timeAnimation = function func() {
+            if (!this.takeBool) {
                 this.deleteRequestBool = true;
+                this.selectOutput.emit(request);
             }
+        }
+    }
 
-            setTimeout(timeAnimation, 1000);
-
-            this.selectOutput.emit(request);
+    onOpenChat(request: Request){
+        if (this.takeBool){
+            this.selectRequest.emit(request)
         }
     }
 

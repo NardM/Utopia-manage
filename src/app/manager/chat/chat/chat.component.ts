@@ -23,7 +23,7 @@ import {DOCUMENT} from "@angular/platform-browser";
 import {Consts} from "../../../const/app-const";
 
 @Component({
-  selector: 'chat-item-business',
+  selector: 'chat-item',
   templateUrl: 'chat.component.html',
   styleUrls: ['chat.component.scss']
 })

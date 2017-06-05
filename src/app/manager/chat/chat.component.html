@@ -16,6 +16,7 @@
                Активные
               </ng-template>
            <request-list [takeBool]="true"
+                         (selectRequest)="onSelectRequest($event)"
                          (selectOutput)="onSelectInputBasket($event)"
                           [inRequest]="inputRequestTake"></request-list>
             </md-tab>
@@ -48,31 +49,28 @@
         </md-toolbar>
       </div>
       <div class="chat-item"
-           *ngIf="chat">
-       <!--<chat-item-business *ngIf="chat.messages_total_count>0"
+           *ngIf="selectedChatID">
+       <chat-item *ngIf="chat.messages_total_count>0"
                            [chatMessage]="chat"
                            (chatMessageOutput)="onPushChat($event)">
-       </chat-item-business>-->
+       </chat-item>
       </div>
-      <div class="title-chat" *ngIf="!selectedChat">
+      <div class="title-chat" *ngIf="!selectedChatID">
         <md-toolbar >
         </md-toolbar>
       </div>
-      <div class="chat-item no-chat col-md-12" *ngIf="!selectedChat">
+      <div class="chat-item no-chat col-md-12" *ngIf="!selectedChatID">
          <span class="col-md-12 default-text">
            Выберите чат
             </span>
       </div>
-      <div class="chat-item no-chat" *ngIf="!selectedChat">
+      <div class="chat-item no-chat" *ngIf="!selectedChatID">
         <img  class="center-block" style="width: 50%;    margin-top: 3em;" src="assets/img/3.png">
         <span   class="col-md-12 default-text">
               Здесь будет Ваш<br>
               список чатов
             </span>
       </div>
-
-
-
 
     </div>
   </div>

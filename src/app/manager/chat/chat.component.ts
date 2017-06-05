@@ -31,7 +31,8 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   chats: Array<Chat> = [];
   chat: Chat;
-  selectedChat: Chat;
+  selectedChatID: number;
+  selectedRequest: Request;
   notificationsActive: boolean = true;
   date: Date;
   private subscription: Subscription;
@@ -51,7 +52,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.inputRequestTake = event;
   }
 
-
+  onSelectRequest(request: Request) {
+    this.selectedChatID = request.chat_id;
+    this.selectedRequest = request;
+  }
 
 
 

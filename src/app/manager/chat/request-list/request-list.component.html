@@ -3,10 +3,11 @@
   <div *ngIf="!requestFlagLoad">
   <div *ngFor="let request of requests.requests; let ind=index"
        [class.selected]="request === selectedRequest"
-       class="request"
-       (click)="onSelectRequest(request, ind)" >
+       class="request">
     <request-item-mini [request]="request"
-                       (selectOutput)="onSelectOutput($event, ind)">
+                       [takeBool]="takeBool"
+                       (selectRequest)="onSelectRequestOutput($event)"
+                       (selectOutput)="onSelectOutput($event)">
     </request-item-mini>
   </div>
   </div>
