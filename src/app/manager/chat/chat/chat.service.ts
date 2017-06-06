@@ -66,8 +66,8 @@ export class ChatService {
     return this.constService.post<Message>(url, message);
   }
 
-  getSkin(skinID: number) {
-    let url = `${Consts.baseURL}/manage/v1/skin/${skinID}`;
+  getSkin(chatID: number) {
+    let url = `${Consts.baseURL}/manage/v1/chat/${chatID}/skin`;
     return this.constService.get<Skins>(url);
   }
 
@@ -82,8 +82,8 @@ export interface Message {
   date_string: string;
   date: number;
 }
+
 export interface Chat {
-  request_id: number;
   messages: Message[];
   messages_total_count: number;
   skins: Skins;
@@ -99,10 +99,10 @@ export interface Chats {
 }
 
 export interface Skin {
-  id: number;
-  icon_hash: number;
+  user_id: number;
+  role: number;
+  skin_id: number;
   name: string;
-  type: number;
 }
 
 export interface Skins {

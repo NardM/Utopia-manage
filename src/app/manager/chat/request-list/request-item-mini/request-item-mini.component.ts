@@ -39,7 +39,6 @@ export class RequestItemMiniComponent implements OnChanges {
     }
 
     onChange(event, request: Request) {
-        debugger;
         if (event.checked) {
             if (!this.takeBool) {
                 this.deleteRequestBool = true;

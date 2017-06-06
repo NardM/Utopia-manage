@@ -1,83 +1,85 @@
-<div class="col-md-9">
-  <div class="row">
-    <div class="col-md-3 not-pad"
-         style="    width: 35%;">
-      <div class="search-chats">
-        <div class="search">
-          <md-icon>
-            search
-          </md-icon>
-          <input type="search" disabled>
+<div class="chat">
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-3 not-pad"
+             style="    width: 35%;">
+          <div class="search-chats">
+            <div class="search">
+              <md-icon>
+                search
+              </md-icon>
+              <input type="search" disabled>
+            </div>
+            <div class="actions-basket">
+              <md-tab-group [dynamicHeight]="true">
+                <md-tab>
+                  <ng-template md-tab-label style="max-width: 20px">
+                   Активные
+                  </ng-template>
+               <request-list [takeBool]="true"
+                             (selectRequest)="onSelectRequest($event)"
+                             (selectOutput)="onSelectInputBasket($event)"
+                              [inRequest]="inputRequestTake"></request-list>
+                </md-tab>
+                <md-tab>
+                  <ng-template md-tab-label style="max-width: 20px">
+                   Новые
+                  </ng-template>
+                  <request-list [takeBool]="false"
+                                (selectOutput)="onSelectInputTake($event)"
+                                [inRequest]="inputRequestBasket"></request-list>
+                </md-tab>
+              </md-tab-group>
+            </div>
+          </div>
         </div>
-        <div class="actions-basket">
-          <md-tab-group [dynamicHeight]="true">
-            <md-tab>
-              <ng-template md-tab-label style="max-width: 20px">
-               Активные
-              </ng-template>
-           <request-list [takeBool]="true"
-                         (selectRequest)="onSelectRequest($event)"
-                         (selectOutput)="onSelectInputBasket($event)"
-                          [inRequest]="inputRequestTake"></request-list>
-            </md-tab>
-            <md-tab>
-              <ng-template md-tab-label style="max-width: 20px">
-               Новые
-              </ng-template>
-              <request-list [takeBool]="false"
-                            (selectOutput)="onSelectInputTake($event)"
-                            [inRequest]="inputRequestBasket"></request-list>
-            </md-tab>
-          </md-tab-group>
-        </div>
+
+
+
+      <div class="col-md-9 not-pad">
+          <div class="title-chat" *ngIf="selectedChatID">
+              <md-toolbar >
+                  <span style="color: #757575"> Чат {{selectedChatID}}</span>
+                  <span class="example-spacer"></span>
+                  <button *ngIf="notificationsActive"
+                          md-icon-button >
+                      <md-icon>notifications_off</md-icon>
+                  </button>
+                  <button *ngIf="!notificationsActive"
+                          md-icon-button >
+                      <md-icon>notifications_active</md-icon>
+                  </button>
+              </md-toolbar>
+          </div>
+          <div class="chat-item"
+               *ngIf="selectedChatID">
+          <chat-item  [chatID]="selectedChatID">
+           </chat-item>
+          </div>
+          <div class="title-chat"
+               *ngIf="!selectedChatID">
+            <md-toolbar >
+            </md-toolbar>
+          </div>
+          <div class="chat-item no-chat col-md-12"
+               *ngIf="!selectedChatID">
+              <span class="col-md-12 default-text">
+                  Выберите чат
+              </span>
+          </div>
+          <div class="chat-item no-chat"
+               *ngIf="!selectedChatID">
+              <img  class="center-block" style="width: 50%;    margin-top: 3em;" src="assets/img/3.png">
+              <span   class="col-md-12 default-text">
+                  Здесь будет Ваш<br>
+                  список чатов
+              </span>
+          </div>
+      </div>
       </div>
     </div>
-
-
-
-  <div class="col-md-9 not-pad" style="width: 56%;">
-      <div class="title-chat" *ngIf="selectedChat">
-          <md-toolbar >
-              <span style="color: #757575"> Чат {{selectedChat.id}}</span>
-              <span class="example-spacer"></span>
-              <button *ngIf="notificationsActive"
-                      md-icon-button >
-                  <md-icon>notifications_off</md-icon>
-              </button>
-              <button *ngIf="!notificationsActive"
-                      md-icon-button >
-                  <md-icon>notifications_active</md-icon>
-              </button>
-          </md-toolbar>
-      </div>
-      <div class="chat-item"
-           *ngIf="selectedChatID">
-      <!-- <chat-item  [chatID]="selectedChatID">
-       </chat-item>-->
-      </div>
-      <div class="title-chat"
-           *ngIf="!selectedChatID">
-        <md-toolbar >
-        </md-toolbar>
-      </div>
-      <div class="chat-item no-chat col-md-12"
-           *ngIf="!selectedChatID">
-          <span class="col-md-12 default-text">
-              Выберите чат
-          </span>
-      </div>
-      <div class="chat-item no-chat"
-           *ngIf="!selectedChatID">
-          <img  class="center-block" style="width: 50%;    margin-top: 3em;" src="assets/img/3.png">
-          <span   class="col-md-12 default-text">
-              Здесь будет Ваш<br>
-              список чатов
-          </span>
-      </div>
-  </div>
-  </div>
+    <request-item class="col-md-3"
+                  *ngIf="selectedRequest"
+                  [request]="selectedRequest">
+    </request-item>
 </div>
-<request-item class="col-md-3"
-              *ngIf="selectedRequest"
-              [request]="selectedRequest">
-</request-item>

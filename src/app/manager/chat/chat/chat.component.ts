@@ -18,7 +18,7 @@ import {
   ViewChild
 } from "@angular/core";
 import {Router} from "@angular/router";
-import {Chat, ChatService, Message} from "./chat.service";
+import {Chat, ChatService, Message, Skin, Skins} from "./chat.service";
 import {DOCUMENT} from "@angular/platform-browser";
 import {Consts} from "../../../const/app-const";
 
@@ -35,6 +35,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   @Input() chatID: number;
   chat: Chat;
   skin_id: number;
+  skin: Skin[];
   message: string;
   date: Date;
   totalCount: number = 0;
@@ -50,9 +51,23 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   message_list: ElementRef;
 
   ngOnInit() {
-    debugger;
   }
 
+
+  getSkin(chat: Chat, chatID: number) {
+    let self = this;
+    return self.chatServiceL.getSkin(chatID)
+        .then(value => {
+          value.skins.map(res => {
+            chat.messages.map(item => {
+              if (res.skin_id === item.skin_id)
+                item.name = res.name;
+            })
+          });
+          self.skin = value.skins;
+          self.chat = chat;
+        })
+  }
 
   getChat(chatID: number) {
     let self = this;
@@ -63,9 +78,8 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
             res.messages.map(item => {
               item.date_string = self.dateConvert(item.date);
             });
-            self.chat = res;
+            self.getSkin(res, chatID);
           }
-          return res;
         })
   }
 
@@ -89,16 +103,15 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   }
 
   onPush() {
-   /* debugger;
     if (this.chat === null || this.chat == undefined || this.message === "")
       return;
     let self = this;
     let d = new Date();
     let skin_id: number = Number(localStorage['skin_id_business']);
-    let name: string = self.skins.skins.filter(res=>{
+    let name: string = self.skin.filter(res => {
       return skin_id === res.skin_id
     })[0].name;
-    let date: number =d.getTime() + (d.getTimezoneOffset()*60000);
+    let date: number = d.getTime() + (d.getTimezoneOffset() * 60000);
     let chat: Message = <Message>{
       chat_id: self.chatID,
       text: self.message,
@@ -106,11 +119,13 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
       skin_id: self.skin_id,
       name: name
     };
-    self.chatServiceL.postMessages(self.chatMessage.id, chat);
     chat.date_string = self.dateConvert(date);
-    self.chat = "";
-    self.chatMessageOutput.emit(chat);
-    self.downChatScroll = true;*/
+    self.message = "";
+    self.chatServiceL.postMessages(self.chatID, chat)
+        .then(res => {
+          self.chat.messages.push(chat);
+          self.downChatScroll = true;
+        });
   }
 
   dateConvert(date: number): string {

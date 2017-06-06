@@ -57,7 +57,6 @@ export class RequestListComponent implements OnChanges {
             this.flagLoad = true;
         }
         if (this.inRequest) {
-            debugger;
             this.requests.requests.unshift(this.inRequest);
         }
     }

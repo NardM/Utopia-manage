@@ -1,4 +1,4 @@
-<div class="request-base-template">
+<div class="request-base-template" *ngIf="request">
   <div class=" title-request" >
     Категория
   </div>
@@ -31,7 +31,7 @@
     {{request.details}}
   </div>
 </div>
-<div class="user">
+<div class="user" *ngIf="user">
   <span>{{user.name}} {{user.last_name}}</span>
 </div>
 <div class="response" *ngIf="confirmBool">

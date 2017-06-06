@@ -1,11 +1,10 @@
-<div class="col-xs-12 main-chat" *ngIf="chatMessage">
+<div class="col-xs-12 main-chat" *ngIf="chat">
 
           <div class="col-md-12 message-list" #message_list>
-          <div *ngFor="let message of chatMessage.messages"
+          <div *ngFor="let message of chat.messages"
                (change)="ngAfterViewChecked()">
             <div class="block-review"  >
-              <img   onerror="this.src='assets/icon/client.png'"
-                     src="{{getAvatar(message.skin_id)}}" >
+              <img onerror="this.src='assets/icon/client.png'">
               <div class="item-review" >
                 <div class="top-item">
                   <div class="name-user" >{{message.name}}</div>

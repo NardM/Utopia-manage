@@ -58,7 +58,7 @@ export class RequestItemComponent implements OnChanges {
 
     getClient() {
         this.clientService.getClient(this.request.user_id)
-            .then(res => this.user = res)
+            .then(res =>{ this.user = res; })
     }
 
     getConfirm() {
