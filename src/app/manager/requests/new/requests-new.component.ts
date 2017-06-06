@@ -73,7 +73,12 @@ export class RequestsNewComponent implements OnInit {
                 if (res.total_count) {
                     self.totalCount = res.total_count;
                 }
-                self.requests.push(self.getImage(self.onPushCategoryInRequest(res.item)));
+                if (res.item.icon_hash){
+                    self.requests.push(self.getImage(self.onPushCategoryInRequest(res.item)));
+                }
+                else{
+                    self.requests.push(self.onPushCategoryInRequest(res.item));
+                }
                 self.requestFlag = true;
                 self.noRequest = false;
                 //this.requests.push(res.item);
@@ -100,6 +105,7 @@ export class RequestsNewComponent implements OnInit {
 
     onScrollDown() {
         // add another 20 items
+        debugger;
         if (!this.blockUpload && !this.blockLoadFlag) {
             if (this.totalCount >= (this.offset + 20)) {
                 this.offset += 20;

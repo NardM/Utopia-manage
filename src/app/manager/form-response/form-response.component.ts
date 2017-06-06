@@ -18,24 +18,28 @@ import Response = ServiceResponsesInterface.Respons;
   templateUrl: 'form-response.component.html',
   styleUrls: ['form-response.component.scss'],
 })
-export class FormResponseComponent implements OnInit{
+export class FormResponseComponent implements OnInit {
   ngOnInit(): void {
     this.getServiceResponse();
   }
 
-  selectBool: boolean  = true;
+  selectBool: boolean = true;
   responses: Response[];
   @Input() requestId;
+  load: boolean = true;
 
-  constructor(
-    private userService: UserService,
-    private router:Router){}
+  constructor(private userService: UserService,
+              private router: Router) {
+  }
 
 
-    getServiceResponse(){
-      this.userService.getServiceResponse(this.requestId)
-        .then(response=> this.responses = response)
-    }
+  getServiceResponse() {
+    this.userService.getServiceResponse(this.requestId)
+        .then(response => {
+          this.responses = response;
+          this.load = false;
+        })
+  }
 
 }
 

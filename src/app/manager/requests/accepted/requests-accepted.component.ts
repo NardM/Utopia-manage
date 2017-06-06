@@ -10,6 +10,7 @@ import {ServiceRequestInterface} from "../../model/service-request";
 import Request = ServiceRequestInterface.Request;
 import {CategoryService} from "../../http/category.service";
 import {Category} from "../../model/category";
+import {ConstService} from "../../../const/http/service-const.service";
 
 @Component({
 
@@ -25,12 +26,24 @@ export class RequestsAcceptedComponent implements OnInit {
   throttle = 300;
   scrollDistance = 1;
   blockUpload: boolean = false;
-    categories: Category[];
+    categories: Category[] = [];
 
   constructor(private router: Router,
+              private service: ConstService,
               private categoryService: CategoryService,
               private userService: UserService) {
   }
+
+    getImage(request: Request) {
+        let url;
+        let self = this;
+        url = `v1/manager/order/${request.id}/icon`;
+        self.service.getAvatar(url)
+            .subscribe(item => {
+                request.logo = item;
+            });
+        return request;
+    }
 
   getServiceRequest() {
     this.userService.getServiceRequest(1<<3|1<<4, this.offset)
@@ -40,7 +53,12 @@ export class RequestsAcceptedComponent implements OnInit {
           return;
         }
         res.requests.map(item => {
-            this.requestServices.push(this.onPushCategoryInRequest(item))
+            if (item.icon_hash) {
+                this.requestServices.push(this.getImage(this.onPushCategoryInRequest(item)));
+            }
+            else {
+                this.requestServices.push(this.onPushCategoryInRequest(item));
+            }
         })
       });
   }
@@ -62,7 +80,16 @@ export class RequestsAcceptedComponent implements OnInit {
   ngOnInit() {
       this.categoryService.getCategories()
           .then(res => {
-              this.categories = res;
+              res.map(item => {
+                  if (item.subcategories.length !== 0) {
+                      item.subcategories.map(subcategory => {
+                          this.categories.push(subcategory)
+                      })
+                  }
+                  else {
+                      this.categories.push(item)
+                  }
+              })
           })
           .then(res => {
               this.userService.getServiceRequest(1 << 3 | 1 << 4, this.offset)

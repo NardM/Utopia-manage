@@ -13,6 +13,7 @@ import {ServiceRequestInterface} from "../../model/service-request";
 import Request = ServiceRequestInterface.Request;
 import {Category} from "../../model/category";
 import {CategoryService} from "../../http/category.service";
+import {ConstService} from "../../../const/http/service-const.service";
 
 @Component({
 
@@ -22,15 +23,16 @@ import {CategoryService} from "../../http/category.service";
 })
 export class RequestsPublishedComponent implements OnInit {
 
-  requestServices: Array<Request>;
+  requestServices: Array<Request> = [];
   array = [];
   offset = 0;
   throttle = 300;
   scrollDistance = 1;
   blockUpload: boolean = false;
-    categories: Category[];
+    categories: Category[] = [];
 
   constructor(private router: Router,
+              private service: ConstService,
               private categoryService: CategoryService,
               private userService: UserService) {
 
@@ -44,17 +46,35 @@ export class RequestsPublishedComponent implements OnInit {
     }
   }
 
+    getImage(request: Request) {
+        let url;
+        let self = this;
+        url = `v1/manager/order/${request.id}/icon`;
+        self.service.getAvatar(url)
+            .subscribe(item => {
+                request.logo = item;
+            });
+        return request;
+    }
+
   getServiceRequest() {
-    this.userService.getServiceRequest(1<<2, this.offset)
-      .then(res => {
-        if (res.total_count == 0) {
-          this.blockUpload = true;
-          return;
-        }
-        res.requests.map(item => {
-          this.requestServices.push(this.onPushCategoryInRequest(item))
-        })
-      });  }
+      let self = this;
+      this.userService.getServiceRequest(1 << 2, this.offset)
+          .then(res => {
+              if (res.total_count == 0) {
+                  this.blockUpload = true;
+                  return;
+              }
+              res.requests.map(item => {
+                  if (item.icon_hash) {
+                      self.requestServices.push(self.getImage(self.onPushCategoryInRequest(item)));
+                  }
+                  else {
+                      self.requestServices.push(self.onPushCategoryInRequest(item));
+                  }
+              })
+          });
+  }
 
     onPushCategoryInRequest(request: Request) {
         let self = this;
@@ -66,7 +86,16 @@ export class RequestsPublishedComponent implements OnInit {
   ngOnInit() {
       this.categoryService.getCategories()
           .then(res => {
-              this.categories = res;
+              res.map(item => {
+                  if (item.subcategories.length !== 0) {
+                      item.subcategories.map(subcategory => {
+                          this.categories.push(subcategory)
+                      })
+                  }
+                  else {
+                      this.categories.push(item)
+                  }
+              })
           })
           .then(res => {
               this.userService.getServiceRequest(1 << 2, this.offset)

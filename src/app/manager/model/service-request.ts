@@ -4,6 +4,7 @@ export declare module ServiceRequestInterface {
     id: number;
     title_label: string;
     status: number;
+    icon_hash: string;
     show_count: number;
     response_count: number;
     chat_id: number;

@@ -14,7 +14,13 @@
               <div class="content">
                   <div class="request-img">
                       <img [src]="request.logo"
+                           *ngIf="request.icon_hash&&request.logo"
                            onerror="this.src='assets/img/IconDefoltImage.png'">
+                      <img [src]="'assets/img/IconDefoltImage.png'"
+                           *ngIf="!request.icon_hash&&!request.logo">
+                      <md-spinner *ngIf="request.icon_hash&&!request.logo">
+                      </md-spinner>
+
                   </div>
                   <div class="request-base-template">
                       <div class=" title-request" >

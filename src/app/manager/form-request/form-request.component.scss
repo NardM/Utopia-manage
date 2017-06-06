@@ -171,6 +171,9 @@ $rows-title-size:16px;
       flex-direction: row;
       .request-img{
         flex: 0 0 auto;
+        md-spinner{
+          width: 250px;
+        }
         img{
           width: 250px;
         }

@@ -2,6 +2,8 @@
       infinite-scroll
       [infiniteScrollDistance]="scrollDistance"
       [infiniteScrollThrottle]="throttle"
+      [scrollWindow]="false"
+
       (scrolled)="onScrollDown()">
         <div *ngFor="let request of requests"
              [class.selected]="request === selectedRequest">
