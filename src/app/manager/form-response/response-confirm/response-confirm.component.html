@@ -1,14 +1,18 @@
-   <md-list>
+   <md-list  *ngIf="confirm">
+       <md-divider></md-divider>
      <md-list-item>
        <p md-line
+          style="text-align: center"
           *ngIf="confirm.company.company">
          Принял: {{confirm.company.company.name}}
        </p>
        <p md-line
+          style="text-align: center"
           *ngIf="confirm.company.master">
          Принял: {{confirm.company.master.first_name}} {{confirm.company.master.last_name}}
        </p>
-       <p md-line>
+       <p md-line style="text-align: center">
+
          Телефон: {{confirm.company.phone}}, Цена:  {{confirm.to_price}}₽
        </p>
      </md-list-item>

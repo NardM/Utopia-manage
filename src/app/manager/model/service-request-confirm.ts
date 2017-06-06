@@ -9,6 +9,7 @@ export declare module RequestConfirmInterface {
   }
 
   export interface Address {
+    city_id: number;
     text: string;
     location: Location;
     admin: string;
@@ -29,23 +30,18 @@ export declare module RequestConfirmInterface {
   }
 
   export interface Company {
-    id: number;
-    rate: number;
-    logo_hash: string;
-    order_count: number;
-    order_price_summ: number;
-    paid_percent_summ: number;
-    confirm_percent_summ: number;
-    freeze_percent_summ: number;
-    skin_id: number;
-    banlance_transactions_summ: number;
     phone: string;
+    id: number;
+    logo_hash: string;
+    rate: number;
+    skin_id: number;
     email: string;
     work_time: string;
     address: Address;
     master: Master;
     company: Company2;
-    city_id: number;
+    search_region_id: number;
+    categories: number[];
   }
 
   export interface RequestConfirm {
