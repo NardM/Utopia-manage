@@ -42,7 +42,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   constructor(private router: Router,
               @Inject(DOCUMENT) private document: Document,
               private chatServiceL: ChatService) {
-    this.skin_id = Number(localStorage['skin_id_business']);
+    this.skin_id = 1;
     this.message = "";
     this.date = new Date();
   }
@@ -109,9 +109,8 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
       return;
     let self = this;
     let d = new Date();
-    let skin_id: number = Number(localStorage['skin_id_business']);
     let name: string = self.skin.filter(res => {
-      return skin_id === res.skin_id
+      return self.skin_id === res.skin_id
     })[0].name;
     let date: number = d.getTime() + (d.getTimezoneOffset() * 60000);
     let chat: Message = <Message>{

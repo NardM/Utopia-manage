@@ -29,6 +29,11 @@ export class ClientService {
   }
 
 
+  getAccount(): Promise<Account> {
+    let url = `${Consts.baseURL}v1/account`;
+    return this.constService.get<Account>(url);
+  }
+
   getClient(id: number) {
     let url = this.clientsUrl + '/' + id;
     return this.constService.get<Account>(url);

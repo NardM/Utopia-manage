@@ -1,7 +1,9 @@
 <div *ngIf="request">
   <md-toolbar >
     Заявка №{{request.id}}
-    <md-icon (click)="onOpenRequest()">menu</md-icon>
+    <md-icon (click)="onOpenRequest()"
+             mdTooltip="Подробная информация о заявке"
+             [mdTooltipPosition]="'below'">menu</md-icon>
   </md-toolbar>
   <md-spinner *ngIf="load"
               class="center-block"

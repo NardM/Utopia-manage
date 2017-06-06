@@ -6,6 +6,9 @@
  */
 import { Component } from '@angular/core';
 import {GlobalState} from "../../global.state";
+import {ClientService} from "../../http/client.service";
+import {ClientInterface} from "../../clients/model/client";
+import Account = ClientInterface.Account;
 
 @Component({
     selector: 'top-bar',
@@ -14,12 +17,19 @@ import {GlobalState} from "../../global.state";
 })
 export class TopBarComponent {
 
-    public isMenuCollapsed:boolean = false;
+    public isMenuCollapsed: boolean = false;
+    account: Account;
 
-    constructor(private _state: GlobalState) {
+    constructor(private _state: GlobalState,
+                private service: ClientService) {
         this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
             this.isMenuCollapsed = isCollapsed;
         });
+        this.service.getAccount()
+            .then(res => {
+                this.account = res;
+                localStorage.setItem('skin_id', res.skin_id.toString())
+            })
     }
 
     public onCollapse() {
