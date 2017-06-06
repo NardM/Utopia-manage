@@ -88,6 +88,7 @@
 
     <request-item class="col-md-3 request-item"
                   *ngIf="selectedRequest"
+                  (onOpenRequestBool)="onOpenRequest($event)"
                   [request]="selectedRequest">
     </request-item>
 </div>

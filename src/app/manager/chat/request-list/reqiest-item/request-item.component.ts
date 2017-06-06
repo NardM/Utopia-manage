@@ -34,10 +34,12 @@ export class RequestItemComponent implements OnChanges {
     }
 
     @Input() request: Request;
+    @Output() onOpenRequestBool = new EventEmitter();
     user: Client;
     response: Respons[];
     confirmBool: boolean = false;
     load: boolean = false;
+    openRequestBool: boolean = false;
 
     ngOnChanges() {
         if (this.request) {
@@ -53,6 +55,12 @@ export class RequestItemComponent implements OnChanges {
             }
         }
     }
+
+    onOpenRequest(){
+        this.openRequestBool = !this.openRequestBool;
+        this.onOpenRequestBool.emit(this.openRequestBool);
+    }
+
 
     resetComponent(){
         this.user = undefined;

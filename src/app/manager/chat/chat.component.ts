@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Chat, ChatService, Message} from "./chat/chat.service";
 import {RequestManagerHubYou} from "../../../hubs/RequestHubYou";
@@ -10,6 +10,7 @@ import BasketRequest = BasketRequestInterface.BasketRequest;
 import Request = BasketRequestInterface.Request;
 import {CategoryService} from "../http/category.service";
 import {Category} from "../model/category";
+import {MdSidenav} from "@angular/material";
 
 
 @Component({
@@ -41,7 +42,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   categories: Category[];
   sidenavBool: boolean = false;
-
+  @ViewChild('sidenav')
+  sidenav: MdSidenav;
 
   requestsTake: BasketRequest;
   requests: BasketRequest;
@@ -66,6 +68,15 @@ export class ChatComponent implements OnInit, OnDestroy {
         .then(res => {
           this.categories = res;
         })
+  }
+
+  onOpenRequest(event){
+    if (event){
+      this.sidenav.open();
+    }
+    else{
+      this.sidenav.close();
+    }
   }
 
 
