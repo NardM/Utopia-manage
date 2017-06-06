@@ -251,7 +251,7 @@
 
           </div>
         </div>
-        <div class="request-action">
+        <div class="request-action" *ngIf="!chatBool">
           <button (click)="onPublishRequest()"
                   md-raised-button
                   class="post"

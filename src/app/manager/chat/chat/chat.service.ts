@@ -81,6 +81,7 @@ export interface Message {
   name: string;
   date_string: string;
   date: number;
+  logo: string;
 }
 
 export interface Chat {

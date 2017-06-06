@@ -4,7 +4,7 @@
           <div *ngFor="let message of chat.messages"
                (change)="ngAfterViewChecked()">
             <div class="block-review"  >
-              <img onerror="this.src='assets/icon/client.png'">
+              <img src="assets/icon/client.png" onerror="this.src='assets/icon/client.png'">
               <div class="item-review" >
                 <div class="top-item">
                   <div class="name-user" >{{message.name}}</div>

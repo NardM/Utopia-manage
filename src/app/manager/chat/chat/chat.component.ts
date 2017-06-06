@@ -104,7 +104,8 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   }
 
   onPush() {
-    if (this.chat === null || this.chat == undefined || this.message === "")
+    debugger;
+    if (this.message === null || this.message == undefined || this.message === "")
       return;
     let self = this;
     let d = new Date();

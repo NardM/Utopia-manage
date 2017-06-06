@@ -59,6 +59,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   onSelectRequest(request: Request) {
+      this.sidenav.close();
     this.selectedChatID = request.chat_id;
     this.selectedRequest = this.onPushCategoryInRequest(request);
   }
