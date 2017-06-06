@@ -9,6 +9,8 @@ import { Router }            from '@angular/router';
 import {UserService} from "../../http/user.service";
 import {RequestConfirmInterface} from "../../model/service-request-confirm";
 import RequestConfirm = RequestConfirmInterface.RequestConfirm;
+import {ServiceRequestInterface} from "../../model/service-request";
+import Request = ServiceRequestInterface.Request;
 
 
 @Component({
@@ -23,7 +25,7 @@ export class ItemConfirmComponent implements OnInit{
   }
 
   confirm: RequestConfirm;
-  @Input() requestId;
+  @Input() request: Request;
 
   constructor(
     private userService: UserService,
@@ -31,7 +33,7 @@ export class ItemConfirmComponent implements OnInit{
 
 
     getServiceConfirm(){
-      this.userService.getServiceRequestConfirm(this.requestId )
+      this.userService.getServiceRequestConfirm(this.request.id)
         .then(confirm=> this.confirm = confirm)
     }
 
