@@ -68,6 +68,7 @@ md-list-item{
 }
 
 .not-pad{
+  min-height: calc(100vh - 64px);
   padding-right: 0;
   padding-left: 0;
   width: 56%;

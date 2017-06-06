@@ -2,75 +2,80 @@
   <md-toolbar >
     Заявка №{{request.id}}
   </md-toolbar>
-  <div class="request-base-template" >
-    <div class=" title-request" >
-      Категория
-    </div>
-
-    <div class=" title rez">
-      {{request.category_name}}
-    </div>
-
-    <div class=" title-request" >
-      {{request.title_label}}
-    </div>
-
-    <div class=" title rez">
-      {{request.title}}
-    </div>
-
-    <div class=" title-request" >
-      {{request.subtitle_label}}
-    </div>
-
-    <div class=" subtitle rez">
-      {{request.subtitle}}
-    </div>
-
-    <div class=" title-request" >
-      {{request.details_label}}
-    </div>
-
-    <div class=" details rez">
-      {{request.details}}
-    </div>
-  </div>
-  <hr>
-  <div class="user item-action" *ngIf="user">
-    <span>{{user.name}} {{user.last_name}}</span>
-    <div class="action">
-      <md-icon>mail</md-icon>
-      <md-checkbox></md-checkbox>
-    </div>
-
-  </div>
-  <hr>
-  <div class="response item-action" *ngIf="confirmBool">
-    <span *ngIf="request.confirm.company.company">
-    {{request.confirm.company.company.name}}
-    </span>
-    <span *ngIf="request.confirm.company.master">
-        {{request.confirm.company.master.first_name}} {{request.confirm.company.master.last_name}}
-    </span>
-    <div class="action">
-      <md-icon>mail</md-icon>
-      <md-checkbox></md-checkbox>
-    </div>
-  </div>
-  <hr>
-  <div class="response " *ngIf="!confirmBool">
-    <div *ngFor="let res of response" >
-      <div class="item-action">
-        <span *ngIf="res.company.company">{{res.company.company.name}}</span>
-        <span *ngIf="res.company.master">
-        {{res.company.master.first_name}} {{res.company.master.last_name}}
-      </span>
-        <div class="action">
-          <md-icon>mail</md-icon>
-          <md-checkbox></md-checkbox>
-        </div>
+  <md-spinner *ngIf="load"
+              class="center-block"
+              style=" margin-top: 100px;"></md-spinner>
+  <div *ngIf="!load">
+    <div class="request-base-template" >
+      <div class=" title-request" >
+        Категория
       </div>
-      <hr>
+
+      <div class=" title rez">
+        {{request.category_name}}
+      </div>
+
+      <div class=" title-request" >
+        {{request.title_label}}
+      </div>
+
+      <div class=" title rez">
+        {{request.title}}
+      </div>
+
+      <div class=" title-request" >
+        {{request.subtitle_label}}
+      </div>
+
+      <div class=" subtitle rez">
+        {{request.subtitle}}
+      </div>
+
+      <div class=" title-request" >
+        {{request.details_label}}
+      </div>
+
+      <div class=" details rez">
+        {{request.details}}
+      </div>
+    </div>
+    <hr>
+    <div class="user item-action" *ngIf="user">
+      <span>{{user.name}} {{user.last_name}}</span>
+      <div class="action">
+        <md-icon>mail</md-icon>
+        <md-checkbox></md-checkbox>
+      </div>
+
+    </div>
+    <hr>
+    <div class="response item-action" *ngIf="confirmBool">
+      <span *ngIf="request.confirm.company.company">
+      {{request.confirm.company.company.name}}
+      </span>
+      <span *ngIf="request.confirm.company.master">
+          {{request.confirm.company.master.first_name}} {{request.confirm.company.master.last_name}}
+      </span>
+      <div class="action">
+        <md-icon>mail</md-icon>
+        <md-checkbox></md-checkbox>
+      </div>
+    </div>
+    <hr>
+    <div class="response " *ngIf="!confirmBool">
+      <div *ngFor="let res of response" >
+        <div class="item-action">
+          <span *ngIf="res.company.company">{{res.company.company.name}}</span>
+          <span *ngIf="res.company.master">
+          {{res.company.master.first_name}} {{res.company.master.last_name}}
+        </span>
+          <div class="action">
+            <md-icon>mail</md-icon>
+            <md-checkbox></md-checkbox>
+          </div>
+        </div>
+        <hr>
+      </div>
     </div>
   </div>
 </div>

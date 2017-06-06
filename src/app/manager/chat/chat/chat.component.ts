@@ -94,6 +94,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   ngOnChanges() {
     let self = this;
     if (self.chatID){
+      self.chat = undefined;
       self.getChat(self.chatID);
     }
     if (self.message_list) {

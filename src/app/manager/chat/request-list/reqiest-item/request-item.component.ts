@@ -37,15 +37,18 @@ export class RequestItemComponent implements OnChanges {
     user: Client;
     response: Respons[];
     confirmBool: boolean = false;
+    load: boolean = false;
 
     ngOnChanges() {
         if (this.request) {
+            this.load = true;
             this.getClient();
             if (this.request.status == 1 || this.request.status == 2) {
                 this.getRespons();
             }
             if (this.request.status === 4 || this.request.status === 5 || this.request.status === 6) {
                 this.confirmBool = true;
+                this.load = false;
             }
         }
     }
@@ -70,6 +73,7 @@ export class RequestItemComponent implements OnChanges {
             .then(res => {
                 this.response = res;
                 this.confirmBool = false;
+                this.load = false;
             })
     }
 
