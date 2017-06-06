@@ -1,5 +1,5 @@
 <div class="chat">
-    <div class="col-md-9">
+    <div class="col-md-9" style="width: 70%">
       <div class="row">
         <div class="col-md-3 not-pad"
              style="    width: 35%;">
@@ -36,7 +36,7 @@
 
 
 
-      <div class="col-md-9 not-pad">
+      <div class="col-md-9 not-pad" style="width: 65%">
           <div class="title-chat" *ngIf="selectedChatID">
               <md-toolbar >
                   <span style="color: #757575"> Чат {{selectedChatID}}</span>
@@ -80,6 +80,7 @@
     </div>
     <request-item class="col-md-3"
                   *ngIf="selectedRequest"
+                  style="width: 30%"
                   [request]="selectedRequest">
     </request-item>
 </div>
