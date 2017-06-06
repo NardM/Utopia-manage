@@ -3,12 +3,6 @@
  */
 export declare module BasketRequestInterface {
 
-    export interface Respons {
-        id: number;
-        chat_id: number;
-        company_id: number;
-    }
-
     export interface Location {
         lat: number;
         lng: number;
@@ -87,6 +81,7 @@ export declare module BasketRequestInterface {
         show_count: number;
         response_count: number;
         confirm: Confirm;
+        user_id: number;
     }
 
     export interface BasketRequest {

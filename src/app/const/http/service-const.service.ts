@@ -85,6 +85,16 @@ export class ConstService {
         .get(url, {headers: headers})
         .map(res => {
           let jsonRes = res.json();
+            if (!jsonRes.success){
+                if (jsonRes.message.code === 8) {
+                    Cookie.delete('login_token');
+                    Cookie.delete('device_token');
+                    this.tokenService.refreshToken()
+                        .then(re => {
+                            location.reload();
+                        })
+                }
+            }
           return this.typeReturn(type, jsonRes);
         }))
       .toPromise()

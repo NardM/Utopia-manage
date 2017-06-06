@@ -80,7 +80,7 @@ export class TokenService {
       'device_type': '3',
       'os_version': 'asd',
       'app_version': '1.0.1',
-      'app_type': '1',
+      'app_type': '5',
       'app_build': 1
     };
     let token: string = Cookie.get('login_token');
@@ -98,7 +98,7 @@ export class TokenService {
             this.saveLoginToken(response.data.access_token, response.data.expires_in);
           }
           else {
-            this.router.navigate(['login-you']);
+            this.router.navigate(['login']);
           }
         })
         .toPromise();
