@@ -42,6 +42,7 @@ export class RequestItemComponent implements OnChanges {
     ngOnChanges() {
         if (this.request) {
             this.load = true;
+            this.resetComponent();
             this.getClient();
             if (this.request.status == 1 || this.request.status == 2) {
                 this.getRespons();

@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   date: Date;
   private subscription: Subscription;
   categories: Category[];
-
+  sidenavBool: boolean = false;
 
 
   requestsTake: BasketRequest;
