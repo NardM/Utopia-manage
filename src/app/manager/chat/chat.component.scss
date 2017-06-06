@@ -74,6 +74,13 @@ md-list-item{
   box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.33);
 }
 
+.request-item{
+  padding-right: 0;
+  padding-left: 0;
+  width: 30%;
+  border-left: .5px solid rgba(0, 0, 0, 0)
+}
+
 .search {
   display: flex;
   padding: 15px;

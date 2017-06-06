@@ -1,6 +1,33 @@
 @import "../../../form-request/form-request.component";
 
 
+hr{
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+
+.item-action{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  span{
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .action{
+    display: flex;
+    md-icon{
+      margin-right: 10px;
+    }
+    md-checkbox{
+      margin-right: 10px;
+    }
+  }
+}
+
+
 .request-base-template{
   margin: 10px 10px 10px 20px;
   flex: 1 0;

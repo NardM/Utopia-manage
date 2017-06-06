@@ -11,7 +11,7 @@
             <md-divider></md-divider>
         </md-nav-list>
     </div>
-    <div class="main-outlet">
+    <div class="main-outlet" [class.isMainOutlet]="isMenuCollapsed">
         <ng-content></ng-content>
     </div>
 </div>

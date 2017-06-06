@@ -1,5 +1,8 @@
-<div>
-  <div class="request-base-template" *ngIf="request">
+<div *ngIf="request">
+  <md-toolbar >
+    Заявка №{{request.id}}
+  </md-toolbar>
+  <div class="request-base-template" >
     <div class=" title-request" >
       Категория
     </div>
@@ -32,23 +35,42 @@
       {{request.details}}
     </div>
   </div>
-  <div class="user" *ngIf="user">
+  <hr>
+  <div class="user item-action" *ngIf="user">
     <span>{{user.name}} {{user.last_name}}</span>
+    <div class="action">
+      <md-icon>mail</md-icon>
+      <md-checkbox></md-checkbox>
+    </div>
+
   </div>
-  <div class="response" *ngIf="confirmBool">
+  <hr>
+  <div class="response item-action" *ngIf="confirmBool">
     <span *ngIf="request.confirm.company.company">
     {{request.confirm.company.company.name}}
-      </span>
+    </span>
     <span *ngIf="request.confirm.company.master">
         {{request.confirm.company.master.first_name}} {{request.confirm.company.master.last_name}}
     </span>
+    <div class="action">
+      <md-icon>mail</md-icon>
+      <md-checkbox></md-checkbox>
+    </div>
   </div>
-  <div class="response" *ngIf="!confirmBool">
-    <div *ngFor="let res of response">
-      <span *ngIf="res.company.company">{{res.company.company.name}}</span>
-      <span *ngIf="res.company.master">
+  <hr>
+  <div class="response " *ngIf="!confirmBool">
+    <div *ngFor="let res of response" >
+      <div class="item-action">
+        <span *ngIf="res.company.company">{{res.company.company.name}}</span>
+        <span *ngIf="res.company.master">
         {{res.company.master.first_name}} {{res.company.master.last_name}}
       </span>
+        <div class="action">
+          <md-icon>mail</md-icon>
+          <md-checkbox></md-checkbox>
+        </div>
+      </div>
+      <hr>
     </div>
   </div>
 </div>

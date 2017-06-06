@@ -5,6 +5,10 @@
   flex: 0 0 auto !important;
 }
 
+.isMainOutlet{
+  width: calc(100% - 53px) !important;
+}
+
 .main{
   display: flex;
   flex-direction: row;
