@@ -41,6 +41,11 @@ export class ChatService {
     return this.constService.postSingle<EmptyAnswer>(url);
   }
 
+  deleteRequestInBasket(requestID: number) {
+    let url = `${Consts.baseURL}v1/manager/basket/request/${requestID}`;
+    return this.constService.postSingle<EmptyAnswer>(url);
+  }
+
   getRequestTake(requestID: number) {
     let url = `${Consts.baseURL}v1/manager/request/${requestID}`;
     return this.constService.get<BasketRequest>(url);

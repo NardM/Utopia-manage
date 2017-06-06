@@ -80,10 +80,16 @@ export class RequestListComponent implements OnChanges {
 
     onSelectOutput(request: Request) {
         this.requests.requests = this.requests.requests.filter(res => res !== request);
-        this.service.postRequestTake(request.id)
-            .then(res => {
-                this.selectOutput.emit(res.data)
-            });
+        if (!this.takeBool) {
+            this.service.postRequestTake(request.id)
+                .then(res => {
+                    this.selectOutput.emit(res.data)
+                });
+        }
+        else {
+            this.service.deleteRequestInBasket(request.id)
+            this.selectOutput.emit(request)
+        }
     }
 
     onSelectRequestOutput(request: Request){

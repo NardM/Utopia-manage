@@ -11,10 +11,10 @@
           {{StatusRequest(request.status)}}
         </div>
       </div>
-      <div class="request-action">
+      <div class="request-action" >
         <div class="top">
           <md-icon>bookmark</md-icon>
-          <md-checkbox (change)="onChange($event, request)"></md-checkbox>
+          <md-checkbox (change)="onChange($event, request)" [(ngModel)]="active"></md-checkbox>
         </div>
         <div class="bottom">
           <md-icon>

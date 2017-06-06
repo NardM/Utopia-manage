@@ -34,13 +34,23 @@ export class RequestItemMiniComponent implements OnChanges {
     @Output() selectRequest = new EventEmitter<Request>();
     expression: string = "#009DDF";
     deleteRequestBool: boolean = false;
-
+    active: boolean;
     ngOnChanges() {
+        this.active = this.takeBool;
     }
 
     onChange(event, request: Request) {
         if (event.checked) {
             if (!this.takeBool) {
+                this.deleteRequestBool = true;
+                this.selectOutput.emit(request);
+            }
+            else{
+
+            }
+        }
+        else{
+            if (this.takeBool){
                 this.deleteRequestBool = true;
                 this.selectOutput.emit(request);
             }
