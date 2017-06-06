@@ -36,6 +36,7 @@ import {TokenService} from "./manager/http/token.serviece";
 import {ConstService} from "./const/http/service-const.service";
 import {AuthGuard} from "./guard/auth-guard.service";
 import {AuthService} from "./guard/auth.service";
+import {BaThemeSpinner} from "./service/baThemeSpinner.service";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -83,6 +84,7 @@ type StoreType = {
     ConstService,
     AuthGuard,
       AuthService,
+    BaThemeSpinner
   ]
 })
 export class AppModule {
