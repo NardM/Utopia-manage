@@ -244,7 +244,7 @@ export class ConstService {
                 default:
                     break;
             }
-            this.getFile(Consts.baseURL + url, Cookie.get('login_you_token'), 'Bearer')
+            this.getFile(Consts.baseURL + url, Cookie.get('login_token'), 'Bearer')
                 .subscribe(file => {
                     // thumbnail
                     let result: ImageResult = {

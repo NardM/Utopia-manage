@@ -34,14 +34,23 @@ export class RequestsNewComponent implements OnInit {
                 private categoryService: CategoryService) {
         this.categoryService.getCategories()
             .then(res => {
-                this.categories = res;
+                res.map(item => {
+                    if (item.subcategories.length !== 0) {
+                        item.subcategories.map(subcategory => {
+                            this.categories.push(subcategory)
+                        })
+                    }
+                    else {
+                        this.categories.push(item)
+                    }
+                })
             })
-            .then(r=>{
+            .then(r => {
                 this.store.createObserver()
                     .subscribe(res =>
                         this.newStoreItem(res));
             })
-        }
+    }
 
     array = [];
     offset = 20;
@@ -55,7 +64,7 @@ export class RequestsNewComponent implements OnInit {
     blockLoadFlag: boolean = false;
     totalCount: number = 0;
     countScroll: number = 1;
-    categories: Category[];
+    categories: Category[] = [];
 
     newStoreItem(res: StoreItem<Request>) {
         let self = this;
@@ -93,7 +102,6 @@ export class RequestsNewComponent implements OnInit {
         // add another 20 items
         if (!this.blockUpload && !this.blockLoadFlag) {
             if (this.totalCount >= (this.offset + 20)) {
-                debugger;
                 this.offset += 20;
                 this.blockLoadFlag = true;
                 this.countScroll++;
@@ -111,7 +119,7 @@ export class RequestsNewComponent implements OnInit {
     getImage(request: Request) {
         let url;
         let self = this;
-        url = `manage/v1/request/${request.id}/photo`;
+        url = `v1/manager/order/${request.id}/icon`;
         self.service.getAvatar(url)
             .subscribe(item => {
                 request.logo = item;
@@ -148,8 +156,8 @@ export class RequestsNewComponent implements OnInit {
 
     onPushCategoryInRequest(request: Request) {
         let self = this;
-            request.category_name = self.categories.find(res => res.id === request.category_id).name;
-            return request;
+        request.category_name = self.categories.find(res => res.id === request.category_id).name;
+        return request;
     }
 
 

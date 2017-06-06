@@ -8,10 +8,16 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from "@angul
    <div class="ng-overlay" *ngIf="opened">
     <div class="ng-gallery-content" >
     <div class="uil-ring-css" *ngIf="loading"><div></div></div>         
-    <a class="close-popup" (click)="closeGallery()"><i class="fa fa-close"></i></a>
-     <a class="nav-left" *ngIf="modalImages.length >1" (click)="prevImage()"><i class="fa fa-angle-left"></i></a>
+    <a class="close-popup" (click)="closeGallery()">
+        <md-icon>close</md-icon>
+    </a>
+     <a class="nav-left" *ngIf="modalImages.length >1" (click)="prevImage()">
+         <md-icon>chevron_left</md-icon>
+     </a>
      <img *ngIf="!loading" src="{{imgSrc}}" (click)="nextImage()" class="effect" />
-     <a class="nav-right" *ngIf="modalImages.length >1" (click)="nextImage()"><i class="fa fa-angle-right"></i></a>
+     <a class="nav-right" *ngIf="modalImages.length >1" (click)="nextImage()">
+         <md-icon>chevron_right</md-icon>
+     </a>
      <span class="info-text">{{ currentImageIndex + 1 }}/{{ modalImages.length }}</span>
    </div>
    </div>

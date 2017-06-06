@@ -16,7 +16,7 @@
 }
 
   export interface Category {
-    subcategories: Subcategory[];
+    subcategories: Category[];
     id: number;
     name: string;
     key_words: string[];

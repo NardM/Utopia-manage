@@ -12,6 +12,7 @@ import {CommonModule} from "@angular/common";
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {JsonpModule, HttpModule} from "@angular/http";
 import {ImageModal} from "./image-modal-popup";
+import {MaterialModule} from "@angular/material";
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {ImageModal} from "./image-modal-popup";
     JsonpModule,
     ReactiveFormsModule,
     CommonModule,
+      MaterialModule
   ],
   declarations: [
     ImageModal,

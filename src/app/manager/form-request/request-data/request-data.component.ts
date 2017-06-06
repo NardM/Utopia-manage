@@ -116,7 +116,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
 
   public addSlide(imageId: number): void {
     if (imageId != 0)
-      this.serviceConst.getAvatar("manage/v1/service/request/photo/" + imageId)
+      this.serviceConst.getAvatar("manage/v1/request/photo/" + imageId)
           .subscribe(res => {
             this.slides.push({
               image: res,
