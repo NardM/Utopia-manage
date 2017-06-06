@@ -35,7 +35,7 @@ export class FormRequestComponent implements OnInit {
   }
 
   @Input() request: Request;
-  @Input() numberRequest: number;
+  @Input() numberRequest: number = 0;
   @Output() deleteRequest = new EventEmitter();
   categoryName: string;
   responseCompany: Responses;

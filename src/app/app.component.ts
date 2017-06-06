@@ -2,11 +2,13 @@
  * Angular 2 decorators and services
  */
 import {
+  AfterViewInit,
   Component,
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
 import { AppState } from './app.service';
+import {BaThemeSpinner} from "./service/baThemeSpinner.service";
 
 /**
  * App Component
@@ -24,16 +26,18 @@ import { AppState } from './app.service';
     </main>
   `
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
   public angularclassLogo = 'assets/img/angularclass-avatar.png';
   public name = 'Angular 2 Webpack Starter';
   public url = 'https://twitter.com/AngularClass';
 
   constructor(
-    public appState: AppState
+    public appState: AppState,
+    private _state: BaThemeSpinner
   ) {}
 
-  public ngOnInit() {
+  public ngAfterViewInit() {
+    this._state.hide();
   }
 
 }

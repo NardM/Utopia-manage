@@ -11,6 +11,7 @@ import Request = ServiceRequestInterface.Request;
 import {CategoryService} from "../../http/category.service";
 import {Category} from "../../model/category";
 import {ConstService} from "../../../const/http/service-const.service";
+import {BaThemeSpinner} from "../../../service/baThemeSpinner.service";
 
 @Component({
 
@@ -30,6 +31,8 @@ export class RequestsAcceptedComponent implements OnInit {
 
   constructor(private router: Router,
               private service: ConstService,
+              private _state: BaThemeSpinner,
+
               private categoryService: CategoryService,
               private userService: UserService) {
   }
@@ -97,7 +100,8 @@ export class RequestsAcceptedComponent implements OnInit {
                       requestServices.requests.map(item=>{
                           item = this.onPushCategoryInRequest(item);
                       })
-                      this.requestServices = requestServices.requests
+                      this.requestServices = requestServices.requests;
+                      this._state.hideManager();
                   })
           });
   }

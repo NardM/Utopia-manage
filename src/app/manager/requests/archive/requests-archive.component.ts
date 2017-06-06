@@ -5,7 +5,7 @@
  * Created by nardm on 17.11.16.
  */
 
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { Router }            from '@angular/router';
 import ServiceRequest = ServiceRequestInterface.ServiceRequest;
 import {UserService} from "../../http/user.service";
@@ -14,6 +14,7 @@ import Request = ServiceRequestInterface.Request;
 import {CategoryService} from "../../http/category.service";
 import {Category} from "../../model/category";
 import {ConstService} from "../../../const/http/service-const.service";
+import {BaThemeSpinner} from "../../../service/baThemeSpinner.service";
 
 @Component({
 
@@ -21,7 +22,7 @@ import {ConstService} from "../../../const/http/service-const.service";
     templateUrl: 'requests-archive.component.html',
     styleUrls: [ 'requests-archive.component.scss']
 })
-export class RequestsArchiveComponent implements OnInit {
+export class RequestsArchiveComponent implements OnInit, AfterViewInit {
 
     requestServices: Array<Request>;
     array = [];
@@ -29,11 +30,12 @@ export class RequestsArchiveComponent implements OnInit {
     throttle = 300;
     scrollDistance = 1;
     blockUpload: boolean = false;
-    categories: Category[] = []
+    categories: Category[] = [];
 
     constructor(private router: Router,
                 private service: ConstService,
                 private categoryService: CategoryService,
+                private _state: BaThemeSpinner,
                 private userService: UserService) {
     }
 
@@ -43,6 +45,10 @@ export class RequestsArchiveComponent implements OnInit {
             this.offset += 20;
             this.getServiceRequest();
         }
+    }
+
+    ngAfterViewInit(){
+        this._state.hideManager();
     }
 
     getImage(request: Request) {
@@ -101,7 +107,8 @@ export class RequestsArchiveComponent implements OnInit {
                         requestServices.requests.map(item=>{
                             item = self.onPushCategoryInRequest(item);
                         })
-                        self.requestServices = requestServices.requests
+                        self.requestServices = requestServices.requests;
+                        self._state.hideManager();
                     })
             });
     }

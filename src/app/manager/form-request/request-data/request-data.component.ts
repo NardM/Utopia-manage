@@ -42,6 +42,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
   }
 
   @Input() requestId: number;
+  @Input() numberRequest: number = 0;
   @Input() chatBool: boolean = false;
   orderData: ServiceRequestData[];
   orderDetailFlag: boolean = false;

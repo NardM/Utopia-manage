@@ -41,6 +41,7 @@ import {RequestListComponent} from "./chat/request-list/request-list.component";
 import {GlobalState} from "./global.state";
 import {RequestItemMiniComponent} from "./chat/request-list/request-item-mini/request-item-mini.component";
 import {RequestItemComponent} from "./chat/request-list/reqiest-item/request-item.component";
+import {BaThemeSpinner} from "../service/baThemeSpinner.service";
 
 
 @NgModule({
@@ -99,7 +100,8 @@ import {RequestItemComponent} from "./chat/request-list/reqiest-item/request-ite
     ServiceRequestStore,
     ChatService,
     ChatHub,
-    GlobalState
+    GlobalState,
+    BaThemeSpinner
   ],
   exports: []
 

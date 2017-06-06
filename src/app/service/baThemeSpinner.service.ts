@@ -4,13 +4,21 @@ import {Injectable} from '@angular/core';
 export class BaThemeSpinner {
 
   private _selector:string = 'preloader';
+  private _selectorManager:string = 'preloader-manager';
+
   private _element:HTMLElement;
+  private _elementManager:HTMLElement;
 
   constructor() {
     this._element = document.getElementById(this._selector);
+    this._elementManager = document.getElementById(this._selectorManager);
   }
 
   public show():void {
+    this._element.style['display'] = 'block';
+  }
+
+  public showManager():void {
     this._element.style['display'] = 'block';
   }
 
@@ -18,5 +26,10 @@ export class BaThemeSpinner {
     setTimeout(() => {
       this._element.style['display'] = 'none';
     }, delay);
+  }
+
+  public hideManager(delay:number = 0):void {
+    this._elementManager = document.getElementById(this._selectorManager);
+      this._elementManager.style['display'] = 'none';
   }
 }
