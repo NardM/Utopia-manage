@@ -9,9 +9,9 @@
   display: flex;
   flex-direction: row;
   .left-bar{
-    flex: 1 0 auto;
+    /*flex: 1 0 auto;*/
     background-color: $defaultColor;
-    width: 13%;
+    width: 20%;
     md-nav-list{
       color: white;
       a{
@@ -23,7 +23,8 @@
     }
   }
   .main-outlet{
-    flex: 8 0 auto;
+   /* flex: 8 0 auto;*/
+    width: 80%;
     min-height: calc(100vh - 50px);
     max-height: calc(100vh - 50px);
     overflow: auto;
