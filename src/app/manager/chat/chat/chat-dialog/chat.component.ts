@@ -19,24 +19,13 @@ export class ChatDialogComponent implements OnInit {
               public service: ChatService) {
   }
 
-  chatId: number;
-  orderId: number;
+  private chatId: number;
+  private orderId: number;
 
   ngOnInit() {
     let self = this;
     debugger;
     self.orderId = self.data.id;
-    debugger;
-    if (self.data.chat_id === null || self.data.chat_id === 0 ||
-      self.data.chat_id === undefined) {
-      self.service.createChat(self.data.id)
-        .then(res => {
-          self.chatId = res.data.id;
-        })
-    }
-    else {
-      self.chatId = self.data.chat_id;
-    }
   }
 
 }

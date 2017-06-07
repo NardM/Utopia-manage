@@ -19,26 +19,28 @@ import Account = ClientInterface.Account;
   templateUrl: 'form-client.component.html',
   styleUrls: ['form-client.component.scss']
 })
-export class FormClientComponent implements OnInit{
-  ngOnInit(){
+export class FormClientComponent implements OnInit {
+  ngOnInit() {
     this.getServiceRequest();
   }
 
-  historyAppBool:boolean = false;
-  historyUser: Request;
+  public historyAppBool: boolean = false;
+  public historyUser: Request;
 
   constructor(private router: Router,
               private clientService: ClientService,
-              private userService: UserService){}
+              private userService: UserService) {
+  }
 
-  onDetail(clientId: number){
+  onDetail(clientId: number): void {
     this.router.navigate(['client', 'user', clientId]);
   }
-  @Input() client;
 
-  getServiceRequest() {
+  @Input() public client;
+
+  getServiceRequest(): void {
     this.userService.getServiceRequestUser(this.client.id)
-      .then(res => this.historyUser = res)
+        .then(res => this.historyUser = res)
   }
 
 }

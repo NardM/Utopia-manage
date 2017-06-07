@@ -29,16 +29,17 @@ export class LoginComponent {
     }
 
     @ViewChild('#phone')
-    phone: ElementRef;
-    textButton: string = 'Отправить';
-    code: number;
-    step: LoginStep;
-    successBool: boolean = false;
-    errorCode: boolean = false
-    postSub(phone: string, code?: number){
+    private phone: ElementRef;
+    private textButton: string = 'Отправить';
+    private code: number;
+    private step: LoginStep;
+    private successBool: boolean = false;
+    private errorCode: boolean = false;
+
+    public postSub(phone: string, code?: number): void {
         let self = this;
         debugger;
-        switch (this.step){
+        switch (this.step) {
             case LoginStep.PhoneInput:
                 this.loginService.login(phone).then(a => {
                     debugger;
@@ -47,7 +48,7 @@ export class LoginComponent {
                     self.successBool = true;
                     self.textButton = 'Войти';
                     // value.code = a.data.code;
-                })
+                });
                 break;
             case LoginStep.CodeInput:
                 this.step = LoginStep.ConfirmRequest;
@@ -59,7 +60,7 @@ export class LoginComponent {
                             this.textButton = 'Успешно';
                             this.router.navigate(['manager']);
                         }
-                        else{
+                        else {
                             // this.step = LoginStep.BrokenConfirm;
                             // this.buttonLabel = 'Получить новый код';
                             this.step = LoginStep.CodeInput;

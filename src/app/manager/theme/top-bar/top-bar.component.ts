@@ -18,7 +18,7 @@ import Account = ClientInterface.Account;
 export class TopBarComponent {
 
     public isMenuCollapsed: boolean = false;
-    account: Account;
+    public account: Account;
 
     constructor(private _state: GlobalState,
                 private service: ClientService) {
@@ -32,7 +32,7 @@ export class TopBarComponent {
             })
     }
 
-    public onCollapse() {
+    public onCollapse(): boolean {
         this.isMenuCollapsed = !this.isMenuCollapsed;
         this._state.notifyDataChanged('menu.isCollapsed', this.isMenuCollapsed);
         return false;

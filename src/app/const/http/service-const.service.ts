@@ -73,6 +73,7 @@ export class ConstService {
           let jsonRes = res.json();
           return this.typeReturn(type, jsonRes);
         }))
+        .catch(this.handleError);
   }
 
   get<T>(url: string,type?: string): Promise<T> {

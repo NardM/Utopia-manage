@@ -19,24 +19,26 @@ import Request = ServiceRequestInterface.Request;
   templateUrl: 'response-confirm.component.html',
   styleUrls: ['response-confirm.component.scss'],
 })
-export class ItemConfirmComponent implements OnChanges{
+export class ItemConfirmComponent implements OnChanges {
 
   ngOnChanges(): void {
     this.getServiceConfirm();
   }
 
-  confirm: RequestConfirm;
-  @Input() request: Request;
+  public confirm: RequestConfirm;
+  @Input() public request: Request;
 
-  constructor(
-    private userService: UserService,
-    private router:Router){}
+  constructor(private userService: UserService,
+              private router: Router) {
+  }
 
 
-    getServiceConfirm(){
-      this.userService.getServiceRequestConfirm(this.request.id)
-        .then(confirm=> {this.confirm = confirm})
-    }
+  getServiceConfirm(): void {
+    this.userService.getServiceRequestConfirm(this.request.id)
+        .then(confirm => {
+          this.confirm = confirm
+        })
+  }
 
 }
 

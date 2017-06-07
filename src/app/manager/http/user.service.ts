@@ -23,6 +23,8 @@ import Property = PropertyInterface.Property;
 import ServiceRequestData = ServiceRequestDataInterface.ServiceRequestData;
 import {ServiceRequestDataInterface} from "../model/service-request-data";
 import {PropertyInterface} from "../model/property";
+import { Req } from 'awesome-typescript-loader/dist/checker/protocol';
+import { EmptyAnswer } from './answer';
 
 @Injectable()
 export class UserService {
@@ -39,59 +41,59 @@ export class UserService {
   }
 
 
- getServiceRequestChat(offset?: number) {
+ getServiceRequestChat(offset?: number): Promise<Request[]> {
     let url = this.serviceRequestUrl +'?count=20&offset=' + offset;
     return this.constService.get<Request[]>(url, 'requests');
   }
 
-  getServiceRequestUser(id: number, status?: number) {
+  getServiceRequestUser(id: number, status?: number): Promise<Request> {
     let url = this.serviceRequestUrl + '?user_id/' + id;
     if (status)
        url = this.serviceRequestUrl + '&status_filter' + status + '&user_id=' + id;
     return this.constService.get<Request>(url, 'requests');
   }
 
-  getServiceResponse(id: number) {
+  getServiceResponse(id: number): Promise<Responses[]> {
     let url = this.serviceRequestUrl + '/' + id + '/response';
     return this.constService.get<Responses[]>(url, 'responses');
   }
 
-  getServiceRequestId(id: number) {
+  getServiceRequestId(id: number): Promise<Request> {
     let url = this.serviceRequestUrl + '/' + id;
     return this.constService.get<Request>(url);
   }
 
-  getServiceRequestData(id: number) {
+  getServiceRequestData(id: number): Promise<ServiceRequestData[]> {
     let url = this.serviceRequestUrl + '/' + id +'/property';
     return this.constService.get<ServiceRequestData[]>(url, 'properties');
   }
 
-  getServiceResponseId(requestId: number, responseId: number) {
+  getServiceResponseId(requestId: number, responseId: number): Promise<Responses> {
     let url = this.serviceRequestUrl + '/' + requestId + '/response/' + responseId;
     return this.constService.get<Responses>(url);
   }
 
-  putPublishServiceRequest(serviceRequest: number) {
+  putPublishServiceRequest(serviceRequest: number): Promise<Request> {
     let url = this.serviceRequestUrl + '/' + serviceRequest + '/publish';
     return this.constService.put(url, null);
   }
 
-  putServiceRequest(serviceRequest: Request) {
+  putServiceRequest(serviceRequest: Request): Promise<Request> {
     let url = this.serviceRequestUrl + '/' + serviceRequest.id;
     return this.constService.put<Request>(url, serviceRequest);
   }
 
-  postServiceRequest(serviceRequest: ServiceRequest) {
+  postServiceRequest(serviceRequest: ServiceRequest): Promise<ServiceRequest> {
     let url = this.serviceRequestUrl;
     return this.constService.post<ServiceRequest>(url, serviceRequest);
   }
 
-  getServiceRequestConfirm(requestId: number) {
+  getServiceRequestConfirm(requestId: number): Promise<RequestConfirm> {
     let url = this.serviceRequestUrl + '/' + requestId + '/confirm';
     return this.constService.get<RequestConfirm>(url);
   }
 
-  deleteServiceRequest(serviceRequest: number) {
+  deleteServiceRequest(serviceRequest: number): Promise<EmptyAnswer> {
     let url = this.serviceRequestUrl + '/' + serviceRequest;
     return this.constService.delete(url);
   }

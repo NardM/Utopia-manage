@@ -24,13 +24,13 @@ import {BaThemeSpinner} from "../../../service/baThemeSpinner.service";
 })
 export class RequestsArchiveComponent implements OnInit {
 
-    requestServices: Array<Request>;
-    array = [];
-    offset = 0;
-    throttle = 300;
-    scrollDistance = 1;
-    blockUpload: boolean = false;
-    categories: Category[] = [];
+    public requestServices: Array<Request>;
+    private array = [];
+    private offset = 0;
+    private throttle = 300;
+    private scrollDistance = 1;
+    private blockUpload: boolean = false;
+    private categories: Category[] = [];
 
     constructor(private router: Router,
                 private service: ConstService,
@@ -39,7 +39,7 @@ export class RequestsArchiveComponent implements OnInit {
                 private userService: UserService) {
     }
 
-    onScrollDown() {
+    onScrollDown(): void {
         // add another 20 items
         if (!this.blockUpload) {
             this.offset += 20;
@@ -47,7 +47,7 @@ export class RequestsArchiveComponent implements OnInit {
         }
     }
 
-    getImage(request: Request) {
+    getImage(request: Request): Request {
         let url;
         let self = this;
         url = `v1/manager/order/${request.id}/icon`;
@@ -58,7 +58,7 @@ export class RequestsArchiveComponent implements OnInit {
         return request;
     }
 
-    getServiceRequest() {
+    getServiceRequest(): void {
         this.userService.getServiceRequest(1 << 5 | 1 << 6, this.offset)
             .then(res => {
                 if (res.total_count == 0) {
@@ -76,14 +76,14 @@ export class RequestsArchiveComponent implements OnInit {
             });
     }
 
-    onPushCategoryInRequest(request: Request) {
+    onPushCategoryInRequest(request: Request): Request {
         let self = this;
         request.category_name = self.categories.find(res => res.id === request.category_id).name;
         return request;
     }
 
     ngOnInit() {
-        let self =this;
+        let self = this;
         this.categoryService.getCategories()
             .then(res => {
                 res.map(item => {
@@ -100,9 +100,9 @@ export class RequestsArchiveComponent implements OnInit {
             .then(res => {
                 self.userService.getServiceRequest(1 << 5 | 1 << 6, this.offset)
                     .then(requestServices => {
-                        requestServices.requests.map(item=>{
+                        requestServices.requests.map(item => {
                             item = self.onPushCategoryInRequest(item);
-                        })
+                        });
                         self.requestServices = requestServices.requests;
                         self._state.hideManager();
                     })

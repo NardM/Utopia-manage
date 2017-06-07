@@ -29,7 +29,7 @@ export class ChatHub{
     this.createObserver().subscribe(a => this.storeItems.push(a));
   }
 
-  newMessage(res: any) {
+  newMessage(res: any): void {
     let self = this;
     debugger;
     self.observers.map(o => o.next(new StoreItem<Message>(res, StoreAction.Inserted)));
@@ -48,11 +48,11 @@ export class ChatHub{
       });
   }
 
-  private Added(message: Message) {
+  private Added(message: Message): void {
     this.observers.map(o => o.next(new StoreItem<Message>(message, StoreAction.Inserted)));
   }
 
-  public createObserver() {
+  public createObserver(){
     let observer = Observable.create(r => {
       this.storeItems.map(si => r.next(si));
       this.observers.push(r);
@@ -61,9 +61,9 @@ export class ChatHub{
     return observer;
   }
 
-  storeItems: StoreItem<Message>[];
+  private storeItems: StoreItem<Message>[];
   private observers: Array<Observer<StoreItem<Message>>>;
-  public observables: Array<Observable<StoreItem<Message>>>;
+  private observables: Array<Observable<StoreItem<Message>>>;
 }
 
 export class StoreItem<T>{

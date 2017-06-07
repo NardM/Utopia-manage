@@ -8,7 +8,7 @@ export class GUID {
         this.str = str || GUID.getNewGUIDString();
     }
 
-    toString() {
+    toString(): string {
         return this.str;
     }
 

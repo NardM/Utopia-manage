@@ -10,12 +10,12 @@ import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class AuthService {
-  isLoggedIn: boolean = false;
+  public isLoggedIn: boolean = false;
 
   // store the URL so we can redirect after logging in
-  redirectUrl: string;
+  public redirectUrl: string;
 
-  login() {
+  login(): void {
     this.isLoggedIn = true;
   }
 

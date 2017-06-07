@@ -23,17 +23,17 @@ export class FormResponseComponent implements OnInit {
     this.getServiceResponse();
   }
 
-  selectBool: boolean = true;
-  responses: Response[];
-  @Input() requestId;
-  load: boolean = true;
+  public selectBool: boolean = true;
+  public responses: Response[];
+  @Input() public requestId;
+  public load: boolean = true;
 
   constructor(private userService: UserService,
               private router: Router) {
   }
 
 
-  getServiceResponse() {
+  getServiceResponse(): void {
     this.userService.getServiceResponse(this.requestId)
         .then(response => {
           this.responses = response;

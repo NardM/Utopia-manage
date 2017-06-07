@@ -31,7 +31,7 @@ export class  ServiceRequestStore {
     this.storeItems = [];
     this.observers = [];
     this.observables = [];
-   // this.requestManagerHub.newResponse.subscribe(res => this.newOrder(res));
+    // this.requestManagerHub.newResponse.subscribe(res => this.newOrder(res));
     this.createObserver().subscribe(a => this.storeItems.push(a));
     this.service.getServiceRequest(1 << 1 | 1 << 2 | 1 << 3 | 1 << 4, 0)
         .then(res => {
@@ -44,11 +44,10 @@ export class  ServiceRequestStore {
   }
 
 
-
   newOrder(res: any): void {
     debugger;
-    let self= this;
-    let message: string = 'Вам пришло новое предложение по заявке ' +res.id;
+    let self = this;
+    let message: string = 'Вам пришло новое предложение по заявке ' + res.id;
     let action: string = "Открыть";
     let option: MdSnackBarConfig = new MdSnackBarConfig();
     option.duration = 10000;
@@ -59,12 +58,11 @@ export class  ServiceRequestStore {
     });
   }
 
-  audioNotification() {
+  audioNotification(): void {
     let audio = new Audio(); // Создаём новый элемент Audio
     audio.src = 'assets/audio/notification.mp3'; // Указываем путь к звуку "клика"
     audio.autoplay = true; // Автоматически запускаем
   }
-
 
 
   /* UpdatePut(requestId: number, propertyId: number,item: Item): Promise<RequestI> {
@@ -74,20 +72,20 @@ export class  ServiceRequestStore {
    }*/
 
 
-  private Added(request: Request, total_count?: number) {
+  private Added(request: Request, total_count?: number): void {
     this.observers.map(o => o.next(new StoreItem<Request>(request,
-      StoreAction.Inserted, total_count)));
+        StoreAction.Inserted, total_count)));
   }
 
-  public Remove(request: Request) {
+  public Remove(request: Request): void {
     this.observers.map(o => o.next(new StoreItem<Request>(request, StoreAction.Deleted)));
   }
 
-  public AddedNew(request: Request) {
+  public AddedNew(request: Request): void {
     this.observers.map(o => o.next(new StoreItem<Request>(request, StoreAction.NewInserted)));
   }
 
-  public Update(request: Request) {
+  public Update(request: Request): void {
     this.observers.map(o => o.next(new StoreItem<Request>(request, StoreAction.Update)));
   }
 

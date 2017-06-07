@@ -3,10 +3,11 @@ import { Http, Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import {Category} from "../model/category";
-import {Answer} from "./answer";
+import { Answer, EmptyAnswer } from "./answer";
 import {ConstService} from "../../const/http/service-const.service";
 import {TokenService} from "./token.serviece";
 import {Consts} from "../../const/app-const";
+import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
@@ -25,7 +26,7 @@ export class CategoryService {
               ) {
   }
 
-  getCategories2(offset?: number){
+  getCategories2(offset?: number): Promise<Category[]>{
     let url = this.categoryUrl + '?count=20&offset='+offset;
     return this.constService.get<Category[]>(url, "categories");
   }
@@ -39,7 +40,7 @@ export class CategoryService {
     return this.constService.get<Category>(url);
   }
 
-  getSubCategory(id: number) {
+  getSubCategory(id: number): Promise<Category[]> {
     return this.constService.get<Category[]>(this.categoriesUrl + '/' + id + '/' + 'subcategories', "categories");
   }
 
@@ -48,44 +49,7 @@ export class CategoryService {
     return this.constService.search<Category>(url, 'categories');
   }
 
-  postCreateCategory(createCategory: Category) {
-    let url = this.editCategoryUrl;
-    return this.constService.post<Category>(url, createCategory);
-  }
 
-  postCreateCategoryAnswer(createCategory: Category) {
-    let url = this.editCategoryUrl;
-    return this.constService.postAnswer<Category>(url, createCategory);
-  }
 
-  postAddSubCategory(categoryId: number, subCategoryId: number) {
-    let url = this.editCategoryUrl + '/' + categoryId + '/subcategory/' + subCategoryId;
-    return this.constService.postSingle(url);
-  }
-
-  deleteAddSubCategory(categoryId: number, subCategoryId: number) {
-    //debugger;
-    let url = this.editCategoryUrl + '/' + categoryId + '/subcategory/' + subCategoryId;
-    this.constService.delete(url);
-  }
-
-  deleteCategory(categoryId: number) {
-    let url = this.editCategoryUrl + '/'+categoryId;
-    this.constService.delete(url);
-  }
-
-  putEditCategory(category: Category) {
-    let url = this.editCategoryUrl + '/' + category.id;
-    return this.constService.put<Category>(url, category);
-  }
-
-  publishCategory(categoryId: number) {
-    let url = this.editCategoryUrl + '/' + categoryId+'/publish';
-    return this.constService.postSingle(url);
-  }
-  blockedCategory(categoryId: number) {
-    let url = this.editCategoryUrl + '/' + categoryId+'/block';
-    return this.constService.postSingle(url);
-  }
 
 }

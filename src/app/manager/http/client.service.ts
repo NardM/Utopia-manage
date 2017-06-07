@@ -12,6 +12,7 @@ import Account= ClientInterface.Account;
 import {Consts} from "../../const/app-const";
 import {ConstService} from "../../const/http/service-const.service";
 import {UserBlock} from "../clients/form-client/client/client.component";
+import { EmptyAnswer } from './answer';
 
 @Injectable()
 export class ClientService {
@@ -23,7 +24,7 @@ export class ClientService {
   constructor(private constService: ConstService) {
   }
 
-  getClients(offset?: number) {
+  getClients(offset?: number): Promise<Account[]> {
     let url = this.clientsUrl+'?count=100&offset='+offset;
     return this.constService.get<Account[]>(url, 'accounts');
   }
@@ -34,22 +35,22 @@ export class ClientService {
     return this.constService.get<Account>(url);
   }
 
-  getClient(id: number) {
+  getClient(id: number): Promise<Account> {
     let url = this.clientsUrl + '/' + id;
     return this.constService.get<Account>(url);
   }
 
-  blockAccount(userId: number, rezon: string) {
+  blockAccount(userId: number, rezon: string): Promise<any> {
     let url = this.clientsUrl + '/' + userId +'/block';
     return this.constService.post(url, rezon);
   }
 
-  getBlockAccount(userId: number) {
+  getBlockAccount(userId: number): Promise<UserBlock> {
     let url = this.clientsUrl + '/' + userId +'/block';
     return this.constService.get<UserBlock>(url);
   }
 
-  OnblockAccount(userId: number, rezon: string) {
+  OnblockAccount(userId: number, rezon: string): Promise<any> {
     let url = this.clientsUrl + '/' + userId +'/block';
     return this.constService.delete(url);
   }

@@ -21,14 +21,14 @@ declare var jQuery:any;
 export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
 
 
-  @Input() chatId: number = 0;
-  @Input() orderId: number;
-  userId: number;
-  notificationsActive: boolean = true;
-  chatFlag: boolean = false;
-  date: Date;
-  chatSkins: Skins;
-  nameSkin: string;
+  @Input() private chatId: number = 0;
+  @Input() private orderId: number;
+  private userId: number;
+  private notificationsActive: boolean = true;
+  private chatFlag: boolean = false;
+  private date: Date;
+  private chatSkins: Skins;
+  private nameSkin: string;
 
 
   constructor(private router: Router,
@@ -47,7 +47,7 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
     this.date = new Date();
   }
 
-  downChatScroll: boolean = false;
+  private downChatScroll: boolean = false;
 
   ngAfterViewChecked(){
     if (this.downChatScroll) {
@@ -57,7 +57,7 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
     }
   }
 
-  newMessage(res: any) {
+  newMessage(res: any): void {
     debugger;
     let self = this;
     if (res.chat_id===self.chatId) {
@@ -71,10 +71,8 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
     }
   }
 
-  backStep() {
-  }
 
-  audio(){
+  audio(): void{
     var audio = new Audio(); // Создаём новый элемент Audio
     audio.src = 'assets/audio/3891d40bc61d1c.mp3'; // Указываем путь к звуку "клика"
     audio.autoplay = true; // Автоматически запускаем
@@ -88,7 +86,7 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
   }
 
 
-  getChat() {
+  getChat(): void {
     let self = this;
     self.chatServiceL.getChat(self.chatId)
       .then(res => {
@@ -110,7 +108,7 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
       });
   }
 
-  getChatSkinsEmpty(chat_id: number){
+  getChatSkinsEmpty(chat_id: number): void{
     let self = this;
      self.chatServiceL.getSkin(chat_id)
       .then(value => {
@@ -142,11 +140,8 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
       return date_string.toLocaleString();
   }
 
-  onKeydownChat(event) {
-    debugger;
-  }
 
-  onPush() {
+  onPush(): void {
     debugger;
     let self = this;
     if (self.chat === null || self.chat == undefined || self.chat === "")
@@ -173,7 +168,7 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
   }
 
 
-  onMessageListScrollDown() {
+  onMessageListScrollDown(): void {
     debugger;
     /*jQuery('message-list').scrollTop( jQuery('message-list').scrollHeigh);*/
     let myDiv = document.getElementById('message-list');
@@ -181,18 +176,14 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
   }
 
 
-  getAvatar(skin_id) {
+  getAvatar(skin_id): string {
     return Consts.baseURL + 'v1/account/' + skin_id + '/icon';
   }
 
-  chats: Array<Message> = [];
+  private chats: Array<Message> = [];
 
-  chat: string;
+  private chat: string;
 
-
-  onDetail() {
-    this.router.navigate(['/home'])
-  }
 }
 
 

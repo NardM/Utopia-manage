@@ -35,38 +35,38 @@ export class ChatComponent implements OnInit, OnDestroy {
     };
   }
 
-  chats: Array<Chat> = [];
-  chat: Chat;
-  selectedChatID: number;
-  selectedRequest: Request;
-  notificationsActive: boolean = true;
-  date: Date;
+  private chats: Array<Chat> = [];
+  private chat: Chat;
+  private selectedChatID: number;
+  private selectedRequest: Request;
+  private notificationsActive: boolean = true;
+  private date: Date;
   private subscription: Subscription;
-  categories: Category[];
-  sidenavBool: boolean = false;
+  private categories: Category[];
+  private sidenavBool: boolean = false;
   @ViewChild('sidenav')
-  sidenav: MdSidenav;
+  private sidenav: MdSidenav;
 
-  requestsTake: BasketRequest;
-  requests: BasketRequest;
-  inputRequestTake: Request;
-  inputRequestBasket: Request;
+  private requestsTake: BasketRequest;
+  private requests: BasketRequest;
+  private inputRequestTake: Request;
+  private inputRequestBasket: Request;
 
-  onSelectInputBasket(event: Request){
+  onSelectInputBasket(event: Request): void{
     this.inputRequestBasket = event;
   }
 
-  onSelectInputTake(event: Request){
+  onSelectInputTake(event: Request): void{
     this.inputRequestTake = event;
   }
 
-  onSelectRequest(request: Request) {
+  onSelectRequest(request: Request): void {
       this.sidenav.close();
     this.selectedChatID = request.chat_id;
     this.selectedRequest = this.onPushCategoryInRequest(request);
   }
 
-  getCategories() {
+  getCategories(): void {
     this.categoryService.getCategories()
         .then(res => {
           this.categories = res;
@@ -74,7 +74,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         })
   }
 
-  onOpenRequest(event){
+  onOpenRequest(event): void{
     if (event){
       this.sidenav.open();
     }
@@ -84,7 +84,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
 
-  onPushCategoryInRequest(request: Request) {
+  onPushCategoryInRequest(request: Request): Request {
     let self = this;
     request.category_name = self.categories.find(res => res.id === request.category_id).name;
     return request;

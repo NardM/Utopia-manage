@@ -33,14 +33,15 @@ export class ChatItemComponent implements  OnInit,
 OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
 
 
-  @Input() chatID: number;
-  chat: Chat;
-  skin_id: number;
-  skin: Skin[];
-  message: string;
-  date: Date;
-  totalCount: number = 0;
-  chatFlag: boolean = false;
+  @Input() private chatID: number;
+  private chat: Chat;
+  private skin_id: number;
+  private skin: Skin[];
+  private message: string;
+  private date: Date;
+  private totalCount: number = 0;
+  private chatFlag: boolean = false;
+
   constructor(private router: Router,
               @Inject(DOCUMENT) private document: Document,
               private serviceR: ChatHub,
@@ -57,13 +58,13 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   }
 
   @ViewChild("message_list")
-  message_list: ElementRef;
+  private message_list: ElementRef;
 
   ngOnInit() {
   }
 
 
-  getSkin(chat: Chat, chatID: number) {
+  getSkin(chat: Chat, chatID: number): Promise<any> {
     let self = this;
     return self.chatServiceL.getSkin(chatID)
         .then(value => {
@@ -79,7 +80,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
         })
   }
 
-  getChat(chatID: number) {
+  getChat(chatID: number): void {
     let self = this;
     self.chatServiceL.getChat(chatID)
         .then(res => {
@@ -90,23 +91,22 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
             });
             self.getSkin(res, chatID);
           }
-          else{
+          else {
             self.chatFlag = true;
           }
         })
   }
 
 
-  getMessages() {
+  getMessages(): void {
     let self = this;
     self.chatServiceL.getChatMessage(self.chatID, 20, 20)
   }
 
 
-
   ngOnChanges() {
     let self = this;
-    if (self.chatID){
+    if (self.chatID) {
       self.chat = undefined;
       self.chatFlag = false;
       self.getChat(self.chatID);
@@ -117,7 +117,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
     }
   }
 
-  onPush() {
+  onPush(): void {
     debugger;
     if (this.message === null || this.message == undefined || this.message === "")
       return;
@@ -144,7 +144,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   }
 
 
-  newMessage(res: any) {
+  newMessage(res: any): void {
     debugger;
     let self = this;
     if (res.chat_id === self.chatID) {
@@ -159,7 +159,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   }
 
   dateConvert(date: number): string {
-    date+=(this.date.getTimezoneOffset()*-1)*60000;
+    date += (this.date.getTimezoneOffset() * -1) * 60000;
     let date_string = new Date(date);
     if (this.date.getTime() + 720000 > date_string.getTime())
       return date_string.toLocaleTimeString();
@@ -168,13 +168,13 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   }
 
 
-  getAvatar(skin_id) {
+  getAvatar(skin_id): string {
     return Consts.baseURL + 'v1/account/' + skin_id + '/icon';
   }
 
-  downChatScroll: boolean = false;
+  private downChatScroll: boolean = false;
 
-  audioNotification() {
+  audioNotification(): void {
     let audio = new Audio(); // Создаём новый элемент Audio
     audio.src = 'assets/audio/newMessage.mp3'; // Указываем путь к звуку "клика"
     audio.autoplay = true; // Автоматически запускаем
@@ -197,7 +197,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
 
   }
 
-  onDetail() {
+  onDetail(): void {
     this.router.navigate(['/home'])
   }
 }

@@ -15,6 +15,7 @@ import {Category} from "../../model/category";
 import {CategoryService} from "../../http/category.service";
 import {ConstService} from "../../../const/http/service-const.service";
 import {BaThemeSpinner} from "../../../service/baThemeSpinner.service";
+import { Req } from 'awesome-typescript-loader/dist/checker/protocol';
 
 @Component({
 
@@ -24,31 +25,31 @@ import {BaThemeSpinner} from "../../../service/baThemeSpinner.service";
 })
 export class RequestsPublishedComponent implements OnInit {
 
-  requestServices: Array<Request> = [];
-  array = [];
-  offset = 0;
-  throttle = 300;
-  scrollDistance = 1;
-  blockUpload: boolean = false;
-    categories: Category[] = [];
+    public requestServices: Array<Request> = [];
+    public array = [];
+    public offset = 0;
+    public throttle = 300;
+    public scrollDistance = 1;
+    public blockUpload: boolean = false;
+    public categories: Category[] = [];
 
-  constructor(private router: Router,
-              private service: ConstService,
-              private _state: BaThemeSpinner,
-              private categoryService: CategoryService,
-              private userService: UserService) {
+    constructor(private router: Router,
+                private service: ConstService,
+                private _state: BaThemeSpinner,
+                private categoryService: CategoryService,
+                private userService: UserService) {
 
-  }
-
-  onScrollDown() {
-    // add another 20 items
-    if (!this.blockUpload) {
-      this.offset += 20;
-      this.getServiceRequest();
     }
-  }
 
-    getImage(request: Request) {
+    onScrollDown(): void {
+        // add another 20 items
+        if (!this.blockUpload) {
+            this.offset += 20;
+            this.getServiceRequest();
+        }
+    }
+
+    getImage(request: Request): Request {
         let url;
         let self = this;
         url = `v1/manager/order/${request.id}/icon`;
@@ -59,57 +60,57 @@ export class RequestsPublishedComponent implements OnInit {
         return request;
     }
 
-  getServiceRequest() {
-      let self = this;
-      this.userService.getServiceRequest(1 << 2, this.offset)
-          .then(res => {
-              if (res.total_count == 0) {
-                  this.blockUpload = true;
-                  return;
-              }
-              res.requests.map(item => {
-                  if (item.icon_hash) {
-                      self.requestServices.push(self.getImage(self.onPushCategoryInRequest(item)));
-                  }
-                  else {
-                      self.requestServices.push(self.onPushCategoryInRequest(item));
-                  }
-              })
-          });
-  }
+    getServiceRequest(): void {
+        let self = this;
+        this.userService.getServiceRequest(1 << 2, this.offset)
+            .then(res => {
+                if (res.total_count == 0) {
+                    this.blockUpload = true;
+                    return;
+                }
+                res.requests.map(item => {
+                    if (item.icon_hash) {
+                        self.requestServices.push(self.getImage(self.onPushCategoryInRequest(item)));
+                    }
+                    else {
+                        self.requestServices.push(self.onPushCategoryInRequest(item));
+                    }
+                })
+            });
+    }
 
-    onPushCategoryInRequest(request: Request) {
+    onPushCategoryInRequest(request: Request): Request {
         let self = this;
         request.category_name = self.categories.find(res => res.id === request.category_id).name;
         return request;
     }
 
 
-  ngOnInit() {
-      this.categoryService.getCategories()
-          .then(res => {
-              res.map(item => {
-                  if (item.subcategories.length !== 0) {
-                      item.subcategories.map(subcategory => {
-                          this.categories.push(subcategory)
-                      })
-                  }
-                  else {
-                      this.categories.push(item)
-                  }
-              })
-          })
-          .then(res => {
-              this.userService.getServiceRequest(1 << 2, this.offset)
-                  .then(requestServices => {
-                      requestServices.requests.map(item=>{
-                          item = this.onPushCategoryInRequest(item);
-                      })
-                      this.requestServices = requestServices.requests;
-                      this._state.hideManager();
-                  })
-          })
-  }
+    ngOnInit() {
+        this.categoryService.getCategories()
+            .then(res => {
+                res.map(item => {
+                    if (item.subcategories.length !== 0) {
+                        item.subcategories.map(subcategory => {
+                            this.categories.push(subcategory)
+                        })
+                    }
+                    else {
+                        this.categories.push(item)
+                    }
+                })
+            })
+            .then(res => {
+                this.userService.getServiceRequest(1 << 2, this.offset)
+                    .then(requestServices => {
+                        requestServices.requests.map(item => {
+                            item = this.onPushCategoryInRequest(item);
+                        });
+                        this.requestServices = requestServices.requests;
+                        this._state.hideManager();
+                    })
+            })
+    }
 }
 
 

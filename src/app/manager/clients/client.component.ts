@@ -19,18 +19,18 @@ export class ClientComponent implements OnInit {
       .then(clients => this.clients = clients)
   }
 
-  clients: Array<Account>;
-  array = [];
-  offset = 0;
-  throttle = 300;
-  scrollDistance = 1;
-  blockUpload: boolean = false;
+    public clients: Array<Account>;
+    public array = [];
+    public offset = 0;
+    public throttle = 300;
+    public scrollDistance = 1;
+    public blockUpload: boolean = false;
 
   constructor(private clientService: ClientService,
               private router: Router) {
   }
 
-  onScrollDown() {
+  onScrollDown(): void {
     // add another 20 items
     if (!this.blockUpload) {
       this.offset += 20;
@@ -38,7 +38,7 @@ export class ClientComponent implements OnInit {
     }
   }
 
-  getClients() {
+  getClients(): void {
     this.clientService.getClients(this.offset)
       .then(res => {
         if (res.length == 0) {

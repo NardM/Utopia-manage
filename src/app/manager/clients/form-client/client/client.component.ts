@@ -26,7 +26,7 @@ export class FormClientItemComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-  client: Account;
+  public client: Account;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -34,51 +34,51 @@ export class FormClientItemComponent implements OnInit, OnDestroy {
               private userService: UserService,
               public dialog: MdDialog) {
     this.routeSubscription = route.params.subscribe(params =>
-      this.clientService.getClient(params['id'])
-        .then(client => {
-          this.client = client;
-          this.getServiceRequest(client.id)
-        //  this.getBlockAccount();
-        }));
+        this.clientService.getClient(params['id'])
+            .then(client => {
+              this.client = client;
+              this.getServiceRequest(client.id)
+              //  this.getBlockAccount();
+            }));
   }
 
   private routeSubscription: Subscription;
-  selectedOption: string ="";
-  historyAppBool: boolean = false;
-  historyUser: Request;
+  public selectedOption: string = "";
+  public historyAppBool: boolean = false;
+  public historyUser: Request;
 
 
-  getServiceRequest(clientId: number) {
+  getServiceRequest(clientId: number): void {
     this.userService.getServiceRequestUser(clientId)
-      .then(res => this.historyUser = res)
+        .then(res => this.historyUser = res)
   }
 
 
-  openDialog() {
+  openDialog(): void {
     let dialogRef = this.dialog.open(DialogClient);
     dialogRef.afterClosed().subscribe(result => {
       this.selectedOption = result;
-      if (result){
+      if (result) {
         debugger;
         this.blockAccount(result)
       }
     });
   }
 
-  UserOnBlock(){
+  UserOnBlock(): void {
 
   }
 
-  blockAccount(result: string) {
-    this.clientService.blockAccount(this.client.id, '{"rezon":' +'"'+ result + '"'+'}');
+  blockAccount(result: string): void {
+    this.clientService.blockAccount(this.client.id, '{"rezon":' + '"' + result + '"' + '}');
   }
 
-  getBlockAccount() {
+  getBlockAccount(): void {
     this.clientService.getBlockAccount(this.client.id)
-      .then(res => {
-        if (res.rezon)
-        this.selectedOption = res.rezon
-      });
+        .then(res => {
+          if (res.rezon)
+            this.selectedOption = res.rezon
+        });
   }
 
   ngOnDestroy() {
@@ -96,7 +96,7 @@ export class DialogClient {
               public clientService: ClientService) {
   }
 
-  rezon: string = "";
+  public rezon: string = "";
 
 
 }

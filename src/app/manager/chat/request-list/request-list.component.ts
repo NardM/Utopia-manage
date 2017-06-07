@@ -34,15 +34,15 @@ export class RequestListComponent implements OnChanges {
                 private service: ChatService) {
     }
 
-    requests: BasketRequest;
-    @Input() takeBool: boolean;
-    @Input() inRequest: Request;
-    @Output() selectOutput = new EventEmitter<Request>();
-    @Output() selectRequest = new EventEmitter<Request>();
-    selectedRequest: Request;
-    indexDelete: number;
-    requestFlagLoad: boolean = true;
-    flagLoad: boolean = false;
+    private requests: BasketRequest;
+    @Input() private takeBool: boolean;
+    @Input() private inRequest: Request;
+    @Output() private selectOutput = new EventEmitter<Request>();
+    @Output() private selectRequest = new EventEmitter<Request>();
+    private selectedRequest: Request;
+    private indexDelete: number;
+    private requestFlagLoad: boolean = true;
+    private flagLoad: boolean = false;
 
     ngOnChanges() {
         if (!this.flagLoad) {
@@ -61,7 +61,7 @@ export class RequestListComponent implements OnChanges {
         }
     }
 
-    getRequestsTake() {
+    getRequestsTake(): void {
         this.service.getRequestsTake()
             .then(res => {
                 this.requests = res;
@@ -69,7 +69,7 @@ export class RequestListComponent implements OnChanges {
             })
     }
 
-    getBasketRequests() {
+    getBasketRequests(): void {
         this.service.getBaskets()
             .then(res => {
                 this.requests = res;
@@ -78,7 +78,7 @@ export class RequestListComponent implements OnChanges {
     }
 
 
-    onSelectOutput(request: Request) {
+    onSelectOutput(request: Request): void {
         this.requests.requests = this.requests.requests.filter(res => res !== request);
         if (!this.takeBool) {
             this.service.postRequestTake(request.id)
@@ -92,11 +92,11 @@ export class RequestListComponent implements OnChanges {
         }
     }
 
-    onSelectRequestOutput(request: Request){
-        this.requests.requests.map(res=>{
+    onSelectRequestOutput(request: Request): void {
+        this.requests.requests.map(res => {
             res.active = false;
         });
-        this.requests.requests.find(res=>res===request).active = true;
+        this.requests.requests.find(res => res === request).active = true;
         this.selectRequest.emit(request);
     }
 

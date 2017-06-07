@@ -25,7 +25,7 @@ import {BaThemeSpinner} from "../../../service/baThemeSpinner.service";
     templateUrl: 'requests-new.component.html',
     styleUrls: [ 'requests-new.component.scss']
 })
-export class RequestsNewComponent implements OnInit {
+export class RequestsNewComponent  {
 
     constructor(private router: Router,
                 private userService: UserService,
@@ -56,21 +56,21 @@ export class RequestsNewComponent implements OnInit {
             })
     }
 
-    array = [];
-    offset = 20;
-    throttle = 300;
-    scrollDistance = 1;
-    requests: Array<Request> = [];
-    blockUpload: boolean = false;
-    requestList: boolean = false;
-    requestFlag: boolean = false;
-    noRequest: boolean = true;
-    blockLoadFlag: boolean = false;
-    totalCount: number = 0;
-    countScroll: number = 1;
-    categories: Category[] = [];
+    private array = [];
+    private offset = 20;
+    private throttle = 300;
+    private scrollDistance = 1;
+    public requests: Array<Request> = [];
+    private blockUpload: boolean = false;
+    private requestList: boolean = false;
+    private requestFlag: boolean = false;
+    private noRequest: boolean = true;
+    private blockLoadFlag: boolean = false;
+    private totalCount: number = 0;
+    private countScroll: number = 1;
+    private categories: Category[] = [];
 
-    newStoreItem(res: StoreItem<Request>) {
+    newStoreItem(res: StoreItem<Request>): void {
         let self = this;
         switch (res.action) {
             case StoreAction.Inserted:
@@ -107,7 +107,7 @@ export class RequestsNewComponent implements OnInit {
         }
     }
 
-    onScrollDown() {
+    onScrollDown(): void {
         // add another 20 items
         debugger;
         if (!this.blockUpload && !this.blockLoadFlag) {
@@ -126,7 +126,7 @@ export class RequestsNewComponent implements OnInit {
         }
     }
 
-    getImage(request: Request) {
+    getImage(request: Request): Request {
         let url;
         let self = this;
         url = `v1/manager/order/${request.id}/icon`;
@@ -138,7 +138,7 @@ export class RequestsNewComponent implements OnInit {
     }
 
 
-    getRequest() {
+    getRequest(): void {
         let self = this;
         self.userService.getServiceRequest(1 << 1 | 1 << 2 | 1 << 3 | 1 << 4,
             self.totalCount - self.offset)
@@ -156,7 +156,7 @@ export class RequestsNewComponent implements OnInit {
     }
 
 
-    getCategories() {
+    getCategories(): void {
         this.categoryService.getCategories()
             .then(res => {
                 this.categories = res;
@@ -164,15 +164,12 @@ export class RequestsNewComponent implements OnInit {
     }
 
 
-    onPushCategoryInRequest(request: Request) {
+    onPushCategoryInRequest(request: Request): Request {
         let self = this;
         request.category_name = self.categories.find(res => res.id === request.category_id).name;
         return request;
     }
 
-
-    ngOnInit() {
-    }
 
 
 }

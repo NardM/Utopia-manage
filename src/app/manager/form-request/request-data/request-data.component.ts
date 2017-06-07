@@ -41,17 +41,17 @@ export class RequestDataComponent implements OnInit, OnChanges {
 
   }
 
-  @Input() requestId: number;
-  @Input() numberRequest: number = 0;
-  @Input() chatBool: boolean = false;
-  orderData: ServiceRequestData[];
-  orderDetailFlag: boolean = false;
-  chat_id: number = 0;
-  openImage: boolean = false;
-  errorPostResponse: boolean = false;
-  date: Date;
-  dateAccess: number;
-  dateAccessDate: number;
+  @Input() public requestId: number;
+  @Input() public numberRequest: number = 0;
+  @Input() public chatBool: boolean = false;
+  public orderData: ServiceRequestData[];
+  public orderDetailFlag: boolean = false;
+  public chat_id: number = 0;
+  public openImage: boolean = false;
+  public errorPostResponse: boolean = false;
+  public date: Date;
+  public dateAccess: number;
+  public dateAccessDate: number;
 
   ngOnChanges() {
     if (this.requestId) {
@@ -59,11 +59,11 @@ export class RequestDataComponent implements OnInit, OnChanges {
     }
   }
 
-  onPublishRequest() {
+  onPublishRequest(): void {
     this.userService.putPublishServiceRequest(this.requestId)
   }
 
-  onDeniedRequest() {
+  onDeniedRequest(): void {
 
   }
 
@@ -78,22 +78,22 @@ export class RequestDataComponent implements OnInit, OnChanges {
     return result;
   }
 
-  getPropertyIcon(property_id: number) {
+  getPropertyIcon(property_id: number): string {
     return Consts.baseURL + '/v1/property/' + property_id + '/icon';
   }
 
-  openModalWindow: boolean = false;
-  imagePointer: number;
-  images: Array<{ thumb: string, img: string, description: string }> = [];
+  public openModalWindow: boolean = false;
+  public imagePointer: number;
+  public images: Array<{ thumb: string, img: string, description: string }> = [];
 
-  OpenImageModel(ind: number) {
+  OpenImageModel(ind: number): void {
     //alert('OpenImages');
     this.imagePointer = ind;
     this.openModalWindow = true; ///TODO из-за чата баг
   }
 
 
-  cancelImageModel() {
+  cancelImageModel(): void {
     this.openModalWindow = false;
   }
 
@@ -132,7 +132,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
           });
   }
 
-  getOrderData() {
+  getOrderData(): void {
     let options = {
       year: 'numeric',
       month: 'long',
@@ -181,10 +181,10 @@ export class RequestDataComponent implements OnInit, OnChanges {
         });
   }
 
-  postOrderBool: boolean = false;
+  public postOrderBool: boolean = false;
 
 
-  onMaps(address) {
+  onMaps(address): void {
     let option: MdDialogConfig = new MdDialogConfig();
     option.disableClose = false;
     option.height = '450px';
@@ -195,7 +195,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
   }
 
 
-  onRoute(route) {
+  onRoute(route): void {
     let option: MdDialogConfig = new MdDialogConfig();
     option.disableClose = false;
     option.height = '600px';
@@ -205,7 +205,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
   }
 
 
-  getServicePhoto(requestId: number) {
+  getServicePhoto(requestId: number): string {
     return 'http://smartapi.ru/v1/manage/requests/photo/' + requestId;
   }
 

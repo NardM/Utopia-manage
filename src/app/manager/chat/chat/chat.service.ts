@@ -31,37 +31,37 @@ export class ChatService {
   }
 
 
-  getBaskets() {
+  getBaskets(): Promise<BasketRequest> {
     let url = `${Consts.baseURL}v1/manager/basket/request`;
     return this.constService.get<BasketRequest>(url);
   }
 
-  postRequestTake(requestID: number) {
+  postRequestTake(requestID: number): Promise<EmptyAnswer> {
     let url = `${Consts.baseURL}v1/manager/request/${requestID}`;
     return this.constService.postSingle<EmptyAnswer>(url);
   }
 
-  deleteRequestInBasket(requestID: number) {
+  deleteRequestInBasket(requestID: number): Promise<EmptyAnswer> {
     let url = `${Consts.baseURL}v1/manager/basket/request/${requestID}`;
     return this.constService.postSingle<EmptyAnswer>(url);
   }
 
-  getRequestTake(requestID: number) {
+  getRequestTake(requestID: number): Promise<BasketRequest> {
     let url = `${Consts.baseURL}v1/manager/request/${requestID}`;
     return this.constService.get<BasketRequest>(url);
   }
 
-  getRequestsTake() {
+  getRequestsTake(): Promise<BasketRequest> {
     let url = `${Consts.baseURL}v1/manager/request`;
     return this.constService.get<BasketRequest>(url);
   }
 
-  getChatMessage(chatID: number, count: number, offset: number) {
+  getChatMessage(chatID: number, count: number, offset: number): Promise<Message[]> {
     let url = `${Consts.baseURL}/manage/v1/chat/${chatID}/message`;
     return this.constService.get<Message[]>(url);
   }
 
-  getChat(chatID: number) {
+  getChat(chatID: number): Promise<Chat> {
     let url = `${Consts.baseURL}/manage/v1/chat/${chatID}`;
     return this.constService.get<Chat>(url);
   }
@@ -71,7 +71,7 @@ export class ChatService {
     return this.constService.post<Message>(url, message);
   }
 
-  getSkin(chatID: number) {
+  getSkin(chatID: number): Promise<Skins> {
     let url = `${Consts.baseURL}/manage/v1/chat/${chatID}/skin`;
     return this.constService.get<Skins>(url);
   }

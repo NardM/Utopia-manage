@@ -33,13 +33,13 @@ export class RequestItemComponent implements OnChanges {
     constructor(private userService: UserService, private clientService: ClientService) {
     }
 
-    @Input() request: Request;
-    @Output() onOpenRequestBool = new EventEmitter();
-    user: Client;
-    response: Respons[];
-    confirmBool: boolean = false;
-    load: boolean = false;
-    openRequestBool: boolean = false;
+    @Input() private request: Request;
+    @Output() private onOpenRequestBool = new EventEmitter();
+    private user: Client;
+    public response: Respons[];
+    private confirmBool: boolean = false;
+    private load: boolean = false;
+    private openRequestBool: boolean = false;
 
     ngOnChanges() {
         if (this.request) {
@@ -56,28 +56,30 @@ export class RequestItemComponent implements OnChanges {
         }
     }
 
-    onOpenRequest(){
+    onOpenRequest(): void {
         this.openRequestBool = !this.openRequestBool;
         this.onOpenRequestBool.emit(this.openRequestBool);
     }
 
 
-    resetComponent(){
+    resetComponent(): void {
         this.user = undefined;
         this.response = undefined;
         this.confirmBool = false;
     }
 
-    getClient() {
+    getClient(): void {
         this.clientService.getClient(this.request.user_id)
-            .then(res =>{ this.user = res; })
+            .then(res => {
+                this.user = res;
+            })
     }
 
-    getConfirm() {
+    getConfirm(): void {
         this.userService.getServiceRequestConfirm(this.request.confirm.id);
     }
 
-    getRespons() {
+    getRespons(): void {
         this.userService.getServiceResponse(this.request.id)
             .then(res => {
                 this.response = res;

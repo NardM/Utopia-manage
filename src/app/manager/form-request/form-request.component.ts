@@ -29,48 +29,48 @@ import {ServiceRequestDataInterface} from "../model/service-request-data";
 })
 export class FormRequestComponent implements OnInit {
 
-  ngOnInit(): void {
-    this.onLoad();
+    ngOnInit(): void {
+        this.onLoad();
 
-  }
+    }
 
-  @Input() request: Request;
-  @Input() numberRequest: number = 0;
-  @Output() deleteRequest = new EventEmitter();
-  categoryName: string;
-  responseCompany: Responses;
-  requestConfirm: RequestConfirm;
-  userPhone: string = "";
-  openRequestData: boolean = false;
-  sidnavBool: boolean = false;
+    @Input() public request: Request;
+    @Input() public numberRequest: number = 0;
+    @Output() public deleteRequest = new EventEmitter();
+    public categoryName: string;
+    public responseCompany: Responses;
+    public requestConfirm: RequestConfirm;
+    public userPhone: string = "";
+    public openRequestData: boolean = false;
+    public sidnavBool: boolean = false;
 
-  constructor(private categoryService: CategoryService,
-              private userService: UserService,
-              private router: Router,
-              private clientService: ClientService) {
-  }
+    constructor(private categoryService: CategoryService,
+                private userService: UserService,
+                private router: Router,
+                private clientService: ClientService) {
+    }
 
-  onLoad() {
-    this.getClient(this.request.user_id);
-  }
+    onLoad(): void {
+        this.getClient(this.request.user_id);
+    }
 
-  onSidnav(){
-      this.sidnavBool = true;
-  }
+    onSidnav(): void {
+        this.sidnavBool = true;
+    }
 
-  getClient(userId: number) {
-    this.clientService.getClient(userId).then(res => this.userPhone = res.phone);
-  }
+    getClient(userId: number): void {
+        this.clientService.getClient(userId).then(res => this.userPhone = res.phone);
+    }
 
 
-  getServiceRequestConfirm() {
-    this.userService.getServiceRequestConfirm(this.request.id)
-        .then(res => {
-          this.requestConfirm = res;
-          this.userService.getServiceResponseId(this.request.id, res.response_id)
-              .then(res => this.responseCompany);
-        });
-  }
+    getServiceRequestConfirm(): void {
+        this.userService.getServiceRequestConfirm(this.request.id)
+            .then(res => {
+                this.requestConfirm = res;
+                this.userService.getServiceResponseId(this.request.id, res.response_id)
+                    .then(res => this.responseCompany);
+            });
+    }
 
 }
 

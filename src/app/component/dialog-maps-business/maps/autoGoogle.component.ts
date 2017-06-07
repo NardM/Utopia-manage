@@ -25,8 +25,8 @@ export class MapsGoogleComponent implements OnInit {
   public longitude: number;
   public zoom: number;
   public iconurl: string;
-  markerText: string;
-  route: boolean = false;
+  private markerText: string;
+  private route: boolean = false;
 
   constructor(@Inject(MD_DIALOG_DATA) public data: any,
               public dialogRef: MdDialogRef<MapsGoogleComponent>) {

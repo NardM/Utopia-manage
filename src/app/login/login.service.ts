@@ -20,7 +20,7 @@ export class LoginService {
                 private constService: ConstService) {
     }
 
-    logout() {
+    logout(): void {
         let url = Consts.baseURL + 'v1/account/logout';
         let device_id = Cookie.get('device_id');
         let logout = {

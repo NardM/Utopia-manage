@@ -28,42 +28,43 @@ export class RequestItemMiniComponent implements OnChanges {
     constructor() {
     }
 
-    @Input() request: Request;
-    @Input() takeBool: boolean = true;
-    @Output() selectOutput = new EventEmitter<Request>();
-    @Output() selectRequest = new EventEmitter<Request>();
-    expression: string = "#009DDF";
-    deleteRequestBool: boolean = false;
-    active: boolean;
+    @Input() private request: Request;
+    @Input() private takeBool: boolean = true;
+    @Output() private selectOutput = new EventEmitter<Request>();
+    @Output() private selectRequest = new EventEmitter<Request>();
+    private expression: string = "#009DDF";
+    private deleteRequestBool: boolean = false;
+    private active: boolean;
+
     ngOnChanges() {
         this.active = this.takeBool;
     }
 
-    onChange(event, request: Request) {
+    onChange(event, request: Request): void {
         if (event.checked) {
             if (!this.takeBool) {
                 this.deleteRequestBool = true;
                 this.selectOutput.emit(request);
             }
-            else{
+            else {
 
             }
         }
-        else{
-            if (this.takeBool){
+        else {
+            if (this.takeBool) {
                 this.deleteRequestBool = true;
                 this.selectOutput.emit(request);
             }
         }
     }
 
-    onOpenChat(request: Request){
-        if (this.takeBool){
+    onOpenChat(request: Request): void {
+        if (this.takeBool) {
             this.selectRequest.emit(request)
         }
     }
 
-    StatusRequest(status: number) {
+    StatusRequest(status: number): string {
         switch (status) {
             case 0:
                 this.expression = "white";

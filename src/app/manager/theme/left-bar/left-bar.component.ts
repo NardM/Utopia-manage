@@ -25,13 +25,13 @@ export class LeftBarComponent {
 
     public isMenuCollapsed:boolean = false;
 
-    public toggleMenu() {
+    public toggleMenu(): boolean {
         this.isMenuCollapsed = !this.isMenuCollapsed;
         this._state.notifyDataChanged('menu.isCollapsed', this.isMenuCollapsed);
         return false;
     }
 
-    navLinks: { href: string, label: string, icon: string }[] = [
+    public navLinks: { href: string, label: string, icon: string }[] = [
         {
             href: './chat', label: 'ЧАТ', icon: 'chat'
         },
