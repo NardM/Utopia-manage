@@ -31,9 +31,8 @@ export class ChatHub{
 
   newMessage(res: any) {
     let self = this;
-    let param_chat = JSON.parse(localStorage['active_chat_you']);
+    debugger;
     self.observers.map(o => o.next(new StoreItem<Message>(res, StoreAction.Inserted)));
-    if (param_chat.active) {
       let message: string = 'Вам пришло новое сообщение';
       let action: string = "Открыть";
       let option: MdSnackBarConfig = new MdSnackBarConfig();
@@ -47,7 +46,6 @@ export class ChatHub{
         options.data = res;
         let dialogRef = self.dialog.open(ChatDialogComponent, option);
       });
-    }
   }
 
   private Added(message: Message) {

@@ -85,6 +85,7 @@
     "@angularclass/hmr-loader": "~3.0.2",
     "@types/googlemaps": "^3.26.13",
     "@types/jquery": "^2.0.46",
+    "angular2-cool-infinite-grid": "^1.3.0",
     "angular2-google-maps": "^0.17.0",
     "angular2-image-popup": "^1.1.2",
     "angular2-infinite-scroll": "^0.3.5",

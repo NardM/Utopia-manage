@@ -29,7 +29,7 @@ declare var jQuery:any;
     let chatHub = connection.chat;
 
     this.newMessage = Observable.create(observer=>
-      requestHub.client.newMessage = ( a => observer.next(a)));
+        chatHub.client.newMessage = ( a => observer.next(a)));
 
 
     connection.hub.start()
@@ -38,6 +38,7 @@ declare var jQuery:any;
         let connect: Connect = <Connect>{
           device_id: Cookie.get('device_id'),
           role: 4,
+          user_id: 130,
           app_type: 5,
           token: Cookie.get('login_token')
         };

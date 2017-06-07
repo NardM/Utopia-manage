@@ -90,17 +90,17 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
 
   getChat() {
     let self = this;
-    self.chatServiceL.getMessages(self.chatId)
+    self.chatServiceL.getChat(self.chatId)
       .then(res => {
-        res.map(chat => {
+        res.messages.map(chat => {
           chat.date_string = self.dateConvert(chat.date);
         });
-        if (res.length===0){
+        if (res.messages_total_count===0){
           self.getChatSkinsEmpty(self.chatId);
           self.chatFlag = true;
         }
         else {
-          self.getChatSkins(res, self.chatId)
+          self.getChatSkins(res.messages, self.chatId)
             .then(value => {
               self.chats = value;
               self.chatFlag = true;
@@ -112,7 +112,7 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
 
   getChatSkinsEmpty(chat_id: number){
     let self = this;
-     self.chatServiceL.getChatsSkins(chat_id)
+     self.chatServiceL.getSkin(chat_id)
       .then(value => {
         self.chatSkins = value;
       })
@@ -120,7 +120,7 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
 
   getChatSkins(chat: Message[], chat_id: number): Promise<Message[]> {
     let self = this;
-    return self.chatServiceL.getChatsSkins(chat_id)
+    return self.chatServiceL.getSkin(chat_id)
       .then(value => {
         self.chatSkins = value;
         value.skins.map(res => {

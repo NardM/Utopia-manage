@@ -21,6 +21,7 @@ import {Router} from "@angular/router";
 import {Chat, ChatService, Message, Skin, Skins} from "./chat.service";
 import {DOCUMENT} from "@angular/platform-browser";
 import {Consts} from "../../../const/app-const";
+import {ChatHub} from "../chatObs";
 
 @Component({
   selector: 'chat-item',
@@ -39,9 +40,17 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   message: string;
   date: Date;
   totalCount: number = 0;
+  chatFlag: boolean = false;
   constructor(private router: Router,
               @Inject(DOCUMENT) private document: Document,
+              private serviceR: ChatHub,
               private chatServiceL: ChatService) {
+    let self = this;
+    self.serviceR.createObserver()
+        .subscribe(res => {
+              self.newMessage(res)
+            }
+        );
     this.skin_id = 1;
     this.message = "";
     this.date = new Date();
@@ -66,6 +75,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
           });
           self.skin = value.skins;
           self.chat = chat;
+          self.chatFlag = true;
         })
   }
 
@@ -79,6 +89,9 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
               item.date_string = self.dateConvert(item.date);
             });
             self.getSkin(res, chatID);
+          }
+          else{
+            self.chatFlag = true;
           }
         })
   }
@@ -95,6 +108,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
     let self = this;
     if (self.chatID){
       self.chat = undefined;
+      self.chatFlag = false;
       self.getChat(self.chatID);
     }
     if (self.message_list) {
@@ -129,6 +143,21 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
         });
   }
 
+
+  newMessage(res: any) {
+    debugger;
+    let self = this;
+    if (res.chat_id === self.chatID) {
+      res.date_string = self.dateConvert(res.date);
+      res.name = self.skin.filter(item => {
+        return res.skin_id === item.skin_id
+      })[0].name;
+      this.chat.messages.push(res);
+      this.audioNotification();
+      this.downChatScroll = true;
+    }
+  }
+
   dateConvert(date: number): string {
     date+=(this.date.getTimezoneOffset()*-1)*60000;
     let date_string = new Date(date);
@@ -144,6 +173,12 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   }
 
   downChatScroll: boolean = false;
+
+  audioNotification() {
+    let audio = new Audio(); // Создаём новый элемент Audio
+    audio.src = 'assets/audio/newMessage.mp3'; // Указываем путь к звуку "клика"
+    audio.autoplay = true; // Автоматически запускаем
+  }
 
   ngAfterViewInit() {
 

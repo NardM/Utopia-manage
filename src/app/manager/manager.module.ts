@@ -42,6 +42,7 @@ import {GlobalState} from "./global.state";
 import {RequestItemMiniComponent} from "./chat/request-list/request-item-mini/request-item-mini.component";
 import {RequestItemComponent} from "./chat/request-list/reqiest-item/request-item.component";
 import {BaThemeSpinner} from "../service/baThemeSpinner.service";
+import {CoolInfiniteGridModule} from "angular2-cool-infinite-grid";
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import {BaThemeSpinner} from "../service/baThemeSpinner.service";
       region: 'ru'
     }),
     InfiniteScrollModule,
+    CoolInfiniteGridModule,
     MaterialModule,
   ],
   declarations: [
@@ -101,7 +103,7 @@ import {BaThemeSpinner} from "../service/baThemeSpinner.service";
     ChatService,
     ChatHub,
     GlobalState,
-    BaThemeSpinner
+    BaThemeSpinner,
   ],
   exports: []
 
