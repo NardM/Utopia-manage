@@ -11,6 +11,7 @@ import Request = BasketRequestInterface.Request;
 import {CategoryService} from "../http/category.service";
 import {Category} from "../model/category";
 import {MdSidenav} from "@angular/material";
+import {BaThemeSpinner} from "../../service/baThemeSpinner.service";
 
 
 @Component({
@@ -23,6 +24,7 @@ export class ChatComponent implements OnInit, OnDestroy {
               private router: Router,
               private hub: RequestManagerHub,
               private serviceR: ChatHub,
+              private _state: BaThemeSpinner,
               private categoryService: CategoryService,
               private service: ChatService) {
     let self = this;
@@ -68,6 +70,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.categoryService.getCategories()
         .then(res => {
           this.categories = res;
+          this._state.hideManager()
         })
   }
 

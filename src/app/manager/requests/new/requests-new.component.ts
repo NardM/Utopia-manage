@@ -17,6 +17,7 @@ import {Category} from "../../model/category";
 import {ServiceRequestStore, StoreAction, StoreItem} from "../../http/request";
 import {ConstService} from "../../../const/http/service-const.service";
 import {Req} from "awesome-typescript-loader/dist/checker/protocol";
+import {BaThemeSpinner} from "../../../service/baThemeSpinner.service";
 
 @Component({
 
@@ -29,6 +30,8 @@ export class RequestsNewComponent implements OnInit {
     constructor(private router: Router,
                 private userService: UserService,
                 private hub: RequestManagerHub,
+                private _state: BaThemeSpinner,
+
                 private service: ConstService,
                 private store: ServiceRequestStore,
                 private categoryService: CategoryService) {
@@ -43,6 +46,7 @@ export class RequestsNewComponent implements OnInit {
                     else {
                         this.categories.push(item)
                     }
+                    this._state.hideManager();
                 })
             })
             .then(r => {
