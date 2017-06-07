@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 export class BaThemeSpinner {
 
   private _selector:string = 'loading-wrapper';
-  private _selectorManager:string = 'preloader-manager';
+  private _selectorManager:string = 'preolader';
 
   private _element:HTMLElement;
   private _elementManager:HTMLElement;

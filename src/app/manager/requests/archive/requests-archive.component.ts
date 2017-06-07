@@ -22,7 +22,7 @@ import {BaThemeSpinner} from "../../../service/baThemeSpinner.service";
     templateUrl: 'requests-archive.component.html',
     styleUrls: [ 'requests-archive.component.scss']
 })
-export class RequestsArchiveComponent implements OnInit, AfterViewInit {
+export class RequestsArchiveComponent implements OnInit {
 
     requestServices: Array<Request>;
     array = [];
@@ -45,10 +45,6 @@ export class RequestsArchiveComponent implements OnInit, AfterViewInit {
             this.offset += 20;
             this.getServiceRequest();
         }
-    }
-
-    ngAfterViewInit(){
-        this._state.hideManager();
     }
 
     getImage(request: Request) {

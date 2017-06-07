@@ -115,15 +115,22 @@ button.editor{
 
 
 
-
+#preolader{
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 50px);
+  background-color: #BDBDBD;
+  left: 0;
+  top: 0;
+}
 
 #preloader-manager {
-  .screen{
 
-  }
   width: 100px;
   height: 100px;
-  margin: 150px auto;
+  /* margin: 150px auto; */
+  top: calc(50vh - 50px - 100px);
+  position: relative;
 }
 
 #preloader-manager .sk-cube {
