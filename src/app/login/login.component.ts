@@ -25,6 +25,7 @@ export class LoginComponent {
                 private tokenService: TokenService,
                 private route: ActivatedRoute,
                 private loginService: LoginService) {
+        document.body.style.background = 'white';
         this.step = LoginStep.PhoneInput;
     }
 

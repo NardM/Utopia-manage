@@ -41,17 +41,17 @@ input,
 select,
 textarea,
 body * {
-  font-family: 'Roboto', sans-serif;
-  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif !important;
+  box-sizing: border-box !important;
 
   &::after,
   &::before {
-    box-sizing: border-box;
+    box-sizing: border-box !important;
   }
 }
 
 body {
-  background-image: linear-gradient(top, darken($body-bg, 5%), darken($body-bg, 10%));
+  background-image: linear-gradient(top, darken($body-bg, 5%), darken($body-bg, 10%)) !important;
 }
 
 h1 {

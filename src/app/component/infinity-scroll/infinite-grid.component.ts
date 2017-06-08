@@ -81,7 +81,6 @@ export class CoolInfiniteGridComponent implements OnInit {
 
   public async ngOnInit(): Promise<any> {
     const self = this;
-
     checkInjectedParameters();
 
     this.scrollContainer = getScrollContainer();

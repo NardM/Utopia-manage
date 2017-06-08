@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
   /*templateUrl: 'manage.component.html',
    styleUrls: ['manage.component.scss']*/
   template: `
+      <div>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <top-bar style="    position: fixed;
     display: block;
     width: 100%;
@@ -19,6 +21,7 @@ import { Component } from '@angular/core';
                 <router-outlet></router-outlet>
             </left-bar>
         </main>
+      </div>
      `,
   styles: [`::-webkit-scrollbar {
       width: 5px;
