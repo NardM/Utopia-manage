@@ -43,6 +43,7 @@ import {RequestItemMiniComponent} from "./chat/request-list/request-item-mini/re
 import {RequestItemComponent} from "./chat/request-list/reqiest-item/request-item.component";
 import {BaThemeSpinner} from "../service/baThemeSpinner.service";
 import {CoolInfiniteGridComponent} from "../component/infinity-scroll/infinite-grid.component";
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import {CoolInfiniteGridComponent} from "../component/infinity-scroll/infinite-g
     }),
     InfiniteScrollModule,
     MaterialModule,
+    VirtualScrollModule
   ],
   declarations: [
     DialogClient,
