@@ -71,22 +71,22 @@ export class RequestItemMiniComponent implements OnChanges {
                 return "Удаленный";
             case 1:
                 this.expression = "#009DDF";
-                return "Созданый";
+                return "Новый";
             case 2:
                 this.expression = '#009DDF';
-                return 'Статус: Предложение отправлено';
+                return 'Опубликованный';
             case 3:
                 this.expression = '#df1f1c';
-                return 'Статус: Предложение отклонено';
+                return 'Откланенный';
             case 4:
                 this.expression = '#57A73F';
-                return 'Статус: Предложение приянто';
+                return 'Принятый';
             case 5:
                 this.expression = '#009DDF';
-                return 'Заполненный';
+                return 'Выполненный';
             case 6:
                 this.expression = '#009DDF';
-                return 'Рассмотренный';
+                return 'С отзывом';
         }
     }
 

@@ -9,6 +9,7 @@ import {GlobalState} from "../../global.state";
 import {ClientService} from "../../http/client.service";
 import {ClientInterface} from "../../clients/model/client";
 import Account = ClientInterface.Account;
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
     selector: 'top-bar',
@@ -28,6 +29,7 @@ export class TopBarComponent {
         this.service.getAccount()
             .then(res => {
                 this.account = res;
+                Cookie.set('user_id', res.id.toString());
                 localStorage.setItem('skin_id', res.skin_id.toString())
             })
     }

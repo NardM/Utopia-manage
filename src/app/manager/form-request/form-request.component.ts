@@ -14,11 +14,13 @@ import RequestConfirm = RequestConfirmInterface.RequestConfirm;
 import {RequestConfirmInterface} from "../model/service-request-confirm";
 import {Observable} from "rxjs";
 import {ServiceRequestInterface} from "../model/service-request";
-import Request = ServiceRequestInterface.Request;
-import ServiceRequest = ServiceRequestInterface.ServiceRequest;
 import {Consts} from "../../const/app-const";
 import ServiceRequestData = ServiceRequestDataInterface.ServiceRequestData;
 import {ServiceRequestDataInterface} from "../model/service-request-data";
+import { BasketRequestInterface } from '../chat/Model/BasketRequest';
+import BasketRequest = BasketRequestInterface.BasketRequest;
+import Request = BasketRequestInterface.Request;
+import Task = BasketRequestInterface.Task;
 
 
 

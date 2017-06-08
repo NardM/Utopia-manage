@@ -8,9 +8,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 import {UserService} from "../../http/user.service";
-import ServiceRequest = ServiceRequestInterface.ServiceRequest;
-import {ServiceRequestInterface} from "../../model/service-request";
-import Request = ServiceRequestInterface.Request;
+import { BasketRequestInterface } from '../../chat/Model/BasketRequest';
+import BasketRequest = BasketRequestInterface.BasketRequest;
+import Request = BasketRequestInterface.Request;
 import {Category} from "../../model/category";
 import {CategoryService} from "../../http/category.service";
 import {ConstService} from "../../../const/http/service-const.service";

@@ -60,6 +60,28 @@ export declare module BasketRequestInterface {
         company_id: number;
     }
 
+    export interface TaskArgs {
+        request_id: number;
+        review_id: number;
+        response_id: number;
+        confirm_id: number;
+        company_id: number;
+        message_id: number;
+        chat_id: number;
+    }
+
+    export interface Task {
+        id: number;
+        type: number;
+        complete_date: number;
+        status: number;
+        date_time: number;
+        text: string;
+        TaskArgs: TaskArgs;
+        request_id: number;
+        complete_manager_id: number;
+    }
+
     export interface Request {
         id: number;
         active: boolean;
@@ -70,6 +92,8 @@ export declare module BasketRequestInterface {
         title: string;
         subtitle_label: string;
         subtitle: string;
+        icon_hash: string;
+        logo: string;
         details_label: string;
         details: string;
         chat_id: number;
@@ -82,10 +106,12 @@ export declare module BasketRequestInterface {
         response_count: number;
         confirm: Confirm;
         user_id: number;
+        tasks: Task[];
     }
 
     export interface BasketRequest {
         requests: Request[];
+        total_count: number;
     }
 
 }

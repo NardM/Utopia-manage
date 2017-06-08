@@ -8,22 +8,20 @@ import {Injectable} from "@angular/core";
 
 import "rxjs/add/operator/toPromise";
 import {Observable, Observer} from "rxjs";
-import {ServiceRequestService} from "../../for-you/http/services/service-requests-service";
-import {RequestGetInterface, RequestInterface} from "../../models/Request";
-import {MdSnackBar, MdSnackBarConfig} from "@angular/material";
-import {RequestManagerHubYou} from "../../hubs/RequestHubYou";
-import {ResponseService} from "../../for-you/http/services/response.service";
 import {Router} from "@angular/router";
 import {UserService} from "./user.service";
 import {RequestManagerHub} from "./hubs/RequestHub";
-import {ServiceRequestInterface} from '../model/service-request'
-import Request = ServiceRequestInterface.Request;
+import { BasketRequestInterface } from '../chat/Model/BasketRequest';
+import BasketRequest = BasketRequestInterface.BasketRequest;
+import Request = BasketRequestInterface.Request;
+import Task = BasketRequestInterface.Task;
+
+
 
 @Injectable()
 export class  ServiceRequestStore {
 
   constructor(private service: UserService,
-              public snackBar: MdSnackBar,
               private router: Router,
               private requestManagerHub: RequestManagerHub) {
 
@@ -31,7 +29,8 @@ export class  ServiceRequestStore {
     this.storeItems = [];
     this.observers = [];
     this.observables = [];
-    // this.requestManagerHub.newResponse.subscribe(res => this.newOrder(res));
+     this.requestManagerHub.newBusketRequest.subscribe(res => this.newOrder(res));
+     this.requestManagerHub.newTask.subscribe(res => this.newTask(res));
     this.createObserver().subscribe(a => this.storeItems.push(a));
     this.service.getServiceRequest(1 << 1 | 1 << 2 | 1 << 3 | 1 << 4, 0)
         .then(res => {
@@ -44,18 +43,14 @@ export class  ServiceRequestStore {
   }
 
 
-  newOrder(res: any): void {
+  newOrder(res: Request): void {
     debugger;
     let self = this;
-    let message: string = 'Вам пришло новое предложение по заявке ' + res.id;
-    let action: string = "Открыть";
-    let option: MdSnackBarConfig = new MdSnackBarConfig();
-    option.duration = 10000;
-    let snackBarRef = self.snackBar.open(message, action, option);
-    self.audioNotification();
-    snackBarRef.onAction().subscribe(() => {
-      self.router.navigate(['for-you', 'request', res.request_id, 'response', res.id])
-    });
+    self.AddedNew(res);
+  }
+
+  newTask(res: any): void{
+    debugger;
   }
 
   audioNotification(): void {

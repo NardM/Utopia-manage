@@ -8,9 +8,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 import {UserService} from "../../http/user.service";
-import ServiceRequest = ServiceRequestInterface.ServiceRequest;
-import {ServiceRequestInterface} from "../../model/service-request";
-import Request = ServiceRequestInterface.Request;
 import {RequestManagerHub} from "../../http/hubs/RequestHub";
 import {CategoryService} from "../../http/category.service";
 import {Category} from "../../model/category";
@@ -18,6 +15,10 @@ import {ServiceRequestStore, StoreAction, StoreItem} from "../../http/request";
 import {ConstService} from "../../../const/http/service-const.service";
 import {Req} from "awesome-typescript-loader/dist/checker/protocol";
 import {BaThemeSpinner} from "../../../service/baThemeSpinner.service";
+import { BasketRequestInterface } from '../../chat/Model/BasketRequest';
+import BasketRequest = BasketRequestInterface.BasketRequest;
+import Request = BasketRequestInterface.Request;
+
 
 @Component({
 

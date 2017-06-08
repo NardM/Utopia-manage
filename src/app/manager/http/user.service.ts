@@ -25,6 +25,11 @@ import {ServiceRequestDataInterface} from "../model/service-request-data";
 import {PropertyInterface} from "../model/property";
 import { Req } from 'awesome-typescript-loader/dist/checker/protocol';
 import { EmptyAnswer } from './answer';
+import { BasketRequestInterface } from '../chat/Model/BasketRequest';
+import BasketRequest = BasketRequestInterface.BasketRequest;
+import RequestI = BasketRequestInterface.Request;
+import Task = BasketRequestInterface.Task;
+
 
 @Injectable()
 export class UserService {
@@ -35,9 +40,9 @@ export class UserService {
   constructor(private constService: ConstService) {
   }
 
-  getServiceRequest(id: number, offset?: number): Promise<ServiceRequest> {
+  getServiceRequest(id: number, offset?: number): Promise<BasketRequest> {
       let url = this.serviceRequestUrl + '?count=20&offset=' + offset + '&status_filter=' + id;
-      return this.constService.get<ServiceRequest>(url);
+      return this.constService.get<BasketRequest>(url);
   }
 
 
