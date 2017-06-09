@@ -67,5 +67,6 @@ export interface Connect{
   device_id: string;
   role: number;
   app_type: number;
+  user_id: number;
   token: string;
 }

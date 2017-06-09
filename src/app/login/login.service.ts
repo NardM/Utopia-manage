@@ -47,7 +47,7 @@ export class LoginService {
             .catch(LoginService.handleError);
     }
 
-    confirm(phone: string, code: number): Promise<any> {
+    confirm(phone: string, code: number): Promise<EmptyAnswer> {
         let self = this;
         let res = self.tokenService.token();
         return res.map(t => {

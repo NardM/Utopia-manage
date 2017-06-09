@@ -1,12 +1,12 @@
 export class EmptyAnswer {
-  success :Boolean;
+  success :boolean;
   message :ResponseDescription ;
   data: any;
   name: string;
 };
 
 export class Answer<T> {
-  success :Boolean;
+  success :boolean;
   data :T;
   message :ResponseDescription ;
 };
