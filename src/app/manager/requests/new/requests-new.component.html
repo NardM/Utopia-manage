@@ -11,18 +11,22 @@
         <div class="sk-cube sk-cube9"></div>
     </div>
 </div>
-<div  class="search-results"
-      infinite-scroll
-      [infiniteScrollDistance]="scrollDistance"
-      [infiniteScrollThrottle]="throttle"
-      [scrollWindow]="false"
 
-      (scrolled)="onScrollDown()">
+<div style=" max-height: calc(100vh - 50px);
+    overflow: auto;"
+     infinite-scroll
+     [infiniteScrollDistance]="scrollDistance"
+     [infiniteScrollThrottle]="throttle"
+     [scrollWindow]="false"
+     (scrolled)="onScrollDown()">
+    <div class="search-results">
         <div *ngFor="let request of requests"
              [class.selected]="request === selectedRequest">
-          <form-request (deleteRequest)="deleteRequest($event)"
-                        [request]="request"
-                        [numberRequest]="1">
-          </form-request>
+            <form-request [request]="request"
+                          [numberRequest]="1"
+                          (deleteRequest)="deleteRequest($event)"></form-request>
         </div>
+    </div>
 </div>
+
+

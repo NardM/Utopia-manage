@@ -11,14 +11,17 @@
         <div class="sk-cube sk-cube9"></div>
     </div>
 </div>
-<div  class="search-results"
-      infinite-scroll
-      [infiniteScrollDistance]="scrollDistance"
-      [infiniteScrollThrottle]="throttle"
-      (scrolled)="onScrollDown()">
-      <div *ngFor="let request of requestServices">
-          <form-request [request]="request"
-                        [numberRequest]="2">
-          </form-request>
-      </div>
+<div style=" max-height: calc(100vh - 50px);
+    overflow: auto;"
+     infinite-scroll
+     [infiniteScrollDistance]="scrollDistance"
+     [infiniteScrollThrottle]="throttle"
+     [scrollWindow]="false"
+     (scrolled)="onScrollDown()">
+    <div class="search-results">
+        <div *ngFor="let request of requestServices">
+            <form-request [request]="request"
+                          [numberRequest]="2"></form-request>
+        </div>
+    </div>
 </div>

@@ -72,6 +72,7 @@ export class RequestsAcceptedComponent implements OnInit {
     }
 
     onScrollDown(): void {
+        debugger;
         // add another 20 items
         if (!this.blockUpload) {
             this.offset += 20;
