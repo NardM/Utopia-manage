@@ -44,6 +44,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
   @Input() public requestId: number;
   @Input() public numberRequest: number = 0;
   @Input() public chatBool: boolean = false;
+  @Output() public deleteRequest = new EventEmitter();
   public orderData: ServiceRequestData[];
   public orderDetailFlag: boolean = false;
   public chat_id: number = 0;
@@ -61,6 +62,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
 
   onPublishRequest(): void {
     this.userService.putPublishServiceRequest(this.requestId)
+        .then(res => this.deleteRequest.emit(this.requestId))
   }
 
   onDeniedRequest(): void {

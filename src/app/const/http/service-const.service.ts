@@ -28,36 +28,38 @@ export class ConstService {
   }
 
   typeReturn(type, jsonRes) {
-    switch (type) {
-      case "categories":
-        return jsonRes.data.categories;
-      case "properties":
-        return jsonRes.data.properties;
-      case "responses":
-        return jsonRes.data.responses;
-      case "requests":
-        return jsonRes.data.requests;
-      case "reviews":
-        return jsonRes.data.reviews;
-      case "values":
-        return jsonRes.data.values;
-      case "forms":
-        return jsonRes.data.forms;
-      case "companies":
-        return jsonRes.data.companies;
-      case "services":
-        return jsonRes.data.services;
-      case "accounts":
-        return jsonRes.data.accounts;
-      case "cities":
-        return jsonRes.data.cities;
-      case "chats":
-        return jsonRes.data.chats;
-      case "users":
-        return jsonRes.data.users;
-      default:
-        return jsonRes.data;
-    }
+      switch (type) {
+          case "categories":
+              return jsonRes.data.categories;
+          case "properties":
+              return jsonRes.data.properties;
+          case "responses":
+              return jsonRes.data.responses;
+          case "requests":
+              return jsonRes.data.requests;
+          case "reviews":
+              return jsonRes.data.reviews;
+          case "values":
+              return jsonRes.data.values;
+          case "forms":
+              return jsonRes.data.forms;
+          case "companies":
+              return jsonRes.data.companies;
+          case "services":
+              return jsonRes.data.services;
+          case "accounts":
+              return jsonRes.data.accounts;
+          case "cities":
+              return jsonRes.data.cities;
+          case "chats":
+              return jsonRes.data.chats;
+          case "users":
+              return jsonRes.data.users;
+          case "skins":
+              return jsonRes.data.skins;
+          default:
+              return jsonRes.data;
+      }
   }
 
   search<T>(url: string,  type?: string): Observable<T[]> {

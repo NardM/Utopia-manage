@@ -22,6 +22,8 @@ import {Chat, ChatService, Message, Skin, Skins} from "./chat.service";
 import {DOCUMENT} from "@angular/platform-browser";
 import {Consts} from "../../../const/app-const";
 import {ChatHub} from "../chatObs";
+import { ConstService } from '../../../const/http/service-const.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'chat-item',
@@ -45,6 +47,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   constructor(private router: Router,
               @Inject(DOCUMENT) private document: Document,
               private serviceR: ChatHub,
+              private service: ConstService,
               private chatServiceL: ChatService) {
     let self = this;
     self.serviceR.createObserver()
@@ -64,17 +67,20 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   }
 
 
+
   getSkin(chat: Chat, chatID: number): Promise<any> {
     let self = this;
     return self.chatServiceL.getSkin(chatID)
-        .then(value => {
-          value.skins.map(res => {
+        .then((value: Skin[]) => {
+          value.map(res => {
             chat.messages.map(item => {
-              if (res.skin_id === item.skin_id)
+              if (res.skin_id === item.skin_id) {
                 item.name = res.name;
+                item.logo = self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`);
+              }
             })
           });
-          self.skin = value.skins;
+          self.skin = value;
           self.chat = chat;
           self.chatFlag = true;
         })

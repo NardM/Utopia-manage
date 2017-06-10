@@ -24,7 +24,7 @@
              [class.selected]="request === selectedRequest">
             <form-request [request]="request"
                           [numberRequest]="1"
-                          (deleteRequest)="deleteRequest($event)"></form-request>
+                          (deleteRequest)="onDeleteRequest($event)"></form-request>
         </div>
         <load-scroll *ngIf="loading" ></load-scroll>
     </div>

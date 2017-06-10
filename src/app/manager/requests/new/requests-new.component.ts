@@ -72,6 +72,30 @@ export class RequestsNewComponent  {
     private categories: Category[] = [];
     private loading: boolean = false;
 
+
+    onDeleteRequest(requestID: number) {
+        let self = this;
+        let id: number = requestID;
+        let arrayEquals: boolean = false;
+
+        self.requests.map(item => {
+            if (item.id === id) {
+                arrayEquals = true;
+            }
+        });
+        if (arrayEquals) {
+            let indexDelete: number = -1;
+            for (let i = 0; i < self.requests.length; i++) {
+                if (id === self.requests[i].id) {
+                    indexDelete = i;
+                    break;
+                }
+            }
+            self.requests.splice(indexDelete, 1);
+        }
+    }
+
+
     newStoreItem(res: StoreItem<Request>): void {
         let self = this;
         switch (res.action) {

@@ -64,6 +64,10 @@ export class FormRequestComponent implements OnInit {
         this.clientService.getClient(userId).then(res => this.userPhone = res.phone);
     }
 
+    onDeleteRequest(event){
+        this.deleteRequest.emit(event);
+    }
+
 
     getServiceRequestConfirm(): void {
         this.userService.getServiceRequestConfirm(this.request.id)

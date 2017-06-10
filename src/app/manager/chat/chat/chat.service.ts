@@ -19,6 +19,7 @@ import {BasketRequestInterface} from "../Model/BasketRequest";
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import RequestI = BasketRequestInterface.Request;
 import {EmptyAnswer} from "../../model/Answer";
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ChatService {
@@ -71,9 +72,9 @@ export class ChatService {
     return this.constService.post<Message>(url, message);
   }
 
-  getSkin(chatID: number): Promise<Skins> {
+  getSkin(chatID: number): Promise<Skin[]> {
     let url = `${Consts.baseURL}/manage/v1/chat/${chatID}/skin`;
-    return this.constService.get<Skins>(url);
+    return this.constService.get<Skin[]>(url, 'skins');
   }
 
 }
@@ -86,7 +87,7 @@ export interface Message {
   name: string;
   date_string: string;
   date: number;
-  logo: string;
+  logo: Observable<string>;
 }
 
 export interface Chat {
@@ -109,6 +110,7 @@ export interface Skin {
   role: number;
   skin_id: number;
   name: string;
+  logo: Observable<string>;
 }
 
 export interface Skins {
