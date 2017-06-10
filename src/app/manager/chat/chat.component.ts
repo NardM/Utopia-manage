@@ -12,6 +12,7 @@ import {CategoryService} from "../http/category.service";
 import {Category} from "../model/category";
 import {MdSidenav} from "@angular/material";
 import {BaThemeSpinner} from "../../service/baThemeSpinner.service";
+import { ServiceRequestStore, StoreAction, StoreItem } from '../http/request';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class ChatComponent implements OnInit, OnDestroy {
               private hub: RequestManagerHub,
               private serviceR: ChatHub,
               private _state: BaThemeSpinner,
+              private store: ServiceRequestStore,
               private categoryService: CategoryService,
               private service: ChatService) {
     let self = this;
@@ -33,6 +35,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     let param_chat = {
       active: true,
     };
+
   }
 
   private chats: Array<Chat> = [];
@@ -51,6 +54,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   private requests: BasketRequest;
   private inputRequestTake: Request;
   private inputRequestBasket: Request;
+  private deleteRequest: Request;
+
+
 
   onSelectInputBasket(event: Request): void{
     this.inputRequestBasket = event;

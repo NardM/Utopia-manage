@@ -79,10 +79,10 @@ export class RequestsNewComponent  {
                 if (res.total_count) {
                     self.totalCount = res.total_count;
                 }
-                if (res.item.icon_hash){
+                if (res.item.icon_hash) {
                     self.requests.push(self.getImage(self.onPushCategoryInRequest(res.item)));
                 }
-                else{
+                else {
                     self.requests.push(self.onPushCategoryInRequest(res.item));
                 }
                 self.requestFlag = true;
@@ -90,6 +90,7 @@ export class RequestsNewComponent  {
                 //this.requests.push(res.item);
                 break;
             case StoreAction.NewInserted:
+                debugger;
                 self.totalCount++;
                 self.requests.unshift(self.getImage(self.onPushCategoryInRequest(res.item)));
                 self.requestFlag = true;
@@ -97,15 +98,27 @@ export class RequestsNewComponent  {
                 break;
             case StoreAction.Deleted:
                 debugger;
-                let indexDelete: number = -1;
-                for (let i = 0; i < self.requests.length; i++) {
-                    if (res.item.id === self.requests[i].id) {
-                        indexDelete = i;
-                        break;
+                let id: number = res.item.id;
+                let arrayEquals: boolean = false;
+
+                self.requests.map(item => {
+                    if (item.id === id) {
+                        arrayEquals = true;
                     }
+                });
+                if (arrayEquals) {
+                    let indexDelete: number = -1;
+                    for (let i = 0; i < self.requests.length; i++) {
+                        if (id === self.requests[i].id) {
+                            indexDelete = i;
+                            break;
+                        }
+                    }
+                    self.requests.splice(indexDelete, 1);
                 }
-                self.requests.splice(indexDelete, 1);
                 break;
+            default:
+                break
         }
     }
 

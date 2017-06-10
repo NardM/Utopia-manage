@@ -1,4 +1,7 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from "@angular/core";
+import {
+    ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit,
+    Output
+} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RequestManagerHubYou} from "../../../hubs/RequestHubYou";
 import {Subscription} from "rxjs/Subscription";
@@ -9,6 +12,7 @@ import Request = BasketRequestInterface.Request;
 import {BasketRequestInterface} from "../Model/BasketRequest";
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import { ServiceRequestStore, StoreAction, StoreItem } from '../../http/request';
 
 
 @Component({
@@ -31,7 +35,12 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 export class RequestListComponent implements OnChanges {
     constructor(private route: ActivatedRoute,
                 private router: Router,
+                private cdRef:ChangeDetectorRef,
+                private store: ServiceRequestStore,
                 private service: ChatService) {
+        this.store.createObserver()
+            .subscribe(res =>
+                this.newStoreItem(res));
     }
 
     private requests: BasketRequest;
@@ -43,6 +52,47 @@ export class RequestListComponent implements OnChanges {
     private indexDelete: number;
     private requestFlagLoad: boolean = true;
     private flagLoad: boolean = false;
+
+
+    newStoreItem(res: StoreItem<Request>): void {
+        let self = this;
+        switch (res.action) {
+            case StoreAction.NewInserted:
+                debugger;
+                if (!self.takeBool) {
+                    self.requests.requests.unshift(res.item);
+                    self.cdRef.detectChanges();
+                }
+                break;
+            case StoreAction.Deleted:
+                debugger;
+                if (!self.takeBool) {
+                    let id: number = res.item.id;
+                    let arrayEquals: boolean = false;
+
+                    self.requests.requests.map(item => {
+                        if (item.id === id) {
+                            arrayEquals = true;
+                        }
+                    });
+                    if (arrayEquals) {
+                        let indexDelete: number = -1;
+                        for (let i = 0; i < self.requests.requests.length; i++) {
+                            if (id === self.requests.requests[i].id) {
+                                indexDelete = i;
+                                break;
+                            }
+                        }
+                        self.requests.requests.splice(indexDelete, 1);
+                        self.cdRef.detectChanges();
+                    }
+                }
+                break;
+            default:
+                break
+        }
+    }
+
 
     ngOnChanges() {
         if (!this.flagLoad) {

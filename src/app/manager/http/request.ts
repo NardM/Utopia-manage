@@ -29,10 +29,11 @@ export class  ServiceRequestStore {
     this.storeItems = [];
     this.observers = [];
     this.observables = [];
-     this.requestManagerHub.newBusketRequest.subscribe(res => this.newOrder(res));
-     this.requestManagerHub.newTask.subscribe(res => this.newTask(res));
+    this.requestManagerHub.newBusketRequest.subscribe(res => this.newOrder(res));
+    this.requestManagerHub.newTask.subscribe(res => this.newTask(res));
+    this.requestManagerHub.removeFromBasket.subscribe(res => this.deleteRequest(res));
     this.createObserver().subscribe(a => this.storeItems.push(a));
-    this.service.getServiceRequest(1 << 1 | 1 << 2 | 1 << 3 | 1 << 4, -20)
+    this.service.getServiceRequest(1 << 1 | 1 << 2 | 1 << 3 | 1 << 4, 0)
         .then(res => {
           this.storeItems = res.requests.map(item => {
             let storeItem = new StoreItem(item, StoreAction.Inserted, res.total_count);
@@ -43,17 +44,25 @@ export class  ServiceRequestStore {
   }
 
 
-  newOrder(res: Request): void {
+  private newOrder(res: Request): void {
     debugger;
     let self = this;
     self.AddedNew(res);
   }
 
-  newTask(res: any): void{
+  private newTask(res: Task): void{
     debugger;
   }
 
-  audioNotification(): void {
+  private deleteRequest(res: number){
+    debugger;
+    let request: Request = <Request>{
+      id: res
+    };
+    this.Remove(request);
+  }
+
+  private audioNotification(): void {
     let audio = new Audio(); // Создаём новый элемент Audio
     audio.src = 'assets/audio/notification.mp3'; // Указываем путь к звуку "клика"
     audio.autoplay = true; // Автоматически запускаем

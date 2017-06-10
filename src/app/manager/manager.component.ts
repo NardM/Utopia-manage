@@ -8,7 +8,6 @@ import { Component } from '@angular/core';
    styleUrls: ['manage.component.scss']*/
   template: `
       <div>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <top-bar style="    position: fixed;
     display: block;
     width: 100%;
