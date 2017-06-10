@@ -23,9 +23,10 @@
      [scrollWindow]="false"
      (scrolled)="onScrollDown()">
     <div class="search-results">
-    <div *ngFor="let request of requestServices">
-      <form-request [request]="request" [numberRequest]="3"></form-request>
-    </div>
+        <div *ngFor="let request of requestServices">
+          <form-request [request]="request" [numberRequest]="3"></form-request>
+        </div>
+        <load-scroll *ngIf="loading" ></load-scroll>
     </div>
 </div>
 

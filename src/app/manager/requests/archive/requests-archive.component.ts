@@ -33,6 +33,7 @@ export class RequestsArchiveComponent implements OnInit {
     private scrollDistance = 1;
     private blockUpload: boolean = false;
     private categories: Category[] = [];
+    private loading: boolean = false;
 
     constructor(private router: Router,
                 private service: ConstService,
@@ -44,6 +45,7 @@ export class RequestsArchiveComponent implements OnInit {
     onScrollDown(): void {
         // add another 20 items
         if (!this.blockUpload) {
+            this.loading = true;
             this.offset += 20;
             this.getServiceRequest();
         }
@@ -75,6 +77,7 @@ export class RequestsArchiveComponent implements OnInit {
                         this.requestServices.push(this.onPushCategoryInRequest(item));
                     }
                 })
+                this.loading = false;
             });
     }
 

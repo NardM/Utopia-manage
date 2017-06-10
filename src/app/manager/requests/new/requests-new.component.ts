@@ -70,6 +70,7 @@ export class RequestsNewComponent  {
     private totalCount: number = 0;
     private countScroll: number = 1;
     private categories: Category[] = [];
+    private loading: boolean = false;
 
     newStoreItem(res: StoreItem<Request>): void {
         let self = this;
@@ -112,6 +113,7 @@ export class RequestsNewComponent  {
         // add another 20 items
         debugger;
         if (!this.blockUpload && !this.blockLoadFlag) {
+            this.loading = true;
             if (this.totalCount >= (this.offset + 20)) {
                 this.offset += 20;
                 this.blockLoadFlag = true;
@@ -153,6 +155,7 @@ export class RequestsNewComponent  {
                     self.requests.push(self.getImage(self.onPushCategoryInRequest(item)))
                 });
                 self.blockLoadFlag = false;
+                self.loading = false;
             });
     }
 

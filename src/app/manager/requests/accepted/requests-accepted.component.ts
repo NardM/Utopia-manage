@@ -28,6 +28,7 @@ export class RequestsAcceptedComponent implements OnInit {
     private scrollDistance = 1;
     private blockUpload: boolean = false;
     private categories: Category[] = [];
+    private loading: boolean = false;
 
     constructor(private router: Router,
                 private service: ConstService,
@@ -62,6 +63,7 @@ export class RequestsAcceptedComponent implements OnInit {
                         this.requestServices.push(this.onPushCategoryInRequest(item));
                     }
                 })
+                this.loading = false;
             });
     }
 
@@ -76,6 +78,7 @@ export class RequestsAcceptedComponent implements OnInit {
         // add another 20 items
         if (!this.blockUpload) {
             this.offset += 20;
+            this.loading = true;
             this.getServiceRequest();
         }
     }

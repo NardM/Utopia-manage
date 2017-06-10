@@ -22,5 +22,6 @@
     <div *ngFor="let request of requestServices">
       <form-request [request]="request" [numberRequest]="4"></form-request>
     </div>
+    <load-scroll *ngIf="loading" ></load-scroll>
   </div>
 </div>
