@@ -189,6 +189,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
     if (this.downChatScroll) {
       if (self.message_list) {
         self.message_list.nativeElement.scrollTop = self.message_list.nativeElement.scrollHeight;
+        self.downChatScroll = false;
       }
     }
   }
