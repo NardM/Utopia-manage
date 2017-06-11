@@ -63,11 +63,17 @@
                                       color="primary">
                                   Подробно</button>
 
-                              <div class="phone" [ngStyle]="{'margin-left': numberRequest===2?'0':'25px'}">
+                              <div class="phone" [ngStyle]="{'margin-left': '10px'}">
                                   <md-icon style="margin-right: 7px">phone</md-icon>
                                   <span>{{userPhone}}</span>
-                                  <md-icon (click)="onChat()" style="margin-left: 7px">message</md-icon>
+
                               </div>
+                              <button md-mini-fab
+                                      (click)="onChat()"
+                                      mdTooltip="Чат"
+                                      style="margin-left: 7px" >
+                                  <md-icon  >message</md-icon>
+                              </button>
                               <button md-mini-fab
                                       *ngIf="numberRequest==2"
                                       class="business"
@@ -75,6 +81,7 @@
                                       (click)="sidenav.open()&&onSidnav()">
                                   <md-icon>business</md-icon></button>
                           </div>
+
                       </div>
                   </div>
               </div>

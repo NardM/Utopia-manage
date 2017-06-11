@@ -24,7 +24,7 @@
               <input type="search" disabled>
             </div>
             <div class="actions-basket">
-              <md-tab-group [dynamicHeight]="true">
+              <md-tab-group [dynamicHeight]="true" (selectedIndexChange)="onSelectIndex($event)">
                 <md-tab>
                   <ng-template md-tab-label style="max-width: 20px">
                    Активные

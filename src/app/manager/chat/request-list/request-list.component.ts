@@ -46,6 +46,7 @@ export class RequestListComponent implements OnChanges {
     private requests: BasketRequest;
     @Input() private takeBool: boolean;
     @Input() private inRequest: Request;
+    @Input() private selectIndex: number;
     @Output() private selectOutput = new EventEmitter<Request>();
     @Output() private selectRequest = new EventEmitter<Request>();
     private selectedRequest: Request;
@@ -110,6 +111,24 @@ export class RequestListComponent implements OnChanges {
             this.requests.requests.unshift(this.inRequest);
         }
     }
+
+    search(){
+        if (this.selectIndex===0){
+            this.searchRequest()
+        }
+        else{
+            this.searchBasket();
+        }
+    }
+
+    searchRequest(){
+
+    }
+
+    searchBasket(){
+
+    }
+
 
     getRequestsTake(): void {
         this.service.getRequestsTake()

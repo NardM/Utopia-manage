@@ -1,6 +1,9 @@
 <md-list *ngIf="responses" dense>
   <div *ngFor="let response of responses">
     <md-list-item>
+      <md-icon md-list-icon
+               style="cursor: pointer"
+               (click)="onChat(response.chat_id)">mail</md-icon>
       <p md-line
          *ngIf="response.company.company">
         Компания: {{response.company.company.name}}

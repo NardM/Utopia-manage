@@ -55,8 +55,29 @@ export class ChatComponent implements OnInit, OnDestroy {
   private inputRequestTake: Request;
   private inputRequestBasket: Request;
   private deleteRequest: Request;
+  private selectIndex: number = 0;
 
 
+  search(){
+    if (this.selectIndex===0){
+      this.searchRequest()
+    }
+    else{
+      this.searchBasket();
+    }
+  }
+
+  searchRequest(){
+
+  }
+
+  searchBasket(){
+
+  }
+
+  onSelectIndex(event){
+    debugger;
+  }
 
   onSelectInputBasket(event: Request): void{
     this.inputRequestBasket = event;
