@@ -47,6 +47,7 @@ import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { LoadScrollComponent } from '../component/load-scroll/load-scroll.component';
 import { ChatDialogComponent } from './chat/chat/chat-dialog/chat.component';
 import { ChatItemDialogComponent } from './chat/chat/chat-dialog/chat-dialog/chat-dialog.component';
+import { TaskComponent } from './chat/task/task.component';
 
 
 @NgModule({
@@ -96,7 +97,8 @@ import { ChatItemDialogComponent } from './chat/chat/chat-dialog/chat-dialog/cha
     RequestItemMiniComponent,
     RequestItemComponent,
     CoolInfiniteGridComponent,
-    LoadScrollComponent
+    LoadScrollComponent,
+    TaskComponent
 
   ],
   entryComponents: [

@@ -35,7 +35,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     let param_chat = {
       active: true,
     };
-
   }
 
   private chats: Array<Chat> = [];
@@ -56,44 +55,48 @@ export class ChatComponent implements OnInit, OnDestroy {
   private inputRequestBasket: Request;
   private deleteRequest: Request;
   private selectIndex: number = 0;
+  private taskBool: boolean = false;
 
-
-  search(){
-    if (this.selectIndex===0){
+  private search() {
+    if (this.selectIndex === 0) {
       this.searchRequest()
     }
-    else{
+    else {
       this.searchBasket();
     }
   }
 
-  searchRequest(){
+  private  searchRequest() {
 
   }
 
-  searchBasket(){
+  private searchBasket() {
 
   }
 
-  onSelectIndex(event){
+  private onTaskOpen() {
+    this.taskBool = !this.taskBool;
+  }
+
+  private  onSelectIndex(event) {
     debugger;
   }
 
-  onSelectInputBasket(event: Request): void{
+  private  onSelectInputBasket(event: Request): void {
     this.inputRequestBasket = event;
   }
 
-  onSelectInputTake(event: Request): void{
+  private onSelectInputTake(event: Request): void {
     this.inputRequestTake = event;
   }
 
-  onSelectRequest(request: Request): void {
-      this.sidenav.close();
+  private onSelectRequest(request: Request): void {
+    this.sidenav.close();
     this.selectedChatID = request.chat_id;
     this.selectedRequest = this.onPushCategoryInRequest(request);
   }
 
-  getCategories(): void {
+  private  getCategories(): void {
     this.categoryService.getCategories()
         .then(res => {
           this.categories = res;
@@ -101,17 +104,17 @@ export class ChatComponent implements OnInit, OnDestroy {
         })
   }
 
-  onOpenRequest(event): void{
-    if (event){
+  private onOpenRequest(event): void {
+    if (event) {
       this.sidenav.open();
     }
-    else{
+    else {
       this.sidenav.close();
     }
   }
 
 
-  onPushCategoryInRequest(request: Request): Request {
+  private onPushCategoryInRequest(request: Request): Request {
     let self = this;
     request.category_name = self.categories.find(res => res.id === request.category_id).name;
     return request;

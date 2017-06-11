@@ -1,0 +1,12 @@
+<div class="main">
+    <md-list dense>
+      <div *ngFor="let task of tasks">
+        <md-list-item>
+            <md-icon  mdTooltip="Выполнено"
+                      md-list-icon>done</md-icon>
+          <p md-line>{{task.text}}</p>
+        </md-list-item>
+        <md-divider></md-divider>
+      </div>
+    </md-list>
+</div>

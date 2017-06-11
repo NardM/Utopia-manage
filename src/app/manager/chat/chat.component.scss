@@ -9,6 +9,30 @@
 
 
 
+task{
+  position: absolute;
+  top: 10%;
+  z-index: 99999999;
+  background-color: white;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.32);
+  right: 1%;
+}
+
+task:after {
+  bottom: 100%;
+  right: 17px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(136, 183, 213, 0);
+  border-bottom-color: white;
+  border-width: 14px;
+  margin-right: 0px;
+}
+
 
 md-list{
   background: #006DB8;

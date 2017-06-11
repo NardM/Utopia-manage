@@ -60,16 +60,16 @@
                       <div class="col-md-9 not-pad" [ngStyle]="{'width':sidenavBool?'65%':'99.8%', 'overflow': 'hidden'}">
                           <div class="title-chat" *ngIf="selectedChatID">
                               <md-toolbar >
-                                  <span style="color: #757575"> Чат {{selectedChatID}}</span>
+                                  <span style="color: #757575"></span>
                                   <span class="example-spacer"></span>
-                                  <button *ngIf="notificationsActive"
-                                          md-icon-button >
-                                      <md-icon>notifications_off</md-icon>
+                                  <button  md-icon-button
+                                           (click)="onTaskOpen()"
+                                            mdTooltip="Задания">
+                                      <md-icon>chrome_reader_mode</md-icon>
                                   </button>
-                                  <button *ngIf="!notificationsActive"
-                                          md-icon-button >
-                                      <md-icon>notifications_active</md-icon>
-                                  </button>
+                                  <task *ngIf="taskBool"
+                                        [tasks]="selectedRequest.tasks">
+                                  </task>
                               </md-toolbar>
                           </div>
                           <div class="chat-item"
