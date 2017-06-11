@@ -1,12 +1,16 @@
-<div class="main">
+<div class="main" *ngIf="tasks.length>0">
     <md-list dense>
       <div *ngFor="let task of tasks">
         <md-list-item>
             <md-icon  mdTooltip="Выполнено"
+                      (click)="onDeleteTask()"
                       md-list-icon>done</md-icon>
           <p md-line>{{task.text}}</p>
         </md-list-item>
         <md-divider></md-divider>
       </div>
     </md-list>
+</div>
+<div class="main not-work" *ngIf="tasks.length===0">
+    Пока нет заданий :)
 </div>

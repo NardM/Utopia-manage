@@ -5,6 +5,7 @@ import { NoContentComponent } from './no-content';
 
 import {AuthGuard} from "./guard/auth-guard.service";
 import {LoginComponent} from "./login/login.component";
+import { AuthGuardLogin } from './login/LoginGuard';
 
 export const ROUTES: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,7 +16,8 @@ export const ROUTES: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [AuthGuardLogin]
   },
   { path: '**',    component: NoContentComponent },
 ];

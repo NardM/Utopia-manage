@@ -27,7 +27,7 @@ import {CarouselModule, Ng2BootstrapModule} from "ngx-bootstrap";
 import {SelectModule} from 'ng2-select'
 import {RequestManagerHub} from "./http/hubs/RequestHub";
 import {TopBarComponent} from "./theme/top-bar/top-bar.component";
-import {ServiceRequestStore} from "./http/request";
+import { ServiceRequestStore, ServiceTaskStore } from "./http/request";
 import {MapsGoogleRouteDialogComponent} from "../component/dialog-maps-business/dialog-route/route.component";
 import {MapsGoogleComponent} from "../component/dialog-maps-business/maps/autoGoogle.component";
 import {AgmCoreModule} from "angular2-google-maps/core";
@@ -114,6 +114,7 @@ import { TaskComponent } from './chat/task/task.component';
     ChatHub,
     GlobalState,
     BaThemeSpinner,
+    ServiceTaskStore
   ],
   exports: []
 

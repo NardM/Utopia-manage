@@ -1,4 +1,7 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {
+  ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit,
+  ViewChild
+} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Chat, ChatService, Message} from "./chat/chat.service";
 import {RequestManagerHubYou} from "../../../hubs/RequestHubYou";
@@ -8,11 +11,12 @@ import {RequestManagerHub} from "../http/hubs/RequestHub";
 import {BasketRequestInterface} from "./Model/BasketRequest";
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import Request = BasketRequestInterface.Request;
+import Task = BasketRequestInterface.Task;
 import {CategoryService} from "../http/category.service";
 import {Category} from "../model/category";
 import {MdSidenav} from "@angular/material";
 import {BaThemeSpinner} from "../../service/baThemeSpinner.service";
-import { ServiceRequestStore, StoreAction, StoreItem } from '../http/request';
+import { ServiceRequestStore, ServiceTaskStore, StoreAction, StoreItem } from '../http/request';
 
 
 @Component({
@@ -25,8 +29,9 @@ export class ChatComponent implements OnInit, OnDestroy {
               private router: Router,
               private hub: RequestManagerHub,
               private serviceR: ChatHub,
+              private cdRef:ChangeDetectorRef,
               private _state: BaThemeSpinner,
-              private store: ServiceRequestStore,
+              private store: ServiceTaskStore,
               private categoryService: CategoryService,
               private service: ChatService) {
     let self = this;
@@ -35,6 +40,15 @@ export class ChatComponent implements OnInit, OnDestroy {
     let param_chat = {
       active: true,
     };
+    this.store.createObserver()
+        .subscribe(res => {
+              if (this.selectedRequest) {
+                if (this.selectedRequest.id === res.item.request_id) {
+                  this.newTask(res.item)
+                }
+              }
+            }
+        );
   }
 
   private chats: Array<Chat> = [];
@@ -68,6 +82,22 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private  searchRequest() {
 
+  }
+
+  private onDeleteTask() {
+    if (this.selectedRequest.tasks.length >= 1) {
+      this.selectedRequest.tasks.shift();
+    }
+  }
+
+  private newTask(task: Task) {
+    this.selectedRequest.tasks.push(task);
+    this.cdRef.detectChanges();
+  }
+
+  private onUpdateTask(event: Task[]) {
+    this.selectedRequest.tasks = event;
+    this.cdRef.detectChanges();
   }
 
   private searchBasket() {

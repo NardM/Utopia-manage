@@ -30,7 +30,6 @@ export class  ServiceRequestStore {
     this.observers = [];
     this.observables = [];
     this.requestManagerHub.newBusketRequest.subscribe(res => this.newOrder(res));
-    this.requestManagerHub.newTask.subscribe(res => this.newTask(res));
     this.requestManagerHub.removeFromBasket.subscribe(res => this.deleteRequest(res));
     this.createObserver().subscribe(a => this.storeItems.push(a));
     this.service.getServiceRequest(1 << 1 | 1 << 2 | 1 << 3 | 1 << 4, 0)
@@ -50,10 +49,6 @@ export class  ServiceRequestStore {
     self.AddedNew(res);
   }
 
-  private newTask(res: Task): void{
-    debugger;
-  }
-
   private deleteRequest(res: number){
     debugger;
     let request: Request = <Request>{
@@ -67,14 +62,6 @@ export class  ServiceRequestStore {
     audio.src = 'assets/audio/notification.mp3'; // Указываем путь к звуку "клика"
     audio.autoplay = true; // Автоматически запускаем
   }
-
-
-  /* UpdatePut(requestId: number, propertyId: number,item: Item): Promise<RequestI> {
-   let post = this.service.putRequest(requestId, propertyId, item);
-   post.then(a => this.Added(a));
-   return post;
-   }*/
-
 
   private Added(request: Request, total_count?: number): void {
     this.observers.map(o => o.next(new StoreItem<Request>(request,
@@ -121,6 +108,66 @@ export class StoreItem<T> {
 export enum StoreAction{
   Inserted, Update, Deleted,NewInserted
 }
+
+
+
+
+
+
 /**
  * Created by nardm on 05.02.17.
  */
+
+
+
+@Injectable()
+export class  ServiceTaskStore {
+
+  constructor(private service: UserService,
+              private router: Router,
+              private requestManagerHub: RequestManagerHub) {
+
+    this.inited = false;
+    this.storeItems = [];
+    this.observers = [];
+    this.observables = [];
+    this.requestManagerHub.newTask.subscribe(res => this.newTask(res));
+    this.createObserver().subscribe(a => this.storeItems.push(a));
+  }
+
+
+
+  private newTask(res: Task): void{
+    this.audioNotification();
+    this.AddedNew(res)
+  }
+
+
+  private audioNotification(): void {
+    let audio = new Audio(); // Создаём новый элемент Audio
+    audio.src = 'assets/audio/notification.mp3'; // Указываем путь к звуку "клика"
+    audio.autoplay = true; // Автоматически запускаем
+  }
+
+  public AddedNew(res: Task): void {
+    this.observers.map(o => o.next(new StoreItem<Task>(res, StoreAction.NewInserted)));
+  }
+
+
+  private inited;
+
+  public createObserver(): Observable<StoreItem<Task>> {
+    let observer = Observable.create(r => {
+      this.storeItems.map(si => r.next(si));
+      this.observers.push(r);
+    });
+    this.observables.push(observer);
+    return observer;
+  }
+
+  storeItems: StoreItem<Task>[];
+  private observers: Array<Observer<StoreItem<Task>>>;
+  public observables: Array<Observable<StoreItem<Task>>>;
+}
+
+

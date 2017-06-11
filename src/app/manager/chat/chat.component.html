@@ -60,7 +60,17 @@
                       <div class="col-md-9 not-pad" [ngStyle]="{'width':sidenavBool?'65%':'99.8%', 'overflow': 'hidden'}">
                           <div class="title-chat" *ngIf="selectedChatID">
                               <md-toolbar >
-                                  <span style="color: #757575"></span>
+                                  <span style="font-size: 13px;color: #000000"
+                                        *ngIf="selectedRequest.tasks.length!==0">
+                                      <span>
+                                           <button  md-icon-button
+                                                    (click)="onDeleteTask()"
+                                                    mdTooltip="Выполнено">
+                                               <md-icon>done</md-icon>
+                                           </button>
+                                          {{selectedRequest.tasks[0]?.text}}
+                                      </span>
+                                  </span>
                                   <span class="example-spacer"></span>
                                   <button  md-icon-button
                                            (click)="onTaskOpen()"
@@ -68,6 +78,8 @@
                                       <md-icon>chrome_reader_mode</md-icon>
                                   </button>
                                   <task *ngIf="taskBool"
+                                        (close)="onTaskOpen()"
+                                        (updateTask)="onUpdateTask($event)"
                                         [tasks]="selectedRequest.tasks">
                                   </task>
                               </md-toolbar>
