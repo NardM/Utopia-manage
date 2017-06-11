@@ -72,6 +72,7 @@
           <span *ngIf="res.company.master">
           {{res.company.master.first_name}} {{res.company.master.last_name}}
         </span>
+          <span *ngIf="res.status===6">(Отклоненный)</span>
           <div class="action">
             <md-icon>mail</md-icon>
             <md-checkbox></md-checkbox>
