@@ -7,13 +7,13 @@ import {AfterViewChecked, Component, Inject, Input, OnInit} from "@angular/core"
 import {Router} from "@angular/router";
 import {Consts} from "../../../../../const/app-const";
 import {DOCUMENT} from "@angular/platform-browser";
-import {ChatService, Message, Skins} from "../../chat.service";
+import { ChatService, Message, Skin, Skins } from "../../chat.service";
 import {ChatHub} from "../../../chatObs";
 import {RequestManagerHub} from "../../../../http/hubs/RequestHub";
 declare var jQuery:any;
 
 @Component({
-  selector: 'chat-business-item',
+  selector: 'chat-item-dialog',
   templateUrl: './chat-dialog.component.html',
   styleUrls: ['./chat-dialog.component.scss']
 })
@@ -22,12 +22,11 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
 
 
   @Input() private chatId: number = 0;
-  @Input() private orderId: number;
   private userId: number;
   private notificationsActive: boolean = true;
   private chatFlag: boolean = false;
   private date: Date;
-  private chatSkins: Skins;
+  private chatSkins: Skin[];
   private nameSkin: string;
 
 
@@ -62,7 +61,7 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
     let self = this;
     if (res.chat_id===self.chatId) {
       res.date_string = self.dateConvert(res.date);
-      res.name = self.chatSkins.skins.filter(item => {
+      res.name = self.chatSkins.filter(item => {
         return res.skin_id === item.skin_id
       })[0].name;
       this.chats.push(res);
@@ -88,6 +87,7 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
 
   getChat(): void {
     let self = this;
+    debugger;
     self.chatServiceL.getChat(self.chatId)
       .then(res => {
         res.messages.map(chat => {
@@ -121,7 +121,7 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
     return self.chatServiceL.getSkin(chat_id)
       .then(value => {
         self.chatSkins = value;
-        value.skins.map(res => {
+        value.map(res => {
           chat.map(item => {
             if (res.skin_id === item.skin_id)
               item.name = res.name;
@@ -147,8 +147,8 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
     if (self.chat === null || self.chat == undefined || self.chat === "")
       return;
     let d = new Date();
-    let skin_id: number = Number(localStorage['skin_id_business']);
-    let name: string = self.chatSkins.skins.filter(res=>{
+    let skin_id: number = Number(localStorage['skin_id']);
+    let name: string = self.chatSkins.filter(res=>{
       return skin_id === res.skin_id
     })[0].name;
     debugger;

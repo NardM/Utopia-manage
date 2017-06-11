@@ -21,6 +21,8 @@ import { BasketRequestInterface } from '../chat/Model/BasketRequest';
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import Request = BasketRequestInterface.Request;
 import Task = BasketRequestInterface.Task;
+import { MdDialog, MdDialogConfig } from '@angular/material';
+import { ChatDialogComponent } from '../chat/chat/chat-dialog/chat.component';
 
 
 
@@ -49,6 +51,7 @@ export class FormRequestComponent implements OnInit {
     constructor(private categoryService: CategoryService,
                 private userService: UserService,
                 private router: Router,
+                private dialog: MdDialog,
                 private clientService: ClientService) {
     }
 
@@ -64,7 +67,7 @@ export class FormRequestComponent implements OnInit {
         this.clientService.getClient(userId).then(res => this.userPhone = res.phone);
     }
 
-    onDeleteRequest(event){
+    onDeleteRequest(event) {
         this.deleteRequest.emit(event);
     }
 
@@ -76,6 +79,22 @@ export class FormRequestComponent implements OnInit {
                 this.userService.getServiceResponseId(this.request.id, res.response_id)
                     .then(res => this.responseCompany);
             });
+    }
+
+    onChat() {
+        let self = this;
+        let option: MdDialogConfig = new MdDialogConfig();
+        option.disableClose = false;
+        option.height = '600px';
+        option.width = '500px';
+        debugger;
+        let chatId: number = self.request.chat_id;
+        if (self.request.status === 4 || self.request.status === 5 ||
+            self.request.status === 6 || self.request.status === 7) {
+            chatId = self.request.confirm.chat_id;
+        }
+        option.data = chatId;
+        let dialogRef = self.dialog.open(ChatDialogComponent, option);
     }
 
 }

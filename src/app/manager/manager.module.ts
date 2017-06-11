@@ -45,6 +45,8 @@ import {BaThemeSpinner} from "../service/baThemeSpinner.service";
 import {CoolInfiniteGridComponent} from "../component/infinity-scroll/infinite-grid.component";
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { LoadScrollComponent } from '../component/load-scroll/load-scroll.component';
+import { ChatDialogComponent } from './chat/chat/chat-dialog/chat.component';
+import { ChatItemDialogComponent } from './chat/chat/chat-dialog/chat-dialog/chat-dialog.component';
 
 
 @NgModule({
@@ -87,6 +89,8 @@ import { LoadScrollComponent } from '../component/load-scroll/load-scroll.compon
     MapsGoogleComponent,
     ItemConfirmComponent,
     ChatItemComponent,
+    ChatItemDialogComponent,
+    ChatDialogComponent,
     ChatComponent,
     RequestListComponent,
     RequestItemMiniComponent,

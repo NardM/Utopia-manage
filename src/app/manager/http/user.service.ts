@@ -83,6 +83,11 @@ export class UserService {
     return this.constService.put(url, null);
   }
 
+  putBlockServiceRequest(serviceRequest: number): Promise<Request> {
+    let url = this.serviceRequestUrl + '/' + serviceRequest + '/block';
+    return this.constService.put(url, null);
+  }
+
   putServiceRequest(serviceRequest: Request): Promise<Request> {
     let url = this.serviceRequestUrl + '/' + serviceRequest.id;
     return this.constService.put<Request>(url, serviceRequest);

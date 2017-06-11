@@ -16,6 +16,7 @@ import {FormClientItemComponent} from "./clients/form-client/client/client.compo
 import {MapsGoogleRouteDialogComponent} from "../component/dialog-maps-business/dialog-route/route.component";
 import {MapsGoogleComponent} from "../component/dialog-maps-business/maps/autoGoogle.component";
 import {ChatComponent} from "./chat/chat.component";
+import { ChatDialogComponent } from './chat/chat/chat-dialog/chat.component';
 
 const managerRoutes: Routes = [
     {
@@ -28,6 +29,7 @@ const managerRoutes: Routes = [
                   { path: '', component: RequestsNewComponent },
                     { path: 'new-requests', component: RequestsNewComponent },
                     { path: 'chat', component: ChatComponent },
+                    { path: 'chat-dialog', component: ChatDialogComponent },
                     { path: 'route', component: MapsGoogleRouteDialogComponent },
                   { path: 'maps', component: MapsGoogleComponent },
                  /* { path: 'users', component: ClientComponent },

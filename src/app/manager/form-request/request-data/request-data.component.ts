@@ -60,13 +60,14 @@ export class RequestDataComponent implements OnInit, OnChanges {
     }
   }
 
-  onPublishRequest(): void {
+  private onPublishRequest(): void {
     this.userService.putPublishServiceRequest(this.requestId)
         .then(res => this.deleteRequest.emit(this.requestId))
   }
 
-  onDeniedRequest(): void {
-
+  private onDeniedRequest(): void {
+    this.userService.putBlockServiceRequest(this.requestId)
+        .then(res => this.deleteRequest.emit(this.requestId))
   }
 
   convertDateInString(date: number): string {

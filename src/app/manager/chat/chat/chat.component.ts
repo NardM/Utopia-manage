@@ -100,6 +100,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
           else {
             self.chatFlag = true;
           }
+          self.downChatScroll = true;
         })
   }
 

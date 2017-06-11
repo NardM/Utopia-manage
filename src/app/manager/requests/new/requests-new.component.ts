@@ -18,13 +18,37 @@ import {BaThemeSpinner} from "../../../service/baThemeSpinner.service";
 import { BasketRequestInterface } from '../../chat/Model/BasketRequest';
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import Request = BasketRequestInterface.Request;
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
 
     selector: 'my-requests-new',
     templateUrl: 'requests-new.component.html',
-    styleUrls: [ 'requests-new.component.scss']
+    styleUrls: [ 'requests-new.component.scss'],
+    animations: [
+        trigger('divDown', [
+            state('inactive', style({transform: 'translateX(0) scale(1)'})),
+            state('active', style({transform: 'inherit'})),
+            /*  state('active', style({transform: 'translateX(0) scale(1)'})),*/
+            transition('inactive => active', animate('100ms ease-in')),
+            transition('active => inactive', animate('100ms ease-out')),
+            transition('void => inactive', [
+                style({transform: 'translateX(-100%) scale(1)'}),
+                animate(100)
+            ]),
+            transition('inactive => void', [
+                animate(100, style({transform: 'translateX(100%) scale(1)'}))
+            ]),
+            transition('void => active', [
+                style({transform: 'translateX(0) scale(0)'}),
+                animate(200)
+            ]),
+            transition('active => void', [
+                animate(300, style({transform: 'translateX(0) scale(0)'}))
+            ])
+        ])
+    ]
 })
 export class RequestsNewComponent  {
 
