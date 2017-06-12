@@ -58,7 +58,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private notificationsActive: boolean = true;
   private date: Date;
   private subscription: Subscription;
-  private categories: Category[];
+  private categories: Category[] = [];
   private sidenavBool: boolean = false;
   @ViewChild('sidenav')
   private sidenav: MdSidenav;
@@ -86,7 +86,11 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onDeleteTask() {
     if (this.selectedRequest.tasks.length >= 1) {
-      this.selectedRequest.tasks.shift();
+      this.service.postTaskComplete(this.selectedRequest.tasks[0].request_id,
+          this.selectedRequest.tasks[0].id)
+          .then(res => {
+            this.selectedRequest.tasks.shift();
+          });
     }
   }
 
@@ -129,8 +133,17 @@ export class ChatComponent implements OnInit, OnDestroy {
   private  getCategories(): void {
     this.categoryService.getCategories()
         .then(res => {
-          this.categories = res;
-          this._state.hideManager()
+          res.map(item => {
+            if (item.subcategories.length !== 0) {
+              item.subcategories.map(subcategory => {
+                this.categories.push(subcategory)
+              })
+            }
+            else {
+              this.categories.push(item)
+            }
+            this._state.hideManager();
+          })
         })
   }
 

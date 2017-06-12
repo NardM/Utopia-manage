@@ -48,6 +48,7 @@ import { LoadScrollComponent } from '../component/load-scroll/load-scroll.compon
 import { ChatDialogComponent } from './chat/chat/chat-dialog/chat.component';
 import { ChatItemDialogComponent } from './chat/chat/chat-dialog/chat-dialog/chat-dialog.component';
 import { TaskComponent } from './chat/task/task.component';
+import { TaskBookmarkComponent } from './chat/task/task-bookmark/task-bookmark.component';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import { TaskComponent } from './chat/task/task.component';
     RequestItemComponent,
     CoolInfiniteGridComponent,
     LoadScrollComponent,
-    TaskComponent
+    TaskComponent,
+    TaskBookmarkComponent
 
   ],
   entryComponents: [

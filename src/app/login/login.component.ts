@@ -7,9 +7,9 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { AppState } from './app.service';
-import {ActivatedRoute, Router} from "@angular/router";
-import {TokenService} from "../manager/http/token.serviece";
-import {LoginService} from "./login.service";
+import { ActivatedRoute, Router }  from '@angular/router';
+import { TokenService } from '../manager/http/token.serviece';
+import { LoginService } from './login.service';
 
 /**
  * App Component
@@ -30,10 +30,10 @@ export class LoginComponent {
     }
 
     @ViewChild('#phone')
-    private phone: ElementRef;
-    private textButton: string = 'Отправить';
+    public phone: ElementRef;
+    public textButton: string = 'Отправить';
     private code: number;
-    private step: LoginStep;
+    public step: LoginStep;
     private successBool: boolean = false;
     private errorCode: boolean = false;
 
@@ -68,6 +68,8 @@ export class LoginComponent {
                             this.errorCode = true;
                         }
                     });
+                break;
+            default:
                 break;
         }
     }

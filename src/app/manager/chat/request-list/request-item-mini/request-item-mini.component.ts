@@ -36,9 +36,13 @@ export class RequestItemMiniComponent implements OnChanges {
     private deleteRequestBool: boolean = false;
     private active: boolean;
 
+
+
     ngOnChanges() {
         this.active = this.takeBool;
+
     }
+
 
     onChange(event, request: Request): void {
         if (event.checked) {
@@ -91,3 +95,4 @@ export class RequestItemMiniComponent implements OnChanges {
     }
 
 }
+

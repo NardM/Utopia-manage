@@ -13,8 +13,14 @@
       </div>
       <div class="request-action" >
         <div class="top">
-          <md-icon>bookmark</md-icon>
-          <md-checkbox (change)="onChange($event, request)" [(ngModel)]="active"></md-checkbox>
+          <task-bookmark *ngIf='(request.tasks!==undefined&&request.tasks!==null)&&takeBool'
+                         [task]="request.tasks[0]"></task-bookmark>
+          <md-icon *ngIf="(request.tasks===undefined||request.tasks===null)"
+                   style="color: white">bookmark</md-icon>
+          <md-checkbox (change)="onChange($event, request)"
+                       color="primary"
+                       [(ngModel)]="active">
+          </md-checkbox>
         </div>
         <div class="bottom">
           <md-icon>

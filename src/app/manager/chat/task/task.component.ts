@@ -68,10 +68,13 @@ export class TaskComponent implements OnChanges {
     }
 
 
-    private onDeleteTask() {
+    private onDeleteTask(task: Task) {
         if (this.tasks.length >= 1) {
-            this.tasks.shift();
-            this.updateTask.emit(this.tasks);
+            this.service.postTaskComplete(task.request_id, task.id)
+                .then(res => {
+                    this.tasks.shift();
+                    this.updateTask.emit(this.tasks);
+                });
         }
     }
 
