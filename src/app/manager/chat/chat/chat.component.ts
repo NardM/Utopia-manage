@@ -24,6 +24,7 @@ import {Consts} from "../../../const/app-const";
 import {ChatHub} from "../chatObs";
 import { ConstService } from '../../../const/http/service-const.service';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 
 @Component({
   selector: 'chat-item',
@@ -52,7 +53,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
     let self = this;
     self.serviceR.createObserver()
         .subscribe(res => {
-              self.newMessage(res)
+              self.newMessage(res.item)
             }
         );
     this.skin_id = 1;
@@ -70,19 +71,30 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
 
   getSkin(chat: Chat, chatID: number): Promise<any> {
     let self = this;
+    self.skin = [];
     return self.chatServiceL.getSkin(chatID)
         .then((value: Skin[]) => {
-          value.map(res => {
+          let skins: Skin[] = Observable.create((observer: Observer<Skin>) => {
+            value.map(res => {
+              self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`)
+                  .subscribe(r => {
+                    res.logo = r;
+                    observer.next(res);
+                  });
+            });
+          });
+          skins.forEach(res => {
             chat.messages.map(item => {
               if (res.skin_id === item.skin_id) {
                 item.name = res.name;
-                item.logo = self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`);
+                item.logo = res.logo;
               }
             })
           });
           self.skin = value;
           self.chat = chat;
           self.chatFlag = true;
+
         })
   }
 
@@ -151,7 +163,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   }
 
 
-  newMessage(res: any): void {
+  newMessage(res: Message): void {
     debugger;
     let self = this;
     if (res.chat_id === self.chatID) {
@@ -159,9 +171,10 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
       res.name = self.skin.filter(item => {
         return res.skin_id === item.skin_id
       })[0].name;
-      this.chat.messages.push(res);
-      this.audioNotification();
-      this.downChatScroll = true;
+      res.logo = self.skin.find(item=> item.skin_id ===res.skin_id).logo;
+      self.chat.messages.push(res);
+      self.audioNotification();
+      self.downChatScroll = true;
     }
   }
 

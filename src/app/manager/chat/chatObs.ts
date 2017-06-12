@@ -29,23 +29,26 @@ export class ChatHub{
     this.createObserver().subscribe(a => this.storeItems.push(a));
   }
 
-  newMessage(res: any): void {
+  newMessage(res: Message): void {
     let self = this;
     debugger;
+    if (res.skin_id===Number(localStorage['skin_id'])){
+      return;
+    }
     self.observers.map(o => o.next(new StoreItem<Message>(res, StoreAction.Inserted)));
-      let message: string = 'Вам пришло новое сообщение';
+      /*let message: string = 'Вам пришло новое сообщение';
       let action: string = "Открыть";
       let option: MdSnackBarConfig = new MdSnackBarConfig();
       option.duration = 10000;
       let snackBarRef = self.snackBar.open(message, action, option);
-      snackBarRef.afterDismissed().subscribe(() => {
+      snackBarRef.afterOpened().subscribe(() => {
         let options: MdDialogConfig = new MdDialogConfig();
         options.disableClose = false;
         options.height = '600px';
         options.width = '500px';
-        options.data = res;
+        options.data = res.chat_id;
         let dialogRef = self.dialog.open(ChatDialogComponent, option);
-      });
+      });*/
   }
 
   private Added(message: Message): void {

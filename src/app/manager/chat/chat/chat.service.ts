@@ -97,7 +97,7 @@ export interface Message {
   name: string;
   date_string: string;
   date: number;
-  logo: Observable<string>;
+  logo: string;
 }
 
 export interface Chat {
@@ -120,7 +120,7 @@ export interface Skin {
   role: number;
   skin_id: number;
   name: string;
-  logo: Observable<string>;
+  logo: string;
 }
 
 export interface Skins {

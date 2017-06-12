@@ -45,7 +45,7 @@
     <hr>
     <div class="user item-action"
          *ngIf="user"
-         (click)="openChat(0, 0)">
+         (click)="openChat(request.chat_id, 0)">
       <span>{{user.name}} {{user.last_name}}</span>
     </div>
     <hr>
@@ -63,6 +63,7 @@
     <div class="response " *ngIf="!confirmBool">
       <div *ngFor="let res of response" >
         <div class="item-action"
+             [class.active]
              (click)="openChat(res.chat_id,2, res)">
           <span *ngIf="res.company.company">{{res.company.company.name}}</span>
           <span *ngIf="res.company.master">
