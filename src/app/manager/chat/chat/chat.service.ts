@@ -47,6 +47,11 @@ export class ChatService {
     return this.constService.postSingle<EmptyAnswer>(url);
   }
 
+  createOrderChat(companyID: number, orderID: number): Promise<EmptyAnswer> {
+    let url = `${Consts.baseURL}v1/manager/company/${companyID}/service/order/${orderID}/chat`;
+    return this.constService.postSingle<EmptyAnswer>(url);
+  }
+
   deleteRequestInBasket(requestID: number): Promise<EmptyAnswer> {
     let url = `${Consts.baseURL}v1/manager/basket/request/${requestID}`;
     return this.constService.postSingle<EmptyAnswer>(url);

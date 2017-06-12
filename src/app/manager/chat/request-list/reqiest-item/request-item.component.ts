@@ -11,6 +11,7 @@ import Client = ClientInterface.Account;
 import {ClientService} from "../../../http/client.service";
 import {ServiceResponsesInterface} from "../../../model/service-responses";
 import Respons = ServiceResponsesInterface.Respons;
+import { ChatService } from '../../chat/chat.service';
 
 @Component({
     selector: 'request-item',
@@ -31,11 +32,13 @@ import Respons = ServiceResponsesInterface.Respons;
 })
 export class RequestItemComponent implements OnChanges {
     constructor(private userService: UserService,
+                private chatServiceL: ChatService,
                 private clientService: ClientService) {
     }
 
     @Input() private request: Request;
     @Output() private onOpenRequestBool = new EventEmitter();
+    @Output() private onOpenChat = new EventEmitter<number>();
     private user: Client;
     public response: Respons[];
     private confirmBool: boolean = false;
@@ -87,6 +90,31 @@ export class RequestItemComponent implements OnChanges {
                 this.confirmBool = false;
                 this.load = false;
             })
+    }
+
+    private openChat(chatID: number, typeChat: number, response?: Respons) {
+        debugger;
+        switch (typeChat) {
+            case 0:
+                this.onOpenChat.emit(chatID);
+                break;
+            case 1:
+                this.onOpenChat.emit(chatID);
+                break;
+            case 2:
+                if (chatID === undefined|| chatID === null) {
+                    this.chatServiceL.createOrderChat(response.company_id, response.id)
+                        .then(res => {
+                            this.onOpenChat.emit(res.data.id)
+                        })
+                }
+                else{
+                    this.onOpenChat.emit(chatID);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
 

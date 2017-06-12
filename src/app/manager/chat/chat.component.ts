@@ -104,6 +104,15 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.cdRef.detectChanges();
   }
 
+
+  private onOpenChat(chatID: number) {
+    if (this.selectedChatID === chatID) {
+      return
+    }
+    this.selectedChatID = chatID;
+  }
+
+
   private searchBasket() {
 
   }

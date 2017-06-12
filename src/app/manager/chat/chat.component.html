@@ -108,6 +108,7 @@
 
     <request-item class="col-md-3 request-item"
                   *ngIf="selectedRequest"
+                  (onOpenChat)="onOpenChat($event)"
                   (onOpenRequestBool)="onOpenRequest($event)"
                   [request]="selectedRequest">
     </request-item>

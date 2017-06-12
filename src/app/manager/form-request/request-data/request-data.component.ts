@@ -19,6 +19,7 @@ import {MdDialog, MdDialogConfig} from "@angular/material";
 import {ConstService} from "../../../const/http/service-const.service";
 import {MapsGoogleRouteDialogComponent} from "../../../component/dialog-maps-business/dialog-route/route.component";
 import {MapsGoogleComponent} from "../../../component/dialog-maps-business/maps/autoGoogle.component";
+import { ChatService } from '../../chat/chat/chat.service';
 
 
 
@@ -32,6 +33,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
   constructor(private router: Router,
               private serviceConst: ConstService,
               public dialog: MdDialog,
+              private chatService: ChatService,
               private userService: UserService) {
 
   }
@@ -61,27 +63,33 @@ export class RequestDataComponent implements OnInit, OnChanges {
   }
 
   private onPublishRequest(): void {
-    this.userService.putPublishServiceRequest(this.requestId)
-        .then(res => this.deleteRequest.emit(this.requestId))
+    this.chatService.postRequestTake(this.requestId)
+        .then(item=>{
+          this.userService.putPublishServiceRequest(item.data.id)
+              .then(res => this.deleteRequest.emit(this.requestId))
+        });
   }
 
   private onDeniedRequest(): void {
-    this.userService.putBlockServiceRequest(this.requestId)
-        .then(res => this.deleteRequest.emit(this.requestId))
+    this.chatService.postRequestTake(this.requestId)
+        .then(item=> {
+          this.userService.putBlockServiceRequest(item.data.id)
+              .then(res => this.deleteRequest.emit(this.requestId))
+        });
   }
 
-  convertDateInString(date: number): string {
+  private convertDateInString(date: number): string {
     let d = new Date(date);
     return d.toLocaleDateString();
   }
 
-  convertDateTimeInString(date: number): string {
+  private convertDateTimeInString(date: number): string {
     let d = new Date(date);
     let result = d.toLocaleString('ru');
     return result;
   }
 
-  getPropertyIcon(property_id: number): string {
+  private getPropertyIcon(property_id: number): string {
     return Consts.baseURL + '/v1/property/' + property_id + '/icon';
   }
 
@@ -89,14 +97,14 @@ export class RequestDataComponent implements OnInit, OnChanges {
   public imagePointer: number;
   public images: Array<{ thumb: string, img: string, description: string }> = [];
 
-  OpenImageModel(ind: number): void {
+  private  OpenImageModel(ind: number): void {
     //alert('OpenImages');
     this.imagePointer = ind;
     this.openModalWindow = true; ///TODO из-за чата баг
   }
 
 
-  cancelImageModel(): void {
+  private cancelImageModel(): void {
     this.openModalWindow = false;
   }
 
@@ -135,7 +143,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
           });
   }
 
-  getOrderData(): void {
+  private getOrderData(): void {
     let options = {
       year: 'numeric',
       month: 'long',
@@ -187,7 +195,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
   public postOrderBool: boolean = false;
 
 
-  onMaps(address): void {
+  private onMaps(address): void {
     let option: MdDialogConfig = new MdDialogConfig();
     option.disableClose = false;
     option.height = '450px';
@@ -198,7 +206,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
   }
 
 
-  onRoute(route): void {
+  private onRoute(route): void {
     let option: MdDialogConfig = new MdDialogConfig();
     option.disableClose = false;
     option.height = '600px';
@@ -208,7 +216,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
   }
 
 
-  getServicePhoto(requestId: number): string {
+  private getServicePhoto(requestId: number): string {
     return 'http://smartapi.ru/v1/manage/requests/photo/' + requestId;
   }
 
