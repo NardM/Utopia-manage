@@ -6,6 +6,8 @@
                       (click)="onDeleteTask(task)"
                       md-list-icon>done</md-icon>
           <p md-line>{{task.text}}</p>
+            <task-bookmark
+                           [task]="task"></task-bookmark>
         </md-list-item>
         <md-divider></md-divider>
       </div>

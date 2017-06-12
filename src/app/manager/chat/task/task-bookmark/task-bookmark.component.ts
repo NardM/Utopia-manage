@@ -31,9 +31,9 @@ export class TaskBookmarkComponent implements OnChanges {
         const Urgent: number = 60000 * 6;
         const Waiting: number = 60000 * 4;
         const New: number = 60000 * 2;
-        if (this.task!==undefined){
+        if (this.task !== undefined) {
             let time = setInterval(res => {
-                if (this.task===undefined) {
+                if (this.task === undefined) {
                     return;
                 }
                 let date: Date = new Date();
@@ -53,10 +53,9 @@ export class TaskBookmarkComponent implements OnChanges {
                 }
             }, 1000);
         }
-        else{
+        else {
             this.colorBookmark = 'white';
         }
-
     }
 
 }
