@@ -12,7 +12,7 @@ import Request = BasketRequestInterface.Request;
 import {BasketRequestInterface} from "../Model/BasketRequest";
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import { ServiceRequestStore, StoreAction, StoreItem } from '../../http/request';
+import { ServiceRequestStore, ServiceTaskStore, StoreAction, StoreItem } from '../../http/request';
 
 
 @Component({
@@ -37,10 +37,23 @@ export class RequestListComponent implements OnChanges {
                 private router: Router,
                 private cdRef:ChangeDetectorRef,
                 private store: ServiceRequestStore,
+                private storeTask: ServiceTaskStore,
                 private service: ChatService) {
         this.store.createObserver()
             .subscribe(res =>
                 this.newStoreItem(res));
+
+        this.storeTask.createObserver()
+            .subscribe(res => {
+                    for (let i = 0; i < this.requests.requests.length; i++) {
+                        if (this.requests.requests[i].id === res.item.request_id) {
+                            this.requests.requests[i].tasks.push(res.item);
+                            this.requests.requests.unshift(this.requests.requests.splice(i, 1)[0]);
+                            break;
+                        }
+                    }
+                }
+            );
     }
 
     private requests: BasketRequest;

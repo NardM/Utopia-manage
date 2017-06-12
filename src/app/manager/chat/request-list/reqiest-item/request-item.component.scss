@@ -25,6 +25,7 @@ md-toolbar{
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  cursor: pointer;
   span{
     font-size: 15px;
     font-weight: 700;
@@ -38,6 +39,10 @@ md-toolbar{
       margin-right: 10px;
     }
   }
+}
+
+.item-action:hover{
+  background-color: #E0F2F1
 }
 
 

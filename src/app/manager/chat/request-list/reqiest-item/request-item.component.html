@@ -45,9 +45,6 @@
     <hr>
     <div class="user item-action" *ngIf="user">
       <span>{{user.name}} {{user.last_name}}</span>
-      <div class="action">
-        <md-icon>mail</md-icon>
-      </div>
 
     </div>
     <hr>
@@ -58,9 +55,6 @@
       <span *ngIf="request.confirm.company.master">
           {{request.confirm.company.master.first_name}} {{request.confirm.company.master.last_name}}
       </span>
-      <div class="action">
-        <md-icon>mail</md-icon>
-      </div>
     </div>
     <hr>
     <div class="response " *ngIf="!confirmBool">
@@ -71,9 +65,6 @@
           {{res.company.master.first_name}} {{res.company.master.last_name}}
         </span>
           <span *ngIf="res.status===6">(Отклоненный)</span>
-          <div class="action">
-            <md-icon>mail</md-icon>
-          </div>
         </div>
         <hr>
       </div>

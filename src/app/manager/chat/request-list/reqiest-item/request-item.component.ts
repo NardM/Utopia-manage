@@ -30,7 +30,8 @@ import Respons = ServiceResponsesInterface.Respons;
     ]
 })
 export class RequestItemComponent implements OnChanges {
-    constructor(private userService: UserService, private clientService: ClientService) {
+    constructor(private userService: UserService,
+                private clientService: ClientService) {
     }
 
     @Input() private request: Request;
