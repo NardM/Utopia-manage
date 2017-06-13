@@ -82,6 +82,18 @@ export declare module BasketRequestInterface {
         complete_manager_id: number;
     }
 
+    export interface ClientAccount {
+        id: number;
+        avatar_hash: string;
+        skin_id: number;
+        phone: string;
+        blocked: boolean;
+        roles: string[];
+        name: string;
+        last_name: string;
+        email: string;
+    }
+
     export interface Request {
         id: number;
         active: boolean;
@@ -100,6 +112,7 @@ export declare module BasketRequestInterface {
         responses: Respons[];
         form_id: number;
         category_id: number;
+        client_account: ClientAccount;
         category_name: string;
         need_distance: boolean;
         show_count: number;

@@ -25,6 +25,7 @@ import {ChatHub} from "../chatObs";
 import { ConstService } from '../../../const/http/service-const.service';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+import { Cookie } from 'ng2-cookies';
 
 @Component({
   selector: 'chat-item',
@@ -39,7 +40,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   @Input() private chatID: number;
   private chat: Chat;
   private skin_id: number;
-  private skin: Skin[];
+  private skin: Skin[] = [];
   private message: string;
   private date: Date;
   private totalCount: number = 0;
@@ -56,7 +57,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
               self.newMessage(res.item)
             }
         );
-    this.skin_id = 1;
+    this.skin_id = Number(localStorage['skin_id']);
     this.message = "";
     this.date = new Date();
   }
@@ -91,10 +92,11 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
               }
             })
           });
-          self.skin = value;
-          self.chat = chat;
-          self.chatFlag = true;
-
+          skins.forEach(() => {
+            self.skin = value;
+            self.chat = chat;
+            self.chatFlag = true;
+          });
         })
   }
 
@@ -110,6 +112,23 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
             self.getSkin(res, chatID);
           }
           else {
+            self.skin = [];
+            self.chatServiceL.getSkin(chatID)
+                .then((value: Skin[]) => {
+                  let skins: Skin[] = Observable.create((observer: Observer<Skin>) => {
+                    value.map(res => {
+                      self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`)
+                          .subscribe(r => {
+                            res.logo = r;
+                            observer.next(res);
+                          });
+                    });
+                  });
+                  skins.forEach(res => {
+                    self.skin.push(res);
+                  })
+                });
+            self.chat = <Chat>{};
             self.chatFlag = true;
           }
           self.downChatScroll = true;
@@ -153,6 +172,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
       skin_id: self.skin_id,
       name: name
     };
+    chat.logo = self.skin.find(res => res.skin_id === self.skin_id).logo;
     chat.date_string = self.dateConvert(date);
     self.message = "";
     self.chatServiceL.postMessages(self.chatID, chat)
