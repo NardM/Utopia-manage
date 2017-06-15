@@ -10,6 +10,9 @@ import {DOCUMENT} from "@angular/platform-browser";
 import { ChatService, Message, Skin, Skins } from "../../chat.service";
 import {ChatHub} from "../../../chatObs";
 import {RequestManagerHub} from "../../../../http/hubs/RequestHub";
+import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
+import { ConstService } from '../../../../../const/http/service-const.service';
 declare var jQuery:any;
 
 @Component({
@@ -26,13 +29,14 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
   private notificationsActive: boolean = true;
   private chatFlag: boolean = false;
   private date: Date;
-  private chatSkins: Skin[];
+  private chatSkins: Skin[] = [];
   private nameSkin: string;
 
 
   constructor(private router: Router,
               private hub: RequestManagerHub,
               private serviceR: ChatHub,
+              private service: ConstService,
               @Inject(DOCUMENT) private document: Document,
               private chatServiceL: ChatService) {
     let self = this;
@@ -79,7 +83,6 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
 
   ngOnInit() {
     if (this.chatId != 0) {
-      debugger;
       this.getChat();
     }
   }
@@ -87,7 +90,6 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
 
   getChat(): void {
     let self = this;
-    debugger;
     self.chatServiceL.getChat(self.chatId)
       .then(res => {
         res.messages.map(chat => {
@@ -95,24 +97,30 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
         });
         if (res.messages_total_count===0){
           self.getChatSkinsEmpty(self.chatId);
-          self.chatFlag = true;
         }
         else {
           self.getChatSkins(res.messages, self.chatId)
-            .then(value => {
-              self.chats = value;
-              self.chatFlag = true;
-              self.downChatScroll = true;
-            })
         }
       });
   }
 
-  getChatSkinsEmpty(chat_id: number): void{
+  getChatSkinsEmpty(chat_id: number){
     let self = this;
-     self.chatServiceL.getSkin(chat_id)
+     return self.chatServiceL.getSkin(chat_id)
       .then(value => {
-        self.chatSkins = value;
+        let skins: Skin[] = Observable.create((observer: Observer<Skin>) => {
+          value.map(res => {
+            self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`)
+                .subscribe(r => {
+                  res.logo = r;
+                  observer.next(res);
+                });
+          });
+        });
+        skins.forEach(res => {
+          self.chatSkins.push(res);
+        });
+        self.chatFlag = true
       })
   }
 
@@ -120,12 +128,29 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
     let self = this;
     return self.chatServiceL.getSkin(chat_id)
       .then(value => {
-        self.chatSkins = value;
-        value.map(res => {
+        let skins: Skin[] = Observable.create((observer: Observer<Skin>) => {
+          value.map(res => {
+            self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`)
+                .subscribe(r => {
+                  res.logo = r;
+                  observer.next(res);
+                });
+          });
+        });
+        skins.forEach(res => {
           chat.map(item => {
-            if (res.skin_id === item.skin_id)
+            if (res.skin_id === item.skin_id) {
               item.name = res.name;
+              item.logo = res.logo;
+            }
           })
+        });
+        skins.forEach(() => {
+          debugger;
+          self.chatSkins = value;
+          self.chats = chat;
+          self.chatFlag = true;
+          self.downChatScroll = true
         });
         return chat;
       })
@@ -175,10 +200,6 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
     myDiv.scrollTop =myDiv.scrollHeight;
   }
 
-
-  getAvatar(skin_id): string {
-    return Consts.baseURL + 'v1/account/' + skin_id + '/icon';
-  }
 
   private chats: Array<Message> = [];
 

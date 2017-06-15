@@ -17,7 +17,8 @@
             <md-spinner *ngIf="!chatFlag" class="center-block" ></md-spinner>
             <div *ngFor="let message of chats">
               <div class="block-review"  >
-                <img   onerror="this.src='assets/icon/client.png'" src="{{getAvatar(message.skin_id)}}" >
+                <img [src]="message.logo"
+                     onerror="this.src='assets/icon/client.png'">
                 <div class="item-review" >
                   <div class="top-item">
                     <div class="name-user" >{{message.name}}</div>
