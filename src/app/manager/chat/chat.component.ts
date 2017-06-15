@@ -29,7 +29,7 @@ export class ChatComponent implements OnInit, OnDestroy {
               private router: Router,
               private hub: RequestManagerHub,
               private serviceR: ChatHub,
-              private cdRef:ChangeDetectorRef,
+              private cdRef: ChangeDetectorRef,
               private _state: BaThemeSpinner,
               private store: ServiceTaskStore,
               private categoryService: CategoryService,
@@ -122,7 +122,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private  onSelectIndex(event) {
-    debugger;
   }
 
   private  onSelectInputBasket(event: Request): void {

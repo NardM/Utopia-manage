@@ -22,8 +22,7 @@ export class CategoryService {
 
   constructor(private http: Http,
               private tokenService: TokenService,
-              private constService: ConstService
-              ) {
+              private constService: ConstService  ) {
   }
 
   getCategories2(offset?: number): Promise<Category[]>{

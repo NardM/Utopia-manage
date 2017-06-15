@@ -32,6 +32,24 @@ export class TaskBookmarkComponent implements OnChanges {
         const Waiting: number = 60000 * 4;
         const New: number = 60000 * 2;
         if (this.task !== undefined) {
+
+            let date: Date = new Date();
+            let dateManager: Date = new Date(this.task.date_time);
+            let dateManagerTime: number = dateManager.getTime()
+                + (date.getTimezoneOffset() * 60000 * (-1));
+
+            let divTime: number = date.getTime() - dateManagerTime;
+            if (divTime > Waiting && divTime < Urgent) {
+                this.colorBookmark = 'yellow';
+            }
+            if (divTime > Urgent) {
+                this.colorBookmark = 'red';
+            }
+            if (divTime <= New) {
+                this.colorBookmark = 'green';
+            }
+        }
+        if (this.task !== undefined) {
             let time = setInterval(res => {
                 if (this.task === undefined) {
                     return;

@@ -144,7 +144,7 @@ export class RequestListComponent implements OnChanges {
 
 
     getRequestsTake(): void {
-        this.service.getRequestsTake()
+        this.service.getRequestsTake(1<<1, 1<<2|1<<3|1<<4)
             .then(res => {
                 this.requests = res;
                 this.requestFlagLoad = false;
@@ -152,7 +152,7 @@ export class RequestListComponent implements OnChanges {
     }
 
     getBasketRequests(): void {
-        this.service.getBaskets()
+        this.service.getBaskets(1<<2|1<<3|1<<4)
             .then(res => {
                 this.requests = res;
                 this.requestFlagLoad = false;
@@ -169,8 +169,8 @@ export class RequestListComponent implements OnChanges {
                 });
         }
         else {
-            this.service.deleteRequestInBasket(request.id)
-            this.selectOutput.emit(request)
+            this.service.deleteRequestInBasket(request.id);
+            this.selectOutput.emit(request);
         }
     }
 

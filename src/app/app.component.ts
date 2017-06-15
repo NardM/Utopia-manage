@@ -4,10 +4,8 @@
 import {
   AfterViewInit,
   Component,
-  OnInit,
   ViewEncapsulation
 } from '@angular/core';
-import { AppState } from './app.service';
 import {BaThemeSpinner} from "./service/baThemeSpinner.service";
 
 /**
@@ -27,14 +25,9 @@ import {BaThemeSpinner} from "./service/baThemeSpinner.service";
   `
 })
 export class AppComponent implements AfterViewInit {
-  public angularclassLogo = 'assets/img/angularclass-avatar.png';
-  public name = 'Angular 2 Webpack Starter';
-  public url = 'https://twitter.com/AngularClass';
 
-  constructor(
-    public appState: AppState,
-    private _state: BaThemeSpinner
-  ) {}
+  constructor(private _state: BaThemeSpinner) {
+  }
 
   public ngAfterViewInit() {
     this._state.hide();

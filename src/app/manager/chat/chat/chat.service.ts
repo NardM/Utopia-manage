@@ -32,8 +32,8 @@ export class ChatService {
   }
 
 
-  getBaskets(): Promise<BasketRequest> {
-    let url = `${Consts.baseURL}v1/manager/basket/request`;
+  getBaskets(taskType: number): Promise<BasketRequest> {
+    let url = `${Consts.baseURL}v1/manager/basket/request?task_type_filter=${taskType}`;
     return this.constService.get<BasketRequest>(url);
   }
 
@@ -62,8 +62,8 @@ export class ChatService {
     return this.constService.get<BasketRequest>(url);
   }
 
-  getRequestsTake(): Promise<BasketRequest> {
-    let url = `${Consts.baseURL}v1/manager/request`;
+  getRequestsTake(taskStatus: number, taskType): Promise<BasketRequest> {
+    let url = `${Consts.baseURL}v1/manager/request?task_status_filter=${taskStatus}&task_type_filter=${taskType}`;
     return this.constService.get<BasketRequest>(url);
   }
 
