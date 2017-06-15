@@ -46,6 +46,7 @@ export declare module ServiceResponsesInterface {
     status: number;
     request_id: number;
     from_price: number;
+    active_chat: boolean;
     to_price: number;
     from_date: number;
     to_date: number;

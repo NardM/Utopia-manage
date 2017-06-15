@@ -49,6 +49,7 @@ export declare module BasketRequestInterface {
         company: Company;
         date_time: number;
         chat_id: number;
+        active_chat: boolean;
         response_id: number;
         request_id: number;
         review_id: number;
@@ -57,6 +58,7 @@ export declare module BasketRequestInterface {
     export interface Respons {
         id: number;
         chat_id: number;
+        active_chat: boolean;
         company_id: number;
     }
 
@@ -97,6 +99,7 @@ export declare module BasketRequestInterface {
     export interface Request {
         id: number;
         active: boolean;
+        active_chat: boolean;
         status: number;
         from_color: string;
         to_color: string;

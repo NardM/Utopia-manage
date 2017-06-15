@@ -44,13 +44,15 @@
     </div>
     <hr>
     <div class="user item-action"
-         *ngIf="user"
+         *ngIf="request"
+         [class.active]="request.active_chat"
          (click)="openChat(request.chat_id, 0)">
-      <span>{{user.name}} {{user.last_name}}</span>
+      <span>{{request.client_account.name}} {{request.client_account.last_name}}</span>
     </div>
     <hr>
     <div class="response item-action"
          *ngIf="confirmBool"
+         [class.active]="request.confirm.active_chat"
          (click)="openChat(request.confirm.chat_id,1)">
       <span *ngIf="request.confirm.company.company">
       {{request.confirm.company.company.name}}
@@ -63,7 +65,7 @@
     <div class="response " *ngIf="!confirmBool">
       <div *ngFor="let res of response" >
         <div class="item-action"
-             [class.active]
+             [class.active]="res.active_chat"
              (click)="openChat(res.chat_id,2, res)">
           <span *ngIf="res.company.company">{{res.company.company.name}}</span>
           <span *ngIf="res.company.master">

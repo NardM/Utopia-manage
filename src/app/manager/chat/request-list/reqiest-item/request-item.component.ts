@@ -49,11 +49,12 @@ export class RequestItemComponent implements OnChanges {
         if (this.request) {
             this.load = true;
             this.resetComponent();
-            this.getClient();
             if (this.request.status == 1 || this.request.status == 2) {
+                this.request.active_chat = true;
                 this.getRespons();
             }
             if (this.request.status === 4 || this.request.status === 5 || this.request.status === 6) {
+                this.request.active_chat = true;
                 this.confirmBool = true;
                 this.load = false;
             }
@@ -97,19 +98,32 @@ export class RequestItemComponent implements OnChanges {
         switch (typeChat) {
             case 0:
                 this.onOpenChat.emit(chatID);
+                this.request.active_chat = true;
+                if(this.request.confirm){
+                    this.request.confirm.active_chat = false;
+                }
+                this.response.map(res=> res.active_chat = false);
                 break;
             case 1:
                 this.onOpenChat.emit(chatID);
+                this.request.active_chat = false;
+                this.request.confirm.active_chat = true;
                 break;
             case 2:
                 if (chatID === undefined|| chatID === null) {
                     this.chatServiceL.createOrderChat(response.company_id, response.id)
                         .then(res => {
-                            this.onOpenChat.emit(res.data.id)
+                            this.onOpenChat.emit(res.data.id);
+                            this.request.active_chat = false;
+                            this.response.map(res=> res.active_chat = false);
+                            this.response.find(res=> res.id === response.id).active_chat = true;
                         })
                 }
                 else{
                     this.onOpenChat.emit(chatID);
+                    this.request.active_chat = false;
+                    this.response.map(res=> res.active_chat = false);
+                    this.response.find(res=> res.id === response.id).active_chat = true;
                 }
                 break;
             default:
