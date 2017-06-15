@@ -15,13 +15,14 @@ import { BasketRequestInterface } from '../chat/Model/BasketRequest';
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import Request = BasketRequestInterface.Request;
 import Task = BasketRequestInterface.Task;
+import { ChatService } from '../chat/chat/chat.service';
 
 
 
 @Injectable()
 export class  ServiceRequestStore {
 
-  constructor(private service: UserService,
+  constructor(private service: ChatService,
               private router: Router,
               private requestManagerHub: RequestManagerHub) {
 
@@ -32,7 +33,7 @@ export class  ServiceRequestStore {
     this.requestManagerHub.newBusketRequest.subscribe(res => this.newOrder(res));
     this.requestManagerHub.removeFromBasket.subscribe(res => this.deleteRequest(res));
     this.createObserver().subscribe(a => this.storeItems.push(a));
-    this.service.getServiceRequest(1 << 1 | 1 << 2 | 1 << 3 | 1 << 4, 0)
+    this.service.getBaskets(1 << 1, 20, -20)
         .then(res => {
           this.storeItems = res.requests.map(item => {
             let storeItem = new StoreItem(item, StoreAction.Inserted, res.total_count);

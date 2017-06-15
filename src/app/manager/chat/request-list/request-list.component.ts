@@ -73,7 +73,7 @@ export class RequestListComponent implements OnChanges {
         switch (res.action) {
             case StoreAction.NewInserted:
                 debugger;
-                if (!self.takeBool) {
+                if (!self.takeBool&&res.item.status!==1) {
                     self.requests.requests.unshift(res.item);
                     self.cdRef.detectChanges();
                 }
@@ -152,7 +152,7 @@ export class RequestListComponent implements OnChanges {
     }
 
     getBasketRequests(): void {
-        this.service.getBaskets(1<<2|1<<3|1<<4)
+        this.service.getBaskets(1<<2|1<<3|1<<4, 50, -50)
             .then(res => {
                 this.requests = res;
                 this.requestFlagLoad = false;

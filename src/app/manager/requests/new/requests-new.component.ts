@@ -19,6 +19,7 @@ import { BasketRequestInterface } from '../../chat/Model/BasketRequest';
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import Request = BasketRequestInterface.Request;
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ChatService } from '../../chat/chat/chat.service';
 
 
 @Component({
@@ -53,7 +54,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 export class RequestsNewComponent  {
 
     constructor(private router: Router,
-                private userService: UserService,
+                private userService: ChatService,
                 private hub: RequestManagerHub,
                 private _state: BaThemeSpinner,
 
@@ -187,6 +188,9 @@ export class RequestsNewComponent  {
                 this.countScroll++;
                 this.getRequest();
             }
+            else {
+                this.loading = false;
+            }
         }
     }
 
@@ -204,8 +208,7 @@ export class RequestsNewComponent  {
 
     getRequest(): void {
         let self = this;
-        self.userService.getServiceRequest(1 << 1 | 1 << 2 | 1 << 3 | 1 << 4,
-            self.totalCount - self.offset)
+        self.userService.getBaskets(1 << 1,20, self.totalCount - self.offset)
             .then(res => {
                 if (res.total_count === 0) {
                     self.blockUpload = true;

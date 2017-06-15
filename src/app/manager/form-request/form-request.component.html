@@ -63,7 +63,9 @@
                                       color="primary">
                                   Подробно</button>
 
-                              <div class="phone" [ngStyle]="{'margin-left': '10px'}">
+                              <div *ngIf="numberRequest!==1"
+                                   class="phone"
+                                   [ngStyle]="{'margin-left': '10px'}">
                                   <md-icon style="margin-right: 7px">phone</md-icon>
                                   <span>{{userPhone}}</span>
 
