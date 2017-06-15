@@ -43,6 +43,7 @@ export class  ServiceRequestStore {
         });
   }
 
+  notDeleteRequest: number;
 
   private newOrder(res: Request): void {
     debugger;
@@ -50,12 +51,13 @@ export class  ServiceRequestStore {
     self.AddedNew(res);
   }
 
-  private deleteRequest(res: number){
+  private deleteRequest(res: number) {
     debugger;
     let request: Request = <Request>{
       id: res
     };
     this.Remove(request);
+    this.notDeleteRequest = undefined;
   }
 
   private audioNotification(): void {

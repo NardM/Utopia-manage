@@ -24,7 +24,7 @@ import Task = BasketRequestInterface.Task;
 import { MdDialog, MdDialogConfig } from '@angular/material';
 import { ChatDialogComponent } from '../chat/chat/chat-dialog/chat.component';
 import { ChatService } from '../chat/chat/chat.service';
-
+import { ServiceRequestStore } from '../http/request';
 
 
 @Component({
@@ -55,6 +55,7 @@ export class FormRequestComponent implements OnInit {
                 private userService: UserService,
                 private router: Router,
                 private dialog: MdDialog,
+                private store: ServiceRequestStore,
                 private service: ChatService,
                 private clientService: ClientService) {
         this.chatFlag = true;
@@ -88,7 +89,8 @@ export class FormRequestComponent implements OnInit {
 
     onChat() {
         let self = this;
-        if (self.chatFlag){
+        if (self.chatFlag) {
+            localStorage.setItem('notDeleteRequest',self.request.id.toString());
             let option: MdDialogConfig = new MdDialogConfig();
             option.disableClose = false;
             option.height = '600px';
@@ -100,15 +102,10 @@ export class FormRequestComponent implements OnInit {
                 chatId = self.request.confirm.chat_id;
             }
             option.data = chatId;
-            if (self.numberRequest === 1) {
-                self.service.postRequestTake(self.request.id)
-                    .then(res => {
-                        self.dialog.open(ChatDialogComponent, option);
-                    })
-            }
-            else {
-                self.dialog.open(ChatDialogComponent, option);
-            }
+            self.service.postRequestTake(self.request.id)
+                .then(res => {
+                    self.dialog.open(ChatDialogComponent, option);
+                });
             self.chatFlag = false;
         }
 

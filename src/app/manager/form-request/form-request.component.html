@@ -71,6 +71,7 @@
 
                               </div>
                               <button md-mini-fab
+                                      *ngIf="numberRequest==1||numberRequest==2"
                                       (click)="onChat()"
                                       mdTooltip="Чат"
                                       style="margin-left: 7px" >
