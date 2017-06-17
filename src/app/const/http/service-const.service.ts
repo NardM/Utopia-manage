@@ -122,7 +122,7 @@ export class ConstService {
   }
 
 
-  post<T>(url: string, item: T): Promise<T> {
+  post<T, G>(url: string, item: T): Promise<G> {
     return this.tokenService.token()
       .map(token => new Headers({
         'Content-Type': 'application/json',

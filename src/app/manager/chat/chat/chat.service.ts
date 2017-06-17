@@ -33,7 +33,7 @@ export class ChatService {
 
 
   getBaskets(taskType: number, count: number, offset: number): Promise<BasketRequest> {
-    let url = `${Consts.baseURL}v1/manager/basket/request?count=${count}&offset=${offset}task_type_filter=${taskType}`;
+    let url = `${Consts.baseURL}v1/manager/basket/request?count=${count}&offset=${offset}&task_type_filter=${taskType}`;
     return this.constService.get<BasketRequest>(url);
   }
 

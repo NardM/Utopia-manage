@@ -128,7 +128,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
                     self.skin.push(res);
                   })
                 });
-            self.chat = <Chat>{};
+            self.chat = res;
             self.chatFlag = true;
           }
           self.downChatScroll = true;

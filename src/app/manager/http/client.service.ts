@@ -13,6 +13,8 @@ import {Consts} from "../../const/app-const";
 import {ConstService} from "../../const/http/service-const.service";
 import {UserBlock} from "../clients/form-client/client/client.component";
 import { EmptyAnswer } from './answer';
+import { Logout } from '../../login/login.service';
+import { Cookie } from 'ng2-cookies';
 
 @Injectable()
 export class ClientService {
@@ -29,6 +31,17 @@ export class ClientService {
     return this.constService.get<Account[]>(url, 'accounts');
   }
 
+
+  onLogout(){
+    let url = `${Consts.baseURL}v1/account/logout`;
+    let device_id = Cookie.get('device_id');
+    let logout: Logout = <Logout> {
+      device_id: device_id,
+      app_type: 5,
+    };
+    return this.constService.post<Logout, LogoutGet>(url, logout)
+
+  }
 
   getAccount(): Promise<Account> {
     let url = `${Consts.baseURL}v1/account`;
@@ -57,6 +70,16 @@ export class ClientService {
 
 }
 
+export interface LogoutGet {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  settings: Settings;
+  user_id: number;
+  token_hash: string;
+}
+export interface Settings {
+}
 
 /*
  Copyright 2016 Google Inc. All Rights Reserved.

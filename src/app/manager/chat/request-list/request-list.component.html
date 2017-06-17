@@ -1,6 +1,6 @@
 
 <div class="requests">
-  <div *ngIf="!requestFlagLoad">
+  <div *ngIf="!requestFlagLoad" >
   <div *ngFor="let request of requests.requests; let ind=index"
        [class.selected]="request === selectedRequest"
        class="request">

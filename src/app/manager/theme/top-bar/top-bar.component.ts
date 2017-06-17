@@ -10,6 +10,7 @@ import {ClientService} from "../../http/client.service";
 import {ClientInterface} from "../../clients/model/client";
 import Account = ClientInterface.Account;
 import { Cookie } from 'ng2-cookies/ng2-cookies';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'top-bar',
@@ -22,6 +23,7 @@ export class TopBarComponent {
     public account: Account;
 
     constructor(private _state: GlobalState,
+                private router: Router,
                 private service: ClientService) {
         this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
             this.isMenuCollapsed = isCollapsed;
@@ -32,6 +34,16 @@ export class TopBarComponent {
                 Cookie.set('user_id', res.id.toString());
                 localStorage.setItem('skin_id', res.skin_id.toString())
             })
+    }
+
+    public onLogout(): void {
+        this.service.onLogout()
+            .then(res => {
+                Cookie.delete('login_token');
+                Cookie.set('device_token', res.access_token);
+                localStorage.clear();
+                this.router.navigate(['login']);
+            });
     }
 
     public onCollapse(): boolean {

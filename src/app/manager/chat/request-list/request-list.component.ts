@@ -152,7 +152,7 @@ export class RequestListComponent implements OnChanges {
     }
 
     getBasketRequests(): void {
-        this.service.getBaskets(1<<2|1<<3|1<<4, 50, -50)
+        this.service.getBaskets(1<<2|1<<3|1<<4, 50,-50)
             .then(res => {
                 this.requests = res;
                 this.requestFlagLoad = false;
