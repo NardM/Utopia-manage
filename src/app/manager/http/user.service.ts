@@ -95,7 +95,7 @@ export class UserService {
 
   postServiceRequest(serviceRequest: ServiceRequest): Promise<ServiceRequest> {
     let url = this.serviceRequestUrl;
-    return this.constService.post<ServiceRequest>(url, serviceRequest);
+    return this.constService.post<ServiceRequest, ServiceRequest>(url, serviceRequest);
   }
 
   getServiceRequestConfirm(requestId: number): Promise<RequestConfirm> {

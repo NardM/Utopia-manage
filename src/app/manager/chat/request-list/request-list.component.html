@@ -4,7 +4,8 @@
   <div *ngFor="let request of requests.requests; let ind=index"
        [class.selected]="request === selectedRequest"
        class="request">
-    <request-item-mini [request]="request"
+    <request-item-mini *ngIf="takeBool&&request.tasks?.length>0||!takeBool"
+                       [request]="request"
                        [takeBool]="takeBool"
                        [class.active]="request.active"
                        (selectRequest)="onSelectRequestOutput($event)"

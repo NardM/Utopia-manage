@@ -40,16 +40,21 @@ export class RequestListComponent implements OnChanges {
                 private storeTask: ServiceTaskStore,
                 private service: ChatService) {
         this.store.createObserver()
-            .subscribe(res =>
-                this.newStoreItem(res));
+            .subscribe(res => {
+                if (this.requests !== undefined) {
+                    this.newStoreItem(res)
+                }
+            });
 
         this.storeTask.createObserver()
             .subscribe(res => {
-                    for (let i = 0; i < this.requests.requests.length; i++) {
-                        if (this.requests.requests[i].id === res.item.request_id) {
-                            this.requests.requests[i].tasks.push(res.item);
-                            this.requests.requests.unshift(this.requests.requests.splice(i, 1)[0]);
-                            break;
+                    if (this.requests !== undefined) {
+                        for (let i = 0; i < this.requests.requests.length; i++) {
+                            if (this.requests.requests[i].id === res.item.request_id) {
+                                this.requests.requests[i].tasks.push(res.item);
+                                this.requests.requests.unshift(this.requests.requests.splice(i, 1)[0]);
+                                break;
+                            }
                         }
                     }
                 }

@@ -68,22 +68,22 @@ export class ChatService {
   }
 
   getChatMessage(chatID: number, count: number, offset: number): Promise<Message[]> {
-    let url = `${Consts.baseURL}/manage/v1/chat/${chatID}/message`;
+    let url = `${Consts.baseURL}manage/v1/chat/${chatID}/message`;
     return this.constService.get<Message[]>(url);
   }
 
   getChat(chatID: number): Promise<Chat> {
-    let url = `${Consts.baseURL}/manage/v1/chat/${chatID}`;
+    let url = `${Consts.baseURL}manage/v1/chat/${chatID}`;
     return this.constService.get<Chat>(url);
   }
 
   postMessages(chatID: number, message: Message): Promise<Message> {
-    let url = `${Consts.baseURL}/manage/v1/chat/${chatID}/message`;
-    return this.constService.post<Message>(url, message);
+    let url = `${Consts.baseURL}manage/v1/chat/${chatID}/message`;
+    return this.constService.post<Message, Message>(url, message);
   }
 
   getSkin(chatID: number): Promise<Skin[]> {
-    let url = `${Consts.baseURL}/manage/v1/chat/${chatID}/skin`;
+    let url = `${Consts.baseURL}manage/v1/chat/${chatID}/skin`;
     return this.constService.get<Skin[]>(url, 'skins');
   }
 
