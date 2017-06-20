@@ -25,6 +25,7 @@ import { MdDialog, MdDialogConfig } from '@angular/material';
 import { ChatDialogComponent } from '../chat/chat/chat-dialog/chat.component';
 import { ChatService } from '../chat/chat/chat.service';
 import { ServiceRequestStore } from '../http/request';
+import ClientAccount = BasketRequestInterface.ClientAccount;
 
 
 @Component({
@@ -50,6 +51,7 @@ export class FormRequestComponent implements OnInit {
     public openRequestData: boolean = false;
     public sidnavBool: boolean = false;
     private chatFlag: boolean;
+    private person: ClientAccount;
 
     constructor(private categoryService: CategoryService,
                 private userService: UserService,
@@ -62,7 +64,7 @@ export class FormRequestComponent implements OnInit {
     }
 
     onLoad(): void {
-        this.getClient(this.request.user_id);
+       // this.getClient(this.request.user_id);
     }
 
     onSidnav(): void {
@@ -77,6 +79,12 @@ export class FormRequestComponent implements OnInit {
         this.deleteRequest.emit(event);
     }
 
+    onPerson() {
+        if (this.person === undefined) {
+            this.service.postRequestTake(this.request.id)
+                .then(res => this.person = res.data.client_account)
+        }
+    }
 
     getServiceRequestConfirm(): void {
         this.userService.getServiceRequestConfirm(this.request.id)

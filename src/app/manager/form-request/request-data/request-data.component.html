@@ -1,6 +1,6 @@
 <div  >
     <div >
-      <div *ngIf="slides.length!=0" class="row" id="boxx">
+      <div *ngIf="slides.length!==0" class="row" id="boxx">
         <carousel *ngIf="openImage"
                   [interval]="myInterval"
                   [noWrap]="noWrapSlides">
@@ -21,6 +21,8 @@
                     [modalImages]="images"
                     (cancelEvent)="cancelImageModel()"></ImageModal>
       </div>
+      <md-spinner class="center-block"
+                  *ngIf="slides.length===0&&imageFlag"></md-spinner>
     </div>
     <div >
 

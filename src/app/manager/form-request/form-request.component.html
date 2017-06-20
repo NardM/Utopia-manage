@@ -67,7 +67,7 @@
                                    class="phone"
                                    [ngStyle]="{'margin-left': '10px'}">
                                   <md-icon style="margin-right: 7px">phone</md-icon>
-                                  <span>{{userPhone}}</span>
+                                  <span>{{request.client_account.phone}}</span>
 
                               </div>
                               <button md-mini-fab
@@ -76,6 +76,13 @@
                                       mdTooltip="Чат"
                                       style="margin-left: 7px" >
                                   <md-icon  >message</md-icon>
+                              </button>
+                              <button md-mini-fab
+                                      *ngIf="numberRequest==1"
+                                      (click)="onPerson()"
+                                      mdTooltip="Клиент"
+                                      style="margin-left: 7px" >
+                                  <md-icon  >person</md-icon>
                               </button>
                               <button md-mini-fab
                                       *ngIf="numberRequest==2"

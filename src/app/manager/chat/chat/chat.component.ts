@@ -57,7 +57,6 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
               self.newMessage(res.item)
             }
         );
-    this.skin_id = Number(localStorage['skin_id']);
     this.message = "";
     this.date = new Date();
   }
@@ -75,28 +74,33 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
     self.skin = [];
     return self.chatServiceL.getSkin(chatID)
         .then((value: Skin[]) => {
-          let skins: Skin[] = Observable.create((observer: Observer<Skin>) => {
+          let skins = Observable.create((observer: Observer<Skin>) => {
             value.map(res => {
+              debugger;
               self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`)
                   .subscribe(r => {
+                    debugger;
                     res.logo = r;
                     observer.next(res);
                   });
             });
+            observer.complete();
           });
-          skins.forEach(res => {
-            chat.messages.map(item => {
-              if (res.skin_id === item.skin_id) {
-                item.name = res.name;
-                item.logo = res.logo;
-              }
+          skins.subscribe(res=>{
+            res.forEach(item=>{
+              debugger;
+              chat.messages.map(item => {
+                if (res.skin_id === item.skin_id) {
+                  item.name = res.name;
+                  item.logo = res.logo;
+                }
+              });
+              self.skin = value;
+              self.chat = chat;
+              self.chatFlag = true;
             })
           });
-          skins.forEach(() => {
-            self.skin = value;
-            self.chat = chat;
-            self.chatFlag = true;
-          });
+
         })
   }
 
@@ -128,6 +132,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
                     self.skin.push(res);
                   })
                 });
+            self.skin_id = self.skin.find(res=> res.role === 3 ).skin_id;
             self.chat = res;
             self.chatFlag = true;
           }
@@ -161,6 +166,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
       return;
     let self = this;
     let d = new Date();
+    self.skin_id = self.skin.find(res=> res.role === 3 ).skin_id;
     let name: string = self.skin.filter(res => {
       return self.skin_id === res.skin_id
     })[0].name;

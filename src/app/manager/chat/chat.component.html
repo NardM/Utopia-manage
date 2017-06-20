@@ -24,15 +24,17 @@
               <input type="search" disabled>
             </div>
             <div class="actions-basket">
-              <md-tab-group [dynamicHeight]="true" (selectedIndexChange)="onSelectIndex($event)">
+              <md-tab-group [dynamicHeight]="true"
+                            (selectedIndexChange)="onSelectIndex($event)">
                 <md-tab>
-                  <ng-template md-tab-label style="max-width: 20px">
+                  <ng-template md-tab-label
+                               style="max-width: 20px">
                    Активные
                   </ng-template>
                <request-list [takeBool]="true"
                              (selectRequest)="onSelectRequest($event)"
                              (selectOutput)="onSelectInputBasket($event)"
-                              [inRequest]="inputRequestTake"></request-list>
+                             [inRequest]="inputRequestTake"></request-list>
                 </md-tab>
                 <md-tab>
                   <ng-template md-tab-label style="max-width: 20px">
@@ -57,8 +59,10 @@
                       </data-request>
                   </div>
                   </md-sidenav>
-                      <div class="col-md-9 not-pad" [ngStyle]="{'width':sidenavBool?'65%':'99.8%', 'overflow': 'hidden'}">
-                          <div class="title-chat" *ngIf="selectedChatID">
+                      <div class="col-md-9 not-pad"
+                           [ngStyle]="{'width':sidenavBool?'65%':'99.8%', 'overflow': 'hidden'}">
+                          <div class="title-chat"
+                               *ngIf="selectedChatID">
                               <md-toolbar >
                                   <span style="font-size: 13px;color: #000000"
                                         *ngIf="selectedRequest.tasks.length!==0">

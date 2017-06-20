@@ -124,7 +124,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
   public noWrapSlides: boolean = false;
   public slides: any[] = [];
   public activeSlideIndex: number;
-
+  private imageFlag: boolean = false;
 
   public addSlide(imageId: number): void {
     if (imageId != 0)
@@ -167,6 +167,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
             }
             if (image.type == 8) {
               if (image.images) {
+                this.imageFlag = true;
                 for (let i = 0; i < image.images.length; i++) {
                   this.addSlide(image.images[i]);
                   bool = true;
