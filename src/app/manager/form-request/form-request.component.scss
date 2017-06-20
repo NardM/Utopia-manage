@@ -229,4 +229,5 @@ $rows-title-size:16px;
 .example-container{
   /*max-height: 300px;*/
   overflow: auto;
+  overflow-x: hidden;
 }

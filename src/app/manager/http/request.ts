@@ -56,6 +56,10 @@ export class  ServiceRequestStore {
     let request: Request = <Request>{
       id: res
     };
+    if (this.notDeleteRequest===res) {
+      this.notDeleteRequest = undefined;
+      return;
+    }
     this.Remove(request);
     this.notDeleteRequest = undefined;
   }

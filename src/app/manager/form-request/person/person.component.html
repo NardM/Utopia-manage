@@ -1,0 +1,23 @@
+<div *ngIf="person.logo">
+    <img [src]="person.logo">
+</div>
+<md-list dense>
+    <md-list-item *ngIf="person.name||person.last_name">
+        {{person.name}} {{person.last_name}}
+    </md-list-item>
+    <md-divider></md-divider>
+    <md-list-item *ngIf="person.phone">
+        {{person.phone}}
+    </md-list-item>
+    <md-divider *ngIf="person.phone"></md-divider>
+    <md-list-item *ngIf="person.email">
+        {{person.email}}
+    </md-list-item>
+    <md-divider *ngIf="person.email"></md-divider >
+    <md-list-item>
+        <button md-raised-button>
+            Заблокировать аккаунт
+        </button>
+    </md-list-item>
+    <md-divider></md-divider>
+</md-list>

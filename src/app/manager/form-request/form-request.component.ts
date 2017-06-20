@@ -1,7 +1,7 @@
 /**
  * Created by nardm on 07.11.16.
  */
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router }            from '@angular/router';
 
 import {CategoryService} from "../http/category.service";
@@ -21,7 +21,7 @@ import { BasketRequestInterface } from '../chat/Model/BasketRequest';
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import Request = BasketRequestInterface.Request;
 import Task = BasketRequestInterface.Task;
-import { MdDialog, MdDialogConfig } from '@angular/material';
+import { MdDialog, MdDialogConfig, MdSidenav } from '@angular/material';
 import { ChatDialogComponent } from '../chat/chat/chat-dialog/chat.component';
 import { ChatService } from '../chat/chat/chat.service';
 import { ServiceRequestStore } from '../http/request';
@@ -52,6 +52,10 @@ export class FormRequestComponent implements OnInit {
     public sidnavBool: boolean = false;
     private chatFlag: boolean;
     private person: ClientAccount;
+    @ViewChild('sidenavPerson')
+    private sidenav: MdSidenav;
+    protected requestTakeActive: boolean;
+
 
     constructor(private categoryService: CategoryService,
                 private userService: UserService,
@@ -64,7 +68,7 @@ export class FormRequestComponent implements OnInit {
     }
 
     onLoad(): void {
-       // this.getClient(this.request.user_id);
+        // this.getClient(this.request.user_id);
     }
 
     onSidnav(): void {
@@ -81,8 +85,16 @@ export class FormRequestComponent implements OnInit {
 
     onPerson() {
         if (this.person === undefined) {
+            this.store.notDeleteRequest = this.request.id;
             this.service.postRequestTake(this.request.id)
-                .then(res => this.person = res.data.client_account)
+                .then(res => {
+                    this.requestTakeActive = true;
+                    this.person = res.data.client_account;
+                    this.sidenav.open();
+                })
+        }
+        else {
+            this.sidenav.open();
         }
     }
 
@@ -98,7 +110,7 @@ export class FormRequestComponent implements OnInit {
     onChat() {
         let self = this;
         if (self.chatFlag) {
-            localStorage.setItem('notDeleteRequest',self.request.id.toString());
+            self.store.notDeleteRequest = self.request.id;
             let option: MdDialogConfig = new MdDialogConfig();
             option.disableClose = false;
             option.height = '600px';
@@ -112,11 +124,11 @@ export class FormRequestComponent implements OnInit {
             option.data = chatId;
             self.service.postRequestTake(self.request.id)
                 .then(res => {
+                    self.requestTakeActive = true;
                     self.dialog.open(ChatDialogComponent, option);
                 });
             self.chatFlag = false;
         }
-
     }
 
 }

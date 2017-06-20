@@ -1,6 +1,7 @@
 <div class="request">
 
-  <div class="square-title">
+  <div class="square-title"
+       [ngStyle]="{'background': requestTakeActive?'cornflowerblue':'#78909C'}">
     Заявка {{request.id}}
   </div>
 
@@ -95,10 +96,17 @@
                       </div>
                   </div>
               </div>
-              <item-confirm *ngIf="(numberRequest==3||numberRequest==4)&&request" [request]="request"></item-confirm>
-
-
+              <item-confirm *ngIf="(numberRequest==3||numberRequest==4)&&request"
+                            [request]="request">
+              </item-confirm>
           </div>
+
+          <md-sidenav #sidenavPerson
+                      [align]="'end'"
+                      class="example-sidenav">
+              <person [person]="person"
+                      *ngIf="person"></person>
+          </md-sidenav>
 
       </md-sidenav-container>
 

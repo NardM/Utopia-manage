@@ -146,30 +146,24 @@ export class RequestsNewComponent  {
                 break;
             case StoreAction.Deleted:
                 debugger;
-                let notDeleteRequest: string = localStorage['notDeleteRequest'];
-                if (notDeleteRequest===undefined){
-                    notDeleteRequest = '0';
-                }
-                if (Number(notDeleteRequest)!==res.item.id) {
 
-                    let id: number = res.item.id;
-                    let arrayEquals: boolean = false;
+                let id: number = res.item.id;
+                let arrayEquals: boolean = false;
 
-                    self.requests.map(item => {
-                        if (item.id === id) {
-                            arrayEquals = true;
-                        }
-                    });
-                    if (arrayEquals) {
-                        let indexDelete: number = -1;
-                        for (let i = 0; i < self.requests.length; i++) {
-                            if (id === self.requests[i].id) {
-                                indexDelete = i;
-                                break;
-                            }
-                        }
-                        self.requests.splice(indexDelete, 1);
+                self.requests.map(item => {
+                    if (item.id === id) {
+                        arrayEquals = true;
                     }
+                });
+                if (arrayEquals) {
+                    let indexDelete: number = -1;
+                    for (let i = 0; i < self.requests.length; i++) {
+                        if (id === self.requests[i].id) {
+                            indexDelete = i;
+                            break;
+                        }
+                    }
+                    self.requests.splice(indexDelete, 1);
                 }
                 break;
             default:

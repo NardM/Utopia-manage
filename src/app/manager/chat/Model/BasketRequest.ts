@@ -87,6 +87,7 @@ export declare module BasketRequestInterface {
     export interface ClientAccount {
         id: number;
         avatar_hash: string;
+        logo: string;
         skin_id: number;
         phone: string;
         blocked: boolean;
