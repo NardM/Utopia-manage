@@ -75,6 +75,13 @@ export class RequestsNewComponent  {
                 })
             })
             .then(r => {
+                /*this.userService.getRequestsTake(1 << 1, 1 << 1, 1 << 1)
+                    .then(res => {
+                        res.requests.map(item => item.request_take = true);
+                        this.requests = res.requests;
+                    })*/
+            })
+            .then(r => {
                 this.store.createObserver()
                     .subscribe(res =>
                         this.newStoreItem(res));
@@ -118,6 +125,7 @@ export class RequestsNewComponent  {
             self.requests.splice(indexDelete, 1);
         }
     }
+
 
 
     newStoreItem(res: StoreItem<Request>): void {

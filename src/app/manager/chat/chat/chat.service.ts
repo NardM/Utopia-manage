@@ -62,8 +62,12 @@ export class ChatService {
     return this.constService.get<BasketRequest>(url);
   }
 
-  getRequestsTake(taskStatus: number, taskType): Promise<BasketRequest> {
-    let url = `${Consts.baseURL}v1/manager/request?task_status_filter=${taskStatus}&task_type_filter=${taskType}`;
+  getRequestsTake(taskStatus: number, taskType, status_filter?: number): Promise<BasketRequest> {
+    let url;
+    url = `${Consts.baseURL}v1/manager/request?task_status_filter=${taskStatus}&task_type_filter=${taskType}`;
+    if (status_filter){
+      url = `${Consts.baseURL}v1/manager/request?status_filter=${status_filter}&task_status_filter=${taskStatus}&task_type_filter=${taskType}`;
+    }
     return this.constService.get<BasketRequest>(url);
   }
 

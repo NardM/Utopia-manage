@@ -54,8 +54,6 @@ export class FormRequestComponent implements OnInit {
     private person: ClientAccount;
     @ViewChild('sidenavPerson')
     private sidenav: MdSidenav;
-    protected requestTakeActive: boolean;
-
 
     constructor(private categoryService: CategoryService,
                 private userService: UserService,
@@ -88,7 +86,7 @@ export class FormRequestComponent implements OnInit {
             this.store.notDeleteRequest = this.request.id;
             this.service.postRequestTake(this.request.id)
                 .then(res => {
-                    this.requestTakeActive = true;
+                    this.request.request_take = true;
                     this.person = res.data.client_account;
                     this.sidenav.open();
                 })
@@ -124,7 +122,7 @@ export class FormRequestComponent implements OnInit {
             option.data = chatId;
             self.service.postRequestTake(self.request.id)
                 .then(res => {
-                    self.requestTakeActive = true;
+                    self.request.request_take = true;
                     self.dialog.open(ChatDialogComponent, option);
                 });
             self.chatFlag = false;

@@ -35,7 +35,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
               public dialog: MdDialog,
               private chatService: ChatService,
               private userService: UserService) {
-
+  this.date = new Date();
   }
 
 
@@ -148,6 +148,11 @@ export class RequestDataComponent implements OnInit, OnChanges {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
+    };
+    let optionsTime = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
     };
@@ -160,10 +165,12 @@ export class RequestDataComponent implements OnInit, OnChanges {
               image.text = image.bool ? "Да" : "Нет";
             }
             if (image.type == 5) {
-              image.text = new Date(image.date).toLocaleDateString('ru', options);
+              image.text = new Date(image.date + ((this.date.getTimezoneOffset() * 60000) * -1))
+                  .toLocaleDateString('ru', options);
             }
             if (image.type == 6) {
-              image.text = new Date(image.date_time).toLocaleString('ru', options);
+              image.text = new Date(image.date_time + ((this.date.getTimezoneOffset() * 60000) * -1))
+                  .toLocaleString('ru', optionsTime);
             }
             if (image.type == 8) {
               if (image.images) {

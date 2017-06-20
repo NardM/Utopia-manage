@@ -1,7 +1,7 @@
 <div class="request">
 
   <div class="square-title"
-       [ngStyle]="{'background': requestTakeActive?'cornflowerblue':'#78909C'}">
+       [ngStyle]="{'background': request.request_take?'cornflowerblue':'#78909C'}">
     Заявка {{request.id}}
   </div>
 
@@ -64,13 +64,13 @@
                                       color="primary">
                                   Подробно</button>
 
-                              <div *ngIf="numberRequest!==1"
+                              <!--<div *ngIf="numberRequest!==1"
                                    class="phone"
                                    [ngStyle]="{'margin-left': '10px'}">
                                   <md-icon style="margin-right: 7px">phone</md-icon>
                                   <span>{{request.client_account.phone}}</span>
 
-                              </div>
+                              </div>-->
                               <button md-mini-fab
                                       *ngIf="numberRequest==1||numberRequest==2"
                                       (click)="onChat()"
@@ -79,7 +79,6 @@
                                   <md-icon  >message</md-icon>
                               </button>
                               <button md-mini-fab
-                                      *ngIf="numberRequest==1"
                                       (click)="onPerson()"
                                       mdTooltip="Клиент"
                                       style="margin-left: 7px" >

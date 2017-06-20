@@ -101,6 +101,7 @@ export declare module BasketRequestInterface {
         id: number;
         active: boolean;
         active_chat: boolean;
+        request_take: boolean;
         status: number;
         from_color: string;
         to_color: string;
