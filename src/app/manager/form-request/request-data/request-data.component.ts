@@ -165,11 +165,11 @@ export class RequestDataComponent implements OnInit, OnChanges {
               image.text = image.bool ? "Да" : "Нет";
             }
             if (image.type == 5) {
-              image.text = new Date(image.date + ((this.date.getTimezoneOffset() * 60000) * -1))
+              image.text = new Date(image.date )
                   .toLocaleDateString('ru', options);
             }
             if (image.type == 6) {
-              image.text = new Date(image.date_time + ((this.date.getTimezoneOffset() * 60000) * -1))
+              image.text = new Date(image.date_time)
                   .toLocaleString('ru', optionsTime);
             }
             if (image.type == 8) {

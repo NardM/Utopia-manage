@@ -27,7 +27,7 @@ export class RequestsPublishedComponent implements OnInit {
 
     public requestServices: Array<Request> = [];
     public array = [];
-    public offset = 0;
+    public offset = -20 ;
     public throttle = 300;
     public scrollDistance = 1;
     public blockUpload: boolean = false;

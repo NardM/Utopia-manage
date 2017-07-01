@@ -110,7 +110,14 @@ export class RequestItemComponent implements OnChanges {
                 this.request.confirm.active_chat = true;
                 break;
             case 2:
-                if (chatID === undefined|| chatID === null) {
+                this.chatServiceL.createOrderChat(response.company_id, response.request_id)
+                    .then(res => {
+                        this.onOpenChat.emit(res.data.id);
+                        this.request.active_chat = false;
+                        this.response.map(res=> res.active_chat = false);
+                        this.response.find(res=> res.id === response.id).active_chat = true;
+                    });
+                /*if (chatID === undefined|| chatID === null) {
                     this.chatServiceL.createOrderChat(response.company_id, response.id)
                         .then(res => {
                             this.onOpenChat.emit(res.data.id);
@@ -124,7 +131,7 @@ export class RequestItemComponent implements OnChanges {
                     this.request.active_chat = false;
                     this.response.map(res=> res.active_chat = false);
                     this.response.find(res=> res.id === response.id).active_chat = true;
-                }
+                }*/
                 break;
             default:
                 break;

@@ -35,8 +35,7 @@ export class TaskBookmarkComponent implements OnChanges {
 
             let date: Date = new Date();
             let dateManager: Date = new Date(this.task.date_time);
-            let dateManagerTime: number = dateManager.getTime()
-                + (date.getTimezoneOffset() * 60000 * (-1));
+            let dateManagerTime: number = dateManager.getTime();
 
             let divTime: number = date.getTime() - dateManagerTime;
             if (divTime > Waiting && divTime < Urgent) {
@@ -56,8 +55,7 @@ export class TaskBookmarkComponent implements OnChanges {
                 }
                 let date: Date = new Date();
                 let dateManager: Date = new Date(this.task.date_time);
-                let dateManagerTime: number = dateManager.getTime()
-                    + (date.getTimezoneOffset() * 60000 * (-1));
+                let dateManagerTime: number = dateManager.getTime();
 
                 let divTime: number = date.getTime() - dateManagerTime;
                 if (divTime > Waiting && divTime < Urgent) {

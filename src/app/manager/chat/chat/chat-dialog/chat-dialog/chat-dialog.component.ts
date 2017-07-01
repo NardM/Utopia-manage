@@ -31,7 +31,7 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
   private date: Date;
   private chatSkins: Skin[] = [];
   private nameSkin: string;
-
+  private skin_id: number;
 
   constructor(private router: Router,
               private hub: RequestManagerHub,
@@ -60,10 +60,11 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
     }
   }
 
-  newMessage(res: any): void {
+  newMessage(res: Message): void {
     debugger;
     let self = this;
     if (res.chat_id===self.chatId) {
+      res.logo = self.chatSkins.find(item=> item.skin_id === self.skin_id).logo;
       res.date_string = self.dateConvert(res.date);
       res.name = self.chatSkins.filter(item => {
         return res.skin_id === item.skin_id
@@ -104,24 +105,24 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
       });
   }
 
-  getChatSkinsEmpty(chat_id: number){
+  getChatSkinsEmpty(chat_id: number) {
     let self = this;
-     return self.chatServiceL.getSkin(chat_id)
-      .then(value => {
-        let skins: Skin[] = Observable.create((observer: Observer<Skin>) => {
-          value.map(res => {
-            self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`)
-                .subscribe(r => {
-                  res.logo = r;
-                  observer.next(res);
-                });
+    return self.chatServiceL.getSkin(chat_id)
+        .then(value => {
+          let skins: Skin[] = Observable.create((observer: Observer<Skin>) => {
+            value.map(res => {
+              self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`)
+                  .subscribe(r => {
+                    res.logo = r;
+                    observer.next(res);
+                  });
+            });
           });
-        });
-        skins.forEach(res => {
-          self.chatSkins.push(res);
-        });
-        self.chatFlag = true
-      })
+          skins.forEach(res => {
+            self.chatSkins.push(res);
+          });
+          self.chatFlag = true
+        })
   }
 
   getChatSkins(chat: Message[], chat_id: number): Promise<Message[]> {
@@ -152,15 +153,15 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
           self.chatFlag = true;
           self.downChatScroll = true
         });
+        self.skin_id = skins.find(res=> res.role === 3 ).skin_id;
         return chat;
       })
   }
 
   dateConvert(date: number): string {
-    date+=(this.date.getTimezoneOffset()*-1)*60000;
     let date_string = new Date(date);
     if (this.date.getTime() + 720000 > date_string.getTime())
-      return date_string.toLocaleTimeString()
+      return date_string.toLocaleTimeString();
     else
       return date_string.toLocaleString();
   }
@@ -171,19 +172,20 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
     let self = this;
     if (self.chat === null || self.chat == undefined || self.chat === "")
       return;
+    self.skin_id = self.chatSkins.find(res=> res.role === 3 ).skin_id;
     let d = new Date();
-    let skin_id: number = Number(localStorage['skin_id']);
     let name: string = self.chatSkins.filter(res=>{
-      return skin_id === res.skin_id
+      return self.skin_id === res.skin_id
     })[0].name;
     debugger;
-    let date: number =d.getTime() + (d.getTimezoneOffset()*60000);
+    let date: number =d.getTime() ;
     let chat: Message = <Message>{
       text: self.chat,
       date: date,
-      skin_id: skin_id,
+      skin_id: self.skin_id,
       name: name
     };
+    chat.logo = self.chatSkins.find(res => res.skin_id === self.skin_id).logo;
     self.chatServiceL.postMessages(this.chatId, chat);
     self.chat = "";
     chat.date_string = self.dateConvert(date);

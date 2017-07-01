@@ -87,9 +87,15 @@ export class ChatService {
   }
 
   getSkin(chatID: number): Promise<Skin[]> {
-    let url = `${Consts.baseURL}manage/v1/chat/${chatID}/skin`;
+    let url = `${Consts.baseURL}v1/chat/${chatID}/skin`;
     return this.constService.get<Skin[]>(url, 'skins');
   }
+
+  createChat(companyID: number, orderID: number): Promise<Chat> {
+    let url = `${Consts.baseURL}v1/manager/company/${companyID}/service/order/${orderID}`;
+    return this.constService.postSingle<Chat>(url);
+  }
+
 
 }
 
@@ -120,8 +126,8 @@ export interface Chats {
 }
 
 export interface Skin {
-  user_id: number;
   role: number;
+  icon_hash: string;
   skin_id: number;
   name: string;
   logo: string;

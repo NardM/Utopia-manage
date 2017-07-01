@@ -75,32 +75,33 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
     return self.chatServiceL.getSkin(chatID)
         .then((value: Skin[]) => {
           let skins = Observable.create((observer: Observer<Skin>) => {
+            self.skin_id = value.find(res=> res.role === 3).skin_id;
             value.map(res => {
-              debugger;
-              self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`)
-                  .subscribe(r => {
-                    debugger;
-                    res.logo = r;
-                    observer.next(res);
-                  });
+              if (res.icon_hash) {
+                self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`)
+                    .subscribe(r => {
+                      res.logo = r;
+                      observer.next(res);
+                    });
+              }
+              else {
+                observer.next(res);
+              }
             });
-            observer.complete();
           });
-          skins.subscribe(res=>{
-            res.forEach(item=>{
-              debugger;
-              chat.messages.map(item => {
-                if (res.skin_id === item.skin_id) {
-                  item.name = res.name;
-                  item.logo = res.logo;
-                }
-              });
-              self.skin = value;
-              self.chat = chat;
-              self.chatFlag = true;
-            })
+          skins.forEach(res => {
+            chat.messages.map(item => {
+              if (res.skin_id === item.skin_id) {
+                item.name = res.name;
+                item.logo = res.logo;
+              }
+            });
           });
-
+          skins.forEach(res => {
+            self.skin = value;
+            self.chat = chat;
+            self.chatFlag = true;
+          })
         })
   }
 
@@ -121,18 +122,24 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
                 .then((value: Skin[]) => {
                   let skins: Skin[] = Observable.create((observer: Observer<Skin>) => {
                     value.map(res => {
-                      self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`)
-                          .subscribe(r => {
-                            res.logo = r;
-                            observer.next(res);
-                          });
+                      if (res.icon_hash){
+                        self.service.getAvatar(`manage/v1/skin/${res.skin_id}/icon`)
+                            .subscribe(r => {
+                              res.logo = r;
+                              observer.next(res);
+                            });
+                      }
+                      else{
+                        observer.next(res);
+                      }
+
                     });
                   });
                   skins.forEach(res => {
                     self.skin.push(res);
-                  })
+                  });
+                  self.skin_id = skins.find(res=> res.role === 3 ).skin_id;
                 });
-            self.skin_id = self.skin.find(res=> res.role === 3 ).skin_id;
             self.chat = res;
             self.chatFlag = true;
           }
@@ -170,7 +177,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
     let name: string = self.skin.filter(res => {
       return self.skin_id === res.skin_id
     })[0].name;
-    let date: number = d.getTime() + (d.getTimezoneOffset() * 60000);
+    let date: number = d.getTime();
     let chat: Message = <Message>{
       chat_id: self.chatID,
       text: self.message,
@@ -205,7 +212,6 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
   }
 
   dateConvert(date: number): string {
-    date += (this.date.getTimezoneOffset() * -1) * 60000;
     let date_string = new Date(date);
     if (this.date.getTime() + 720000 > date_string.getTime())
       return date_string.toLocaleTimeString();

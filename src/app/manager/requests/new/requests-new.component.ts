@@ -242,7 +242,8 @@ export class RequestsNewComponent  {
 
     onPushCategoryInRequest(request: Request): Request {
         let self = this;
-        request.category_name = self.categories.find(res => res.id === request.category_id).name;
+        request.category_name = self.categories.find(res => res.id === request.category_id)
+            .name;
         return request;
     }
 

@@ -32,7 +32,7 @@ export class ChatHub{
   newMessage(res: Message): void {
     let self = this;
     debugger;
-    if (res.skin_id===Number(localStorage['skin_id'])){
+    if (res.skin_id===1){
       return;
     }
     self.observers.map(o => o.next(new StoreItem<Message>(res, StoreAction.Inserted)));
