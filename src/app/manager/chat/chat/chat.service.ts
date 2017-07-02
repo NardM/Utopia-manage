@@ -97,6 +97,11 @@ export class ChatService {
   }
 
 
+  getRequestQuestions(requestID: number): Promise<Questions>{
+    let url = `${Consts.baseURL}v1/manager/request/${requestID}/questions`;
+    return this.constService.get<Questions>(url);
+    }
+
 }
 
 export interface Message {
@@ -138,3 +143,15 @@ export interface Skins {
 }
 
 
+export interface Question {
+  id: number;
+  request_id: number;
+  chat_id: number;
+  company_id: number;
+  company_name: string;
+  active_chat: boolean;
+}
+
+export interface Questions {
+  questions: Question[];
+}

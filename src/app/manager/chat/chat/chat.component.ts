@@ -204,7 +204,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
       res.name = self.skin.filter(item => {
         return res.skin_id === item.skin_id
       })[0].name;
-      res.logo = self.skin.find(item=> item.skin_id ===res.skin_id).logo;
+      res.logo = self.skin.find(item => item.skin_id === res.skin_id).logo;
       self.chat.messages.push(res);
       self.audioNotification();
       self.downChatScroll = true;

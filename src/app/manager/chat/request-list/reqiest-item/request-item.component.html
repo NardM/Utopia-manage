@@ -43,12 +43,16 @@
       </div>
     </div>
     <hr>
+    <div *ngIf="request">Клиент</div>
+    <hr>
     <div class="user item-action"
          *ngIf="request"
          [class.active]="request.active_chat"
          (click)="openChat(request.chat_id, 0)">
       <span>{{request.client_account.name}} {{request.client_account.last_name}}</span>
     </div>
+    <hr>
+    <div *ngIf="confirmBool">Принятое предложение</div>
     <hr>
     <div class="response item-action"
          *ngIf="confirmBool"
@@ -63,6 +67,8 @@
     </div>
     <hr>
     <div class="response " *ngIf="!confirmBool">
+      <div *ngIf="response?.length>0">Предложения от бизнеса</div>
+      <hr>
       <div *ngFor="let res of response" >
         <div class="item-action"
              [class.active]="res.active_chat"
@@ -72,6 +78,20 @@
           {{res.company.master.first_name}} {{res.company.master.last_name}}
         </span>
           <span *ngIf="res.status===6">(Отклоненный)</span>
+        </div>
+        <hr>
+      </div>
+    </div>
+    <div class="response " *ngIf="questions?.length>0">
+      <div>Вопросы у бизнеса</div>
+      <hr>
+      <div *ngFor="let question of questions" >
+        <div class="item-action"
+             [class.active]="question.active_chat"
+             (click)="openChat(question.chat_id,3)">
+          <span>
+            {{question.company_name}}
+        </span>
         </div>
         <hr>
       </div>
