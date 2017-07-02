@@ -55,6 +55,7 @@
                   <div style="padding: 30px">
                       <data-request [requestId]="selectedRequest.id"
                                     [chatBool]="true"
+                                    [numberRequest]="selectedRequest.status===1?1:undefined"
                                     *ngIf="selectedRequest">
                       </data-request>
                   </div>

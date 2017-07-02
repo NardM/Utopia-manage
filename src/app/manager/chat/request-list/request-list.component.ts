@@ -78,7 +78,7 @@ export class RequestListComponent implements OnChanges {
         switch (res.action) {
             case StoreAction.NewInserted:
                 debugger;
-                if (!self.takeBool&&res.item.status!==1) {
+                if (!self.takeBool && res.item.status !== 1) {
                     self.requests.requests.unshift(res.item);
                     self.cdRef.detectChanges();
                 }
@@ -149,7 +149,7 @@ export class RequestListComponent implements OnChanges {
 
 
     getRequestsTake(): void {
-        this.service.getRequestsTake(1<<1, 1<<2|1<<3|1<<4)
+        this.service.getRequestsTake(1<<1,1<<1| 1<<2|1<<3|1<<4)
             .then(res => {
                 this.requests = res;
                 this.requestFlagLoad = false;
