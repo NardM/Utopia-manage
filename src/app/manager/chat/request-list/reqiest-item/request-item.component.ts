@@ -143,9 +143,12 @@ export class RequestItemComponent implements OnChanges {
                 break;
             case 3:
                 this.onOpenChat.emit(chatID);
+                debugger;
                 this.questions.map(res => res.active_chat = false);
                 this.request.active_chat = false;
-                this.request.confirm.active_chat = false;
+                if (this.request.confirm){
+                    this.request.confirm.active_chat = false;
+                }
                 this.response.map(res => res.active_chat = false);
                 this.questions.map(res => {
                     if (res.chat_id === chatID) {
