@@ -55,6 +55,7 @@ export class RequestDataComponent implements OnInit, OnChanges {
   public date: Date;
   public dateAccess: number;
   public dateAccessDate: number;
+  public successPublish: boolean = false;
 
   ngOnChanges() {
     if (this.requestId) {
@@ -66,15 +67,19 @@ export class RequestDataComponent implements OnInit, OnChanges {
     this.chatService.postRequestTake(this.requestId)
         .then(item=>{
           this.userService.putPublishServiceRequest(item.data.id)
-              .then(res => this.deleteRequest.emit(this.requestId))
+              .then(res => {this.deleteRequest.emit(this.requestId);
+              this.successPublish = true})
         });
   }
 
   private onDeniedRequest(): void {
     this.chatService.postRequestTake(this.requestId)
-        .then(item=> {
+        .then(item => {
           this.userService.putBlockServiceRequest(item.data.id)
-              .then(res => this.deleteRequest.emit(this.requestId))
+              .then(res => {
+                this.deleteRequest.emit(this.requestId);
+                this.successPublish = true
+              })
         });
   }
 

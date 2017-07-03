@@ -35,8 +35,8 @@ export class TaskBookmarkComponent implements OnChanges {
 
             let date: Date = new Date();
             let dateManager: Date = new Date(this.task.date_time);
-            let dateManagerTime: number = dateManager.getTime();
-
+            let dateManagerTime: number = dateManager.getTime() + (date.getTimezoneOffset() * 60000 * (-1));
+            debugger;
             let divTime: number = date.getTime() - dateManagerTime;
             if (divTime > Waiting && divTime < Urgent) {
                 this.colorBookmark = 'yellow';
@@ -49,13 +49,14 @@ export class TaskBookmarkComponent implements OnChanges {
             }
         }
         if (this.task !== undefined) {
+            debugger;
             let time = setInterval(res => {
                 if (this.task === undefined) {
                     return;
                 }
                 let date: Date = new Date();
                 let dateManager: Date = new Date(this.task.date_time);
-                let dateManagerTime: number = dateManager.getTime();
+                let dateManagerTime: number = dateManager.getTime() + (date.getTimezoneOffset() * 60000 * (-1));
 
                 let divTime: number = date.getTime() - dateManagerTime;
                 if (divTime > Waiting && divTime < Urgent) {
