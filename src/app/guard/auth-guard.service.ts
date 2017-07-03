@@ -12,10 +12,15 @@ import {
 }                           from '@angular/router';
 import { AuthService }      from './auth.service';
 import {Cookie} from "ng2-cookies/src/services/cookie";
+import { ClientService } from '../manager/http/client.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
-  constructor(private authService: AuthService, private router: Router) {
+
+  public managerSuccess: boolean;
+  constructor(private authService: AuthService,
+              private router: Router,
+              private guard: ClientService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
@@ -35,9 +40,27 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   checkLogin(url: string): boolean {
+    debugger;
     if (Cookie.get('login_token') !== null &&
         Cookie.get('login_token') !== 'null'&&
         Cookie.get('login_token') !== undefined) {
+      if (this.managerSuccess === undefined) {
+        this.guard.getAccount()
+            .then(res => {
+              debugger;
+              if (res.roles.indexOf('manager') !== -1 || res.roles.indexOf('admin') !== -1) {
+                this.managerSuccess = true;
+                return true;
+              }
+              else {
+                this.managerSuccess = false;
+                Cookie.deleteAll();
+                localStorage.clear();
+                this.router.navigate(['/login']);
+                return false;
+              }
+            });
+      }
       return true;
     }
 

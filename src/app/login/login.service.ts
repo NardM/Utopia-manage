@@ -28,8 +28,8 @@ export class LoginService {
             'app_type': '4',
         };
         this.constService.post(url, JSON.stringify(logout));
-        Cookie.delete('login_token');
-        Cookie.delete('device_token');
+        Cookie.deleteAll();
+        localStorage.clear();
         this.tokenService.loginToken = null;
     }
 
