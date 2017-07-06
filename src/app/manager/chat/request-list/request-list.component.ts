@@ -65,6 +65,7 @@ export class RequestListComponent implements OnChanges {
     @Input() private takeBool: boolean;
     @Input() private inRequest: Request;
     @Input() private selectIndex: number;
+    @Input() private searchI: string;
     @Output() private selectOutput = new EventEmitter<Request>();
     @Output() private selectRequest = new EventEmitter<Request>();
     private selectedRequest: Request;
@@ -128,9 +129,12 @@ export class RequestListComponent implements OnChanges {
         if (this.inRequest) {
             this.requests.requests.unshift(this.inRequest);
         }
+        if (this.searchI){
+            this.search(this.searchI);
+        }
     }
 
-    search(){
+    search(term: string){
         if (this.selectIndex===0){
             this.searchRequest()
         }

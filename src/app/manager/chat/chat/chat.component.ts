@@ -173,7 +173,7 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
       return;
     let self = this;
     let d = new Date();
-    self.skin_id = self.skin.find(res=> res.role === 3 ).skin_id;
+    self.skin_id = self.skin.find(res => res.role === 3).skin_id;
     let name: string = self.skin.filter(res => {
       return self.skin_id === res.skin_id
     })[0].name;
@@ -185,14 +185,15 @@ OnChanges,AfterContentChecked, AfterViewChecked, AfterViewInit {
       skin_id: self.skin_id,
       name: name
     };
-    chat.logo = self.skin.find(res => res.skin_id === self.skin_id).logo;
-    chat.date_string = self.dateConvert(date);
-    self.message = "";
+
     self.chatServiceL.postMessages(self.chatID, chat)
         .then(res => {
           self.chat.messages.push(chat);
           self.downChatScroll = true;
         });
+    chat.logo = self.skin.find(res => res.skin_id === self.skin_id).logo;
+    chat.date_string = self.dateConvert(date);
+    self.message = "";
   }
 
 

@@ -21,7 +21,10 @@
               <md-icon>
                 search
               </md-icon>
-              <input type="search" disabled>
+              <input type="search"
+                     #search
+                     (keyup)="search(search.value)"
+                     disabled>
             </div>
             <div class="actions-basket">
               <md-tab-group [dynamicHeight]="true"
@@ -32,6 +35,7 @@
                    Активные
                   </ng-template>
                <request-list [takeBool]="true"
+                             [searchI]="searchRequest"
                              (selectRequest)="onSelectRequest($event)"
                              (selectOutput)="onSelectInputBasket($event)"
                              [inRequest]="inputRequestTake"></request-list>
@@ -41,6 +45,7 @@
                    Новые
                   </ng-template>
                   <request-list [takeBool]="false"
+                                [searchI]="searchBasket"
                                 (selectOutput)="onSelectInputTake($event)"
                                 [inRequest]="inputRequestBasket"></request-list>
                 </md-tab>

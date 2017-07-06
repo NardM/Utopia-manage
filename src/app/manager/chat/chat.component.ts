@@ -70,18 +70,27 @@ export class ChatComponent implements OnInit, OnDestroy {
   private deleteRequest: Request;
   private selectIndex: number = 0;
   private taskBool: boolean = false;
+  private searchRequest: string;
+  private searchBasket: string;
 
-  private search() {
+  private search(term: string) {
+    if (term === undefined || term === null) {
+      return;
+    }
     if (this.selectIndex === 0) {
-      this.searchRequest()
+      this.onSearchRequest(term)
     }
     else {
-      this.searchBasket();
+      this.onSearchBasket(term);
     }
   }
 
-  private  searchRequest() {
+  private  onSearchRequest(term: string): void {
+      this.searchRequest = term;
+  }
 
+  private onSearchBasket(term: string): void {
+      this.searchBasket = term;
   }
 
   private onDeleteTask() {
@@ -113,9 +122,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
 
-  private searchBasket() {
 
-  }
 
   private onTaskOpen() {
     this.taskBool = !this.taskBool;

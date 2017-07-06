@@ -185,11 +185,12 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
       skin_id: self.skin_id,
       name: name
     };
-    chat.logo = self.chatSkins.find(res => res.skin_id === self.skin_id).logo;
     self.chatServiceL.postMessages(this.chatId, chat);
     self.chat = "";
     chat.date_string = self.dateConvert(date);
     self.chats.push(chat);
+    chat.logo = self.chatSkins.find(res => res.skin_id === self.skin_id).logo;
+
     self.downChatScroll = true;
   //  this.onMessageListScrollDown();
   }
