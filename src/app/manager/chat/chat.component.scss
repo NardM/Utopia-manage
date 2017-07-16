@@ -132,6 +132,7 @@ md-list-item{
 
 .chat{
   display: -webkit-box;
+  max-height: calc(100vh - 54px);
 }
 
 /*

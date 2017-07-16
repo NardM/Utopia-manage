@@ -9,7 +9,9 @@ import {ChatService} from "../chat.service";
 @Component({
   selector: 'char-dialog',
   template: `
-  <chat-item-dialog  *ngIf="chatId"  [chatId]="chatId"></chat-item-dialog>
+  <chat-item-dialog  *ngIf="chatId"  
+                     [chatId]="chatId"
+                     (close)="onClose()"></chat-item-dialog>
   `,
   styles:[ `` ]
 })
@@ -20,6 +22,11 @@ export class ChatDialogComponent implements OnInit {
   }
 
   private chatId: number;
+
+  onClose(){
+    this.dialogRef.close();
+  }
+
 
   ngOnInit() {
     let self = this;

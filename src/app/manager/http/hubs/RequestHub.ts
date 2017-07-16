@@ -45,9 +45,9 @@ declare var jQuery:any;
       {
         let connect: Connect = <Connect>{
           device_id: Cookie.get('device_id'),
-          role: 4,
+          role: 8,
           user_id: Number(Cookie.get('user_id')),
-          app_type: 5,
+          app_type: 6,
           token: Cookie.get('login_token')
         };
         connection.manager.server.connect(connect).done(res => {

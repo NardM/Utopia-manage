@@ -8,7 +8,7 @@
       <md-icon>notifications_active</md-icon>
     </button>
     <span class="example-spacer">  Чат: {{chatId}} </span>
-    <button md-dialog-close	   md-icon-button >
+    <button (click)="onClose()"	   md-icon-button >
       <md-icon >close</md-icon>
     </button>
   </div>

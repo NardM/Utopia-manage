@@ -80,3 +80,8 @@ md-toolbar{
 .active{
   background-color: #B2DFDB;
 }
+
+.main-request-item{
+  max-height: calc(100vh - 124px);
+  overflow: auto;
+}

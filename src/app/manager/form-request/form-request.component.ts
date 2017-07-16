@@ -105,28 +105,33 @@ export class FormRequestComponent implements OnInit {
             });
     }
 
-    onChat() {
+    onChat(): void {
         let self = this;
-        if (self.chatFlag) {
-            self.store.notDeleteRequest = self.request.id;
-            let option: MdDialogConfig = new MdDialogConfig();
-            option.disableClose = false;
-            option.height = '600px';
-            option.width = '500px';
-            debugger;
-            let chatId: number = self.request.chat_id;
-            if (self.request.status === 4 || self.request.status === 5 ||
-                self.request.status === 6 || self.request.status === 7) {
-                chatId = self.request.confirm.chat_id;
-            }
-            option.data = chatId;
-            self.service.postRequestTake(self.request.id)
-                .then(res => {
-                    self.request.request_take = true;
-                    self.dialog.open(ChatDialogComponent, option);
-                });
-            self.chatFlag = false;
+        debugger;
+        // if (self.chatFlag) {
+        self.store.notDeleteRequest = self.request.id;
+        let option: MdDialogConfig = new MdDialogConfig();
+        option.disableClose = false;
+        option.height = '600px';
+        option.width = '500px';
+        debugger;
+        let chatId: number = self.request.chat_id;
+        if (self.request.status === 4 || self.request.status === 5 ||
+            self.request.status === 6 || self.request.status === 7) {
+            chatId = self.request.confirm.chat_id;
         }
+        option.data = chatId;
+        self.chatFlag = false;
+        self.service.postRequestTake(self.request.id)
+            .then(res => {
+                self.request.request_take = true;
+                let chat = self.dialog.open(ChatDialogComponent, option);
+                chat.afterClosed()
+                    .subscribe(() => {
+                        self.chatFlag = true;
+                    })
+            });
+        //  }
     }
 
 }

@@ -3,7 +3,10 @@
  */
 
 
-import {AfterViewChecked, Component, Inject, Input, OnInit} from "@angular/core";
+import {
+  AfterViewChecked, Component, EventEmitter, Inject, Input, OnInit,
+  Output
+} from "@angular/core";
 import {Router} from "@angular/router";
 import {Consts} from "../../../../../const/app-const";
 import {DOCUMENT} from "@angular/platform-browser";
@@ -32,6 +35,7 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
   private chatSkins: Skin[] = [];
   private nameSkin: string;
   private skin_id: number;
+  @Output() close = new EventEmitter();
 
   constructor(private router: Router,
               private hub: RequestManagerHub,
@@ -51,6 +55,11 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
   }
 
   private downChatScroll: boolean = false;
+
+
+  onClose(){
+    this.close.emit();
+  }
 
   ngAfterViewChecked(){
     if (this.downChatScroll) {

@@ -7,8 +7,10 @@
 
   <div class="request-content">
       <md-sidenav-container class="example-container">
-          <md-sidenav #sidenav class="example-sidenav">
-              <form-response [requestId]="request.id" *ngIf="sidnavBool"></form-response>
+          <md-sidenav #sidenav
+                      class="example-sidenav">
+              <form-response [requestId]="request.id"
+                             *ngIf="sidnavBool"></form-response>
           </md-sidenav>
 
           <div class="example-sidenav-content">
