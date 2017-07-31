@@ -29,6 +29,12 @@ export class ChatHub{
     this.createObserver().subscribe(a => this.storeItems.push(a));
   }
 
+  private audioNotification(): void {
+    let audio = new Audio(); // Создаём новый элемент Audio
+    audio.src = 'assets/audio/notification.mp3'; // Указываем путь к звуку "клика"
+    audio.autoplay = true; // Автоматически запускаем
+  }
+
   newMessage(res: Message): void {
     let self = this;
     debugger;
@@ -36,6 +42,7 @@ export class ChatHub{
       return;
     }
     self.observers.map(o => o.next(new StoreItem<Message>(res, StoreAction.Inserted)));
+    self.audioNotification();
       /*let message: string = 'Вам пришло новое сообщение';
       let action: string = "Открыть";
       let option: MdSnackBarConfig = new MdSnackBarConfig();

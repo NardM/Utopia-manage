@@ -146,7 +146,7 @@ export class  ServiceTaskStore {
 
   private newTask(res: Task): void{
     this.audioNotification();
-    this.AddedNew(res)
+    this.AddedNew(res);
   }
 
 
