@@ -1,7 +1,7 @@
 /**
  * Created by nardm on 08.12.16.
  */
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { RequestManagerHub } from './http/hubs/RequestHub';
 import { ChatHub } from './chat/chatObs';
 import { ServiceRequestStore, ServiceTaskStore } from './http/request';
@@ -62,31 +62,35 @@ import { ServiceRequestStore, ServiceTaskStore } from './http/request';
   }`]
 
 })
-export class UserComponent {
+export class UserComponent implements AfterViewInit{
   constructor(private requestManagerHub: RequestManagerHub,
               private requestStore: ServiceRequestStore,
               private taskStore: ServiceTaskStore,
               private store: ChatHub) {
-    let sefl = this;
-    sefl.requestManagerHub.newMessage
-        .subscribe(res => {
-          debugger;
-          sefl.store.newMessage(res)
-        });
-    sefl.requestManagerHub.newBusketRequest
-        .subscribe(res => {
-          debugger;
-          sefl.requestStore.newOrder(res)
-        });
-    sefl.requestManagerHub.removeFromBasket
-        .subscribe(res => {
-          debugger;
-          sefl.requestStore.deleteRequest(res)
-        });
-    sefl.requestManagerHub.newTask
-        .subscribe(res => {
-          debugger;
-          sefl.taskStore.newTask(res)
-        });
+
   }
+
+    ngAfterViewInit(){
+        let sefl = this;
+        sefl.requestManagerHub.newMessage
+            .subscribe(res => {
+                debugger;
+                sefl.store.newMessage(res)
+            });
+        sefl.requestManagerHub.newBusketRequest
+            .subscribe(res => {
+                debugger;
+                sefl.requestStore.newOrder(res)
+            });
+        sefl.requestManagerHub.removeFromBasket
+            .subscribe(res => {
+                debugger;
+                sefl.requestStore.deleteRequest(res)
+            });
+        sefl.requestManagerHub.newTask
+            .subscribe(res => {
+                debugger;
+                sefl.taskStore.newTask(res)
+            });
+    }
 }

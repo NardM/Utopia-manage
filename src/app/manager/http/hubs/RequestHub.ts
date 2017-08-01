@@ -2,13 +2,13 @@
  * Created by nardm on 26.01.17.
  */
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import {Cookie} from "ng2-cookies";
 import { BasketRequestInterface } from '../../chat/Model/BasketRequest';
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import Request = BasketRequestInterface.Request;
 import Task = BasketRequestInterface.Task;
 import { Message } from '../../chat/chat/chat.service';
+import { Observable } from 'rxjs/Observable';
 declare var jQuery:any;
 
 @Injectable()
@@ -43,12 +43,10 @@ declare var jQuery:any;
 
     chatHub.client.reconnect = ( () => self.onReconnect());
     self.hubStart();
-
   }
 
   private hubStart(): void {
     let self = this;
-    console.log('asd');
     self.connection.hub.start()
         .done(() => self.hubConnect())
         .fail(function () {
@@ -59,9 +57,8 @@ declare var jQuery:any;
         });
   }
 
-  public hubConnect(): void {
+  private hubConnect(): void {
     let self = this;
-    console.log('adsd');
     let connect: Connect = <Connect>{
       device_id: Cookie.get('device_id'),
       role: 8,
@@ -88,7 +85,13 @@ declare var jQuery:any;
       app_type: 6,
       token: Cookie.get('login_token')
     };
-    self.connection.chat.server.reconnect(connect).done(res => {
+    self.connection.request.server.connect(connect).done(res => {
+    });
+    self.connection.chat.server.connect(connect).done(res => {
+    });
+    self.connection.hub.disconnected(function () {
+      setTimeout(() =>
+          self.hubStart(), 5000) // Restart connection after 5 seconds.
     });
   }
 

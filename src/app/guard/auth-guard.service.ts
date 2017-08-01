@@ -40,14 +40,12 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   checkLogin(url: string): boolean {
-    debugger;
     if (Cookie.get('login_token') !== null &&
         Cookie.get('login_token') !== 'null'&&
         Cookie.get('login_token') !== undefined) {
       if (this.managerSuccess === undefined) {
         this.guard.getAccount()
             .then(res => {
-              debugger;
               if (res.roles.indexOf('manager') !== -1 || res.roles.indexOf('admin') !== -1) {
                 this.managerSuccess = true;
                 return true;
