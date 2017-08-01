@@ -12,7 +12,6 @@ import {MdDialog, MdSnackBar} from "@angular/material";
 import {Router} from "@angular/router";
 import {ConstService} from "../../../const/http/service-const.service";
 import {Consts} from "../../../const/app-const";
-import {RequestManagerHub} from "../../http/hubs/RequestHub";
 import {ServiceRequestInterface} from "../../model/service-request";
 import Request = ServiceRequestInterface.Request;
 import {BasketRequestInterface} from "../Model/BasketRequest";
@@ -27,8 +26,7 @@ export class ChatService {
   constructor(private constService: ConstService,
               public snackBar: MdSnackBar,
               private router: Router,
-              public dialog: MdDialog,
-              private hub: RequestManagerHub) {
+              public dialog: MdDialog) {
   }
 
 

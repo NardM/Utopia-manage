@@ -12,7 +12,6 @@ import {Consts} from "../../../../../const/app-const";
 import {DOCUMENT} from "@angular/platform-browser";
 import { ChatService, Message, Skin, Skins } from "../../chat.service";
 import {ChatHub} from "../../../chatObs";
-import {RequestManagerHub} from "../../../../http/hubs/RequestHub";
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { ConstService } from '../../../../../const/http/service-const.service';
@@ -38,7 +37,6 @@ export class ChatItemDialogComponent implements  OnInit,AfterViewChecked {
   @Output() close = new EventEmitter();
 
   constructor(private router: Router,
-              private hub: RequestManagerHub,
               private serviceR: ChatHub,
               private service: ConstService,
               @Inject(DOCUMENT) private document: Document,

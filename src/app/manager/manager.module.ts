@@ -25,7 +25,6 @@ import {CategoryService} from "./http/category.service";
 import {LeftBarComponent} from "./theme/left-bar/left-bar.component";
 import {CarouselModule, Ng2BootstrapModule} from "ngx-bootstrap";
 import {SelectModule} from 'ng2-select'
-import {RequestManagerHub} from "./http/hubs/RequestHub";
 import {TopBarComponent} from "./theme/top-bar/top-bar.component";
 import { ServiceRequestStore, ServiceTaskStore } from "./http/request";
 import {MapsGoogleRouteDialogComponent} from "../component/dialog-maps-business/dialog-route/route.component";
@@ -112,7 +111,6 @@ import { PersonComponent } from './form-request/person/person.component';
     ClientService,
     UserService,
     CategoryService,
-    RequestManagerHub,
     ServiceRequestStore,
     ChatService,
     ChatHub,

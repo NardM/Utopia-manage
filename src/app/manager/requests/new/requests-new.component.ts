@@ -8,7 +8,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 import {UserService} from "../../http/user.service";
-import {RequestManagerHub} from "../../http/hubs/RequestHub";
 import {CategoryService} from "../../http/category.service";
 import {Category} from "../../model/category";
 import {ServiceRequestStore, StoreAction, StoreItem} from "../../http/request";
@@ -54,7 +53,6 @@ export class RequestsNewComponent  {
 
     constructor(private router: Router,
                 private userService: ChatService,
-                private hub: RequestManagerHub,
                 private _state: BaThemeSpinner,
 
                 private service: ConstService,

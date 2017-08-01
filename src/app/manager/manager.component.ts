@@ -9,6 +9,7 @@ import { ServiceRequestStore, ServiceTaskStore } from './http/request';
 @Component({
   /*templateUrl: 'manage.component.html',
    styleUrls: ['manage.component.scss']*/
+  providers: [RequestManagerHub],
   template: `
       <div>
         <top-bar style="    position: fixed;
@@ -66,17 +67,26 @@ export class UserComponent {
               private requestStore: ServiceRequestStore,
               private taskStore: ServiceTaskStore,
               private store: ChatHub) {
-    this.requestManagerHub.newMessage
+    let sefl = this;
+    sefl.requestManagerHub.newMessage
         .subscribe(res => {
           debugger;
-          this.store.newMessage(res)
+          sefl.store.newMessage(res)
         });
-    this.requestManagerHub.newBusketRequest
-        .subscribe(res => this.requestStore.newOrder(res));
-    this.requestManagerHub.removeFromBasket
-        .subscribe(res => this.requestStore.deleteRequest(res));
-    this.requestManagerHub.newTask
-        .subscribe(res => this.taskStore.newTask(res));
-
+    sefl.requestManagerHub.newBusketRequest
+        .subscribe(res => {
+          debugger;
+          sefl.requestStore.newOrder(res)
+        });
+    sefl.requestManagerHub.removeFromBasket
+        .subscribe(res => {
+          debugger;
+          sefl.requestStore.deleteRequest(res)
+        });
+    sefl.requestManagerHub.newTask
+        .subscribe(res => {
+          debugger;
+          sefl.taskStore.newTask(res)
+        });
   }
 }

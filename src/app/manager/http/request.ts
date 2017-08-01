@@ -10,7 +10,6 @@ import "rxjs/add/operator/toPromise";
 import {Observable, Observer} from "rxjs";
 import {Router} from "@angular/router";
 import {UserService} from "./user.service";
-import {RequestManagerHub} from "./hubs/RequestHub";
 import { BasketRequestInterface } from '../chat/Model/BasketRequest';
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import Request = BasketRequestInterface.Request;
@@ -23,8 +22,7 @@ import { ChatService } from '../chat/chat/chat.service';
 export class  ServiceRequestStore {
 
   constructor(private service: ChatService,
-              private router: Router,
-              private requestManagerHub: RequestManagerHub) {
+              private router: Router) {
 
     this.inited = false;
     this.storeItems = [];
@@ -130,8 +128,7 @@ export enum StoreAction{
 export class  ServiceTaskStore {
 
   constructor(private service: UserService,
-              private router: Router,
-              private requestManagerHub: RequestManagerHub) {
+              private router: Router) {
 
     this.inited = false;
     this.storeItems = [];

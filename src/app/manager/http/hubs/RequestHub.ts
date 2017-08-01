@@ -19,48 +19,79 @@ declare var jQuery:any;
   public  removeFromBasket: Observable<number>;
   public  newTask: Observable<Task>;
   public  newMessage: Observable<Message>;
+  private connection: any;
 
-  constructor(){
-    let connection = jQuery.connection;
-    let host="smartapi.ru" ;
-    jQuery.connection.hub.url = 'http://' + host+ '/signalr';
-    let managerHub = connection.manager;
-    let chatHub = connection.chat;
+  constructor() {
+    let self = this;
+    self.connection = jQuery.connection;
+    let host = "smartapi.ru";
+    jQuery.connection.hub.url = 'http://' + host + '/signalr';
+    let managerHub = self.connection.manager;
+    let chatHub = self.connection.chat;
 
-    this.newBusketRequest = Observable.create(observer=>
+    self.newBusketRequest = Observable.create(observer =>
         managerHub.client.newBusketRequest = ( a => observer.next(a)));
 
-    this.newTask = Observable.create(observer=>
+    self.newTask = Observable.create(observer =>
         managerHub.client.newTask = ( a => observer.next(a)));
 
-    this.removeFromBasket = Observable.create(observer=>
+    self.removeFromBasket = Observable.create(observer =>
         managerHub.client.removeFromBasket = ( a => observer.next(a)));
 
-    this.newMessage = Observable.create(observer=>
+    self.newMessage = Observable.create(observer =>
         chatHub.client.newMessage = ( a => observer.next(a)));
 
+    chatHub.client.reconnect = ( () => self.onReconnect());
+    self.hubStart();
 
-    connection.hub.start()
-      .done(function()
-      {
-        let connect: Connect = <Connect>{
-          device_id: Cookie.get('device_id'),
-          role: 8,
-          user_id: Number(Cookie.get('user_id')),
-          app_type: 6,
-          token: Cookie.get('login_token')
-        };
-        connection.manager.server.connect(connect).done(res => {
-
-        });
-        connection.chat.server.connect(connect).done(res => {
-        });
-      })
-      .fail(function()
-      { debugger;
-        console.log('Could not Connect!');
-      });
   }
+
+  private hubStart(): void {
+    let self = this;
+    console.log('asd');
+    self.connection.hub.start()
+        .done(() => self.hubConnect())
+        .fail(function () {
+          debugger;
+          setTimeout(() =>
+              self.hubStart(), 5000); // Restart connection after 5 seconds.
+          console.log('Could not Connect!');
+        });
+  }
+
+  public hubConnect(): void {
+    let self = this;
+    console.log('adsd');
+    let connect: Connect = <Connect>{
+      device_id: Cookie.get('device_id'),
+      role: 8,
+      user_id: Number(Cookie.get('user_id')),
+      app_type: 6,
+      token: Cookie.get('login_token')
+    };
+    self.connection.request.server.connect(connect).done(res => {
+    });
+    self.connection.chat.server.connect(connect).done(res => {
+    });
+    self.connection.hub.disconnected(function () {
+      setTimeout(() =>
+          self.hubStart(), 5000) // Restart connection after 5 seconds.
+    });
+  }
+
+  private onReconnect() {
+    let self = this;
+    let connect: Connect = <Connect>{
+      device_id: Cookie.get('device_id'),
+      role: 8,
+      user_id: Number(Cookie.get('user_id')),
+      app_type: 6,
+      token: Cookie.get('login_token')
+    };
+    self.connection.chat.server.reconnect(connect).done(res => {
+    });
+  }
+
 }
 
 export interface Connect{

@@ -7,7 +7,6 @@ import {Chat, ChatService, Message} from "./chat/chat.service";
 import {RequestManagerHubYou} from "../../../hubs/RequestHubYou";
 import {Subscription} from "rxjs/Subscription";
 import {ChatHub} from "./chatObs";
-import {RequestManagerHub} from "../http/hubs/RequestHub";
 import {BasketRequestInterface} from "./Model/BasketRequest";
 import BasketRequest = BasketRequestInterface.BasketRequest;
 import Request = BasketRequestInterface.Request;
@@ -27,7 +26,6 @@ import { ServiceRequestStore, ServiceTaskStore, StoreAction, StoreItem } from '.
 export class ChatComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private hub: RequestManagerHub,
               private serviceR: ChatHub,
               private cdRef: ChangeDetectorRef,
               private _state: BaThemeSpinner,

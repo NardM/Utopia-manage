@@ -11,8 +11,6 @@ import {Observable, Observer} from "rxjs";
 import {RequestGetInterface, RequestInterface} from "../../models/Request";
 import {MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig} from "@angular/material";
 import {Message} from "./chat/chat.service";
-import {RequestManagerHub} from "../http/hubs/RequestHub";
-import {ChatDialogComponent} from "./chat/chat-dialog/chat.component";
 
 
 @Injectable()
