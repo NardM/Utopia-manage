@@ -2,6 +2,9 @@
  * Created by nardm on 08.12.16.
  */
 import { Component } from '@angular/core';
+import { RequestManagerHub } from './http/hubs/RequestHub';
+import { ChatHub } from './chat/chatObs';
+import { ServiceRequestStore, ServiceTaskStore } from './http/request';
 
 @Component({
   /*templateUrl: 'manage.component.html',
@@ -59,4 +62,21 @@ import { Component } from '@angular/core';
 
 })
 export class UserComponent {
+  constructor(private requestManagerHub: RequestManagerHub,
+              private requestStore: ServiceRequestStore,
+              private taskStore: ServiceTaskStore,
+              private store: ChatHub) {
+    this.requestManagerHub.newMessage
+        .subscribe(res => {
+          debugger;
+          this.store.newMessage(res)
+        });
+    this.requestManagerHub.newBusketRequest
+        .subscribe(res => this.requestStore.newOrder(res));
+    this.requestManagerHub.removeFromBasket
+        .subscribe(res => this.requestStore.deleteRequest(res));
+    this.requestManagerHub.newTask
+        .subscribe(res => this.taskStore.newTask(res));
+
+  }
 }

@@ -21,11 +21,10 @@ export class ChatHub{
   constructor(
               public snackBar: MdSnackBar,
               public dialog: MdDialog,
-              private requestManagerHub: RequestManagerHub) {
+             ) {
     this.storeItems = [];
     this.observers = [];
     this.observables = [];
-    this.requestManagerHub.newMessage.subscribe(res => this.newMessage(res));
     this.createObserver().subscribe(a => this.storeItems.push(a));
   }
 

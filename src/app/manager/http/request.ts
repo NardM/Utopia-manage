@@ -30,8 +30,6 @@ export class  ServiceRequestStore {
     this.storeItems = [];
     this.observers = [];
     this.observables = [];
-    this.requestManagerHub.newBusketRequest.subscribe(res => this.newOrder(res));
-    this.requestManagerHub.removeFromBasket.subscribe(res => this.deleteRequest(res));
     this.createObserver().subscribe(a => this.storeItems.push(a));
     this.service.getBaskets(1 << 1, 20, -20)
         .then(res => {
@@ -45,13 +43,14 @@ export class  ServiceRequestStore {
 
   notDeleteRequest: number;
 
-  private newOrder(res: Request): void {
+  public newOrder(res: Request): void {
     debugger;
     let self = this;
     self.AddedNew(res);
+    self.audioNotification();
   }
 
-  private deleteRequest(res: number) {
+  public deleteRequest(res: number) {
     debugger;
     let request: Request = <Request>{
       id: res
@@ -138,13 +137,12 @@ export class  ServiceTaskStore {
     this.storeItems = [];
     this.observers = [];
     this.observables = [];
-    this.requestManagerHub.newTask.subscribe(res => this.newTask(res));
     this.createObserver().subscribe(a => this.storeItems.push(a));
   }
 
 
 
-  private newTask(res: Task): void{
+  public newTask(res: Task): void{
     this.audioNotification();
     this.AddedNew(res);
   }
