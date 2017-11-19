@@ -29,11 +29,15 @@ export class FormResponseComponent implements OnInit {
   public responses: Response[];
   @Input() public requestId;
   public load: boolean = true;
+  public color: string = 'back';
 
   constructor(private userService: UserService,
               private dialog: MdDialog,
               private router: Router) {
   }
+
+
+
 
 
   private getServiceResponse(): void {

@@ -29,6 +29,7 @@ export class RequestsAcceptedComponent implements OnInit {
     private blockUpload: boolean = false;
     private categories: Category[] = [];
     private loading: boolean = false;
+    private count: number = 20;
 
     constructor(private router: Router,
                 private service: ConstService,
@@ -49,12 +50,13 @@ export class RequestsAcceptedComponent implements OnInit {
     }
 
     getServiceRequest(): void {
-        this.userService.getServiceRequest(1 << 4, this.offset)
+        this.userService.getServiceRequest(1 << 4, this.totalCount-this.offset, this.count)
             .then(res => {
                 if (res.total_count == 0) {
                     this.blockUpload = true;
                     return;
                 }
+                this.totalCount = res.total_count;
                 res.requests.map(item => {
                     if (item.icon_hash) {
                         this.requestServices.push(this.getImage(this.onPushCategoryInRequest(item)));
@@ -62,7 +64,7 @@ export class RequestsAcceptedComponent implements OnInit {
                     else {
                         this.requestServices.push(this.onPushCategoryInRequest(item));
                     }
-                })
+                });
                 this.loading = false;
             });
     }
@@ -73,15 +75,34 @@ export class RequestsAcceptedComponent implements OnInit {
         return request;
     }
 
+
+    blockLoadFlag: boolean = false;
+    totalCount: number = 0;
+    countScroll: number = 1;
     onScrollDown(): void {
         debugger;
         // add another 20 items
-        if (!this.blockUpload) {
-            this.offset += 20;
-            this.loading = true;
-            this.getServiceRequest();
+        if (!this.blockUpload && !this.blockLoadFlag) {
+            if (this.totalCount >= (this.offset + 20)) {
+                this.offset += 20;
+                this.blockLoadFlag = true;
+                this.countScroll++;
+                this.loading = true;
+                this.getServiceRequest();
+            }
+            else if (this.totalCount > this.offset) {
+                this.offset += this.totalCount - this.offset;
+                this.count = this.totalCount - this.offset;
+                this.blockLoadFlag = true;
+                this.countScroll++;
+                this.loading = true;
+                this.getServiceRequest();
+
+            }
         }
     }
+
+
 
     ngOnInit() {
         this.categoryService.getCategories()
@@ -98,8 +119,9 @@ export class RequestsAcceptedComponent implements OnInit {
                 })
             })
             .then(res => {
-                this.userService.getServiceRequest(1 << 4, this.offset)
+                this.userService.getServiceRequest(1 << 4, this.offset, this.count)
                     .then(requestServices => {
+                        this.totalCount = requestServices.total_count;
                         requestServices.requests.map(item => {
                             item = this.onPushCategoryInRequest(item);
                         });

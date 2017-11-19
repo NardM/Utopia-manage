@@ -15,6 +15,9 @@
       <p md-line>
         Телефон: {{response.company.phone}}, Цена:  {{response.to_price}}₽
       </p>
+      <p md-line [ngStyle]="{'color': response.status===3?'blue':response.status===4?'green':response.status===5?'red':'black'}">
+        {{response.status===3?'Откланенный':response.status===4?'Принятый':response.status===5?'Удаленный':'Опубликованный'}}
+      </p>
     </md-list-item>
     <md-divider></md-divider>
   </div>

@@ -12,6 +12,7 @@ export class BaThemeSpinner {
   constructor() {
     this._element = document.getElementById(this._selector);
     this._elementManager = document.getElementById(this._selectorManager);
+
   }
 
   public show():void {

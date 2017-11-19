@@ -40,8 +40,8 @@ export class UserService {
   constructor(private constService: ConstService) {
   }
 
-  getServiceRequest(id: number, offset?: number): Promise<BasketRequest> {
-      let url = this.serviceRequestUrl + '?count=20&offset=' + offset + '&status_filter=' + id;
+  getServiceRequest(id: number, offset?: number, count?: number): Promise<BasketRequest> {
+      let url = this.serviceRequestUrl + '?count='+count+'&offset=' + offset + '&status_filter=' + id;
       return this.constService.get<BasketRequest>(url);
   }
 

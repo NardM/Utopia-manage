@@ -25,7 +25,7 @@ declare var jQuery:any;
     let self = this;
     self.connection = jQuery.connection;
     let host = "smartapi.ru";
-    jQuery.connection.hub.url = 'http://' + host + '/signalr';
+    self.connection.hub.url = 'http://' + host + '/signalr';
     let managerHub = self.connection.manager;
     let chatHub = self.connection.chat;
 
@@ -41,14 +41,13 @@ declare var jQuery:any;
     self.newMessage = Observable.create(observer =>
         chatHub.client.newMessage = ( a => observer.next(a)));
 
-    chatHub.client.reconnect = ( () => self.onReconnect());
-    self.hubStart();
+    chatHub.client.reconnect = ( () => self.onReconnect(self));
+    self.hubStart(self);
   }
 
-  private hubStart(): void {
-    let self = this;
+  private hubStart(self): void {
     self.connection.hub.start()
-        .done(() => self.hubConnect())
+        .done(() => self.hubConnect(self))
         .fail(function () {
           debugger;
           setTimeout(() =>
@@ -57,8 +56,7 @@ declare var jQuery:any;
         });
   }
 
-  private hubConnect(): void {
-    let self = this;
+  private hubConnect(self): void {
     let connect: Connect = <Connect>{
       device_id: Cookie.get('device_id'),
       role: 8,
@@ -66,18 +64,18 @@ declare var jQuery:any;
       app_type: 6,
       token: Cookie.get('login_token')
     };
+    debugger;
     self.connection.request.server.connect(connect).done(res => {
     });
     self.connection.chat.server.connect(connect).done(res => {
     });
-    self.connection.hub.disconnected(function () {
+    /*self.connection.hub.disconnected(function () {
       setTimeout(() =>
-          self.hubStart(), 5000) // Restart connection after 5 seconds.
-    });
+          self.hubStart(self), 5000) // Restart connection after 5 seconds.
+    });*/
   }
 
-  private onReconnect() {
-    let self = this;
+  private onReconnect(self) {
     let connect: Connect = <Connect>{
       device_id: Cookie.get('device_id'),
       role: 8,
@@ -91,7 +89,7 @@ declare var jQuery:any;
     });
     self.connection.hub.disconnected(function () {
       setTimeout(() =>
-          self.hubStart(), 5000) // Restart connection after 5 seconds.
+          self.hubStart(self), 5000) // Restart connection after 5 seconds.
     });
   }
 
