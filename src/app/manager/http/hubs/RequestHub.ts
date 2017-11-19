@@ -24,7 +24,7 @@ declare var jQuery:any;
   constructor() {
     let self = this;
     self.connection = jQuery.connection;
-    let host = "smartapi.ru";
+    let host = "r.smartapi.ru";
     self.connection.hub.url = 'http://' + host + '/signalr';
     let managerHub = self.connection.manager;
     let chatHub = self.connection.chat;
